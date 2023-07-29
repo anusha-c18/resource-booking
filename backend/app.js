@@ -2,9 +2,9 @@ const express = require("express");
 const recordsRoute = require("./api/routes/records-rt"); //importing routes
 const app = express();
 app.use(express.json());
-// const cors = require("cors");
+const cors = require("cors");
 const mongo = require("./db/mongoUtil");
-// app.use(cors({ origin: "http://localhost:3001" }));
+app.use(cors({ origin: "http://localhost:5173" }));
 
 //Middleware functions to use those routes
 app.use("/api/routes/records-rt", recordsRoute);
