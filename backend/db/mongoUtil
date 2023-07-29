@@ -1,0 +1,20 @@
+require("dotenv/config");
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const uri = process.env.DB_connection;
+let client;
+
+//connecting to DB
+
+async function connectToAtlasDb() {
+  client = new MongoClient(uri);
+  try {
+    await client.connect();
+  } catch (error) {
+    console.log(error);
+  }
+  console.log("connected to db");
+}
+
+connectToAtlasDb();
+
+module.exports = { client };
