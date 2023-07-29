@@ -3,6 +3,7 @@ const app = express();
 app.use(express.json());
 const getResources = require("./getAllResources.helper");
 const getBookings = require("./getAllBookings.helper");
+const getAvailableResources = require("./getAvailableResources.helper");
 
 module.exports.getAllResources = async function (req, res) {
   try {
@@ -29,3 +30,19 @@ module.exports.getAllBookings = async function (req, res) {
     console.log(err);
   }
 };
+
+module.exports.availableResources = async function (req, res) {
+  try {
+    const availableResources =
+      await getAvailableResources.getAvailableResources();
+    if (availableResources.length == 0) {
+      res.status(200).send(["No available resources exist."]);
+    } else {
+      res.status(200).send(availableResources);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// module.exports.uniqueAvailableResources=async function
