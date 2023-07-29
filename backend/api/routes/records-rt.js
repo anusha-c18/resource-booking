@@ -12,4 +12,8 @@ router.route("/allBookings").get(controller.getAllBookings);
 
 router.route("/availableResources").get(controller.availableResources);
 
+router
+  .route("/uniqueAvailableResources")
+  .get(controller.uniqueAvailableResources);
+
 module.exports = router;
