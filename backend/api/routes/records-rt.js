@@ -8,4 +8,6 @@ router.get("/", (req, res) => {
 
 router.route("/allResources").get(controller.getAllResources);
 
+router.route("/allBookings").get(controller.getAllBookings);
+
 module.exports = router;
