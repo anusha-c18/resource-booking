@@ -6,6 +6,9 @@ export const StateContext = ({ children }) => {
   const [availableResources, setAllResources] = useState([]);
   const [uniqueAvailableResources, setUniqueAvailableResources] = useState([]);
   const [bookingModalVisibility, setBookingModalVisibility] = useState(false);
+  const [currentResource, setCurrentResource] = useState("");
+  const [startTime, setStartTime] = useState("");
+
   useEffect(() => {
     const resources = fetch(
       "http://localhost:8000/api/routes/records-rt/availableResources",
@@ -29,6 +32,19 @@ export const StateContext = ({ children }) => {
         setUniqueAvailableResources(data);
       });
   }, []);
+
+  const updateCurrentResource = (resourceName) => {
+    setCurrentResource(resourceName);
+  };
+
+  const updateStartTime = (time) => {
+    setStartTime(time);
+  };
+
+  const pushBooking = () => {
+    //resource	flat	name	startTime	endTime	bookingTimeStamp
+    //mongodb query to push to bookings collection
+  };
 
   const updateBookingModalVisibility = () => {
     setBookingModalVisibility((state) => {
