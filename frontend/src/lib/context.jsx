@@ -9,6 +9,7 @@ export const StateContext = ({ children }) => {
   const [currentResource, setCurrentResource] = useState("");
   const [startTime, setStartTime] = useState("");
   const [userDetails, setUserDetails] = useState({ name: "", flat: "" });
+  const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
 
   useEffect(() => {
     const resources = fetch(
@@ -34,6 +35,10 @@ export const StateContext = ({ children }) => {
       });
   }, []);
 
+  useEffect(() => {
+    console.log(availableResources);
+  }, [availableResources]);
+
   const updateCurrentResource = (resourceName) => {
     setCurrentResource(resourceName);
   };
@@ -45,6 +50,7 @@ export const StateContext = ({ children }) => {
   const resetValues = () => {
     setCurrentResource("");
     setStartTime("");
+    setAvailableTimeSlots([]);
   };
 
   const updateUserDetails = () => {};
@@ -68,6 +74,33 @@ export const StateContext = ({ children }) => {
     });
   };
 
+  const updateAvailableTimeSlots = (resource) => {
+    let resourceTimings = [];
+    for (let i = 0; i < availableResources.length; i++) {
+      let begin = "",
+        end = "";
+      if (availableResources[i].resource === resource) {
+        if (parseInt(availableResources[i].startTime) > 12) {
+          begin = parseInt(availableResources[i].startTime) - 12 + " PM";
+        } else if (parseInt(availableResources[i].startTime) < 12) {
+          begin = availableResources[i].startTime + " AM";
+        } else {
+          begin = "12 PM";
+        }
+        if (parseInt(availableResources[i].endTime) > 12) {
+          end = parseInt(availableResources[i].endTime) - 12 + " PM";
+        } else if (parseInt(availableResources[i].endTime) < 12) {
+          end = availableResources[i].endTime + " AM";
+        } else {
+          end = "12 PM";
+        }
+        resourceTimings.push([begin, end]);
+      }
+    }
+    setAvailableTimeSlots(resourceTimings);
+    console.log(resourceTimings);
+  };
+
   return (
     <Context.Provider
       value={{
@@ -76,6 +109,8 @@ export const StateContext = ({ children }) => {
         bookingModalVisibility,
         currentResource,
         startTime,
+        availableTimeSlots,
+        updateAvailableTimeSlots,
         pushBooking,
         updateStartTime,
         updateCurrentResource,

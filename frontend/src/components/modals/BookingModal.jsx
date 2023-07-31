@@ -4,12 +4,19 @@ import { motion } from "framer-motion";
 import { useStateContext } from "../../lib/context";
 
 function BookingModal() {
-  const { currentResource, updateBookingModalVisibility } = useStateContext();
+  const { availableTimeSlots, currentResource, updateBookingModalVisibility } =
+    useStateContext();
+
   const closeModal = () => {
     updateBookingModalVisibility();
   };
+
+  const enterBooking = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <div className="bookingModal">
+    <form className="bookingModal" onSubmit={enterBooking}>
       <motion.p
         className="closeModal"
         onClick={closeModal}
@@ -21,10 +28,20 @@ function BookingModal() {
         x
       </motion.p>
       <p className="resourceName">{currentResource}</p>
-      <select name="startTime" id="startTime">
-        <option value={}>{}</option>
-      </select>
-    </div>
+      <div className="parallel">
+        <label htmlFor="startTime">Slot</label>
+        <select name="startTime" id="startTime" className="slot">
+          {availableTimeSlots.map((slot) => (
+            <option value={slot[0] + " - " + slot[1]}>
+              {slot[0] + " - " + slot[1]}
+            </option>
+          ))}
+        </select>
+      </div>
+      <button className="book" type="submit">
+        Book
+      </button>
+    </form>
   );
 }
 
