@@ -1,20 +1,25 @@
 .bookingModal {
   display: flex;
   position: absolute;
+  flex-direction: column;
   z-index: 1000;
-  height: 50%;
+  height: 228px;
   width: 80%;
-  background: rgb(218 218 218);
-  border-radius: 16px;
+  background: rgb(78 0 0 / 31%);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(12.8px);
   margin: auto;
   right: 0;
+  border: 2px solid;
+  color: white;
   left: 0;
   top: 0;
   bottom: 0;
   border-radius: 15px;
   padding: 10px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  font-size: large;
 }
 
 .closeModal {
@@ -29,4 +34,76 @@
   top: 8px;
   margin-top: 0px;
   border-radius: 5px;
+}
+
+.resourceName {
+  margin: 0px auto;
+}
+
+.parallel {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.slot {
+  height: 30px;
+  width: 80%;
+  margin-left: 29px;
+  border-radius: 10px;
+  padding-left: 73px;
+  background: #ffffff;
+  border: none;
+  animation: animated-border-color 4s infinite;
+}
+
+@keyframes animated-border-color {
+  0% {
+    box-shadow: 0 0 0 2px #ee7752;
+  }
+  25% {
+    box-shadow: 0 0 0 2px #e73c7e;
+  }
+  50% {
+    box-shadow: 0 0 0 2px #23a6d5;
+  }
+  75% {
+    box-shadow: 0 0 0 2px #23d5ab;
+  }
+  100% {
+    box-shadow: 0 0 0 2px #ee7752;
+  }
+}
+
+.slot:focus {
+  outline: none;
+}
+
+.book {
+  height: 30px;
+  width: 25%;
+  margin: 0px auto;
+  border-radius: 10px;
+  border: 1.5px solid white;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

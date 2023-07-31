@@ -7,11 +7,15 @@ function IndividualResource({ resourceName }) {
     currentResource,
     updateCurrentResource,
     updateBookingModalVisibility,
+    updateAvailableTimeSlots,
   } = useStateContext();
+
   const renderModal = () => {
     updateCurrentResource(resourceName);
+    updateAvailableTimeSlots(resourceName);
     updateBookingModalVisibility();
   };
+
   return (
     <div className="individualResource" onClick={renderModal}>
       <p>{resourceName}</p>
