@@ -8,6 +8,7 @@ export const StateContext = ({ children }) => {
   const [bookingModalVisibility, setBookingModalVisibility] = useState(false);
   const [currentResource, setCurrentResource] = useState("");
   const [startTime, setStartTime] = useState("");
+  const [userDetails, setUserDetails] = useState({ name: "", flat: "" });
 
   useEffect(() => {
     const resources = fetch(
@@ -41,9 +42,24 @@ export const StateContext = ({ children }) => {
     setStartTime(time);
   };
 
+  const resetValues = () => {
+    setCurrentResource("");
+    setStartTime("");
+  };
+
+  const updateUserDetails = () => {};
+
   const pushBooking = () => {
-    //resource	flat	name	startTime	endTime	bookingTimeStamp
-    //mongodb query to push to bookings collection
+    //post data to insertBooking route
+    let document = {};
+    document.resource = currentResource;
+    // const userDetails = await;
+    //create endpoint to fetch 2 details below
+    // document.flat = booking.flat; -get from users collection
+    // document.name = booking.name; -get from users collection
+    document.startTime = startTime;
+    document.endTime = Integer.parseInt(startTime) + 1 + "";
+    document.bookingTimeStamp = new Date().toISOString();
   };
 
   const updateBookingModalVisibility = () => {
@@ -58,6 +74,11 @@ export const StateContext = ({ children }) => {
         availableResources,
         uniqueAvailableResources,
         bookingModalVisibility,
+        currentResource,
+        startTime,
+        pushBooking,
+        updateStartTime,
+        updateCurrentResource,
         updateBookingModalVisibility,
       }}
     >

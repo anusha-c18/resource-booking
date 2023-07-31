@@ -6,14 +6,7 @@ async function insertBooking(booking) {
     const client = mongoUtil.client;
     let db = await client.db("resourceBooking");
     let resources = await db.collection("allResources");
-    const result = await collection.insertOne({
-      resource: booking.resource + "",
-      flat: booking.flat + "",
-      name: booking.name + "",
-      startTime: booking.startTime + "",
-      endTime: booking.endTime + "",
-      bookingTimeStamp: booking.bookingTimeStamp + "",
-    });
+    const result = await collection.insertOne(booking);
     if (result.insertedCount === 1) {
       console.log("Document inserted successfully:", result.insertedId);
       return result.insertId;

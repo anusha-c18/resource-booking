@@ -64,19 +64,20 @@ module.exports.uniqueAvailableResources = async function (req, res) {
 module.exports.insertBooking = async function (req, res) {
   try {
     const booking = req.body.booking;
-    let document = {};
-    document.resource = booking.resource;
-    document.flat = booking.flat;
-    document.name = booking.name;
-    document.startTime = booking.startTime;
-    document.endTime = booking.endTime;
-    document.bookingTimeStamp = booking.bookingTimeStamp;
-    const result = await insertBooking.insertBooking(document);
-    if (result == -1) {
-      res.status(500).send("Failed to book the resource");
-    } else {
-      res.status(200).send("Booking confirmed!");
-    }
+    let document = {
+      resource: booking.resource + "",
+      flat: booking.flat + "",
+      name: booking.name + "",
+      startTime: booking.startTime + "",
+      endTime: booking.endTime + "",
+      bookingTimeStamp: booking.bookingTimeStamp + "",
+    };
+    // const result = await insertBooking.insertBooking(document);
+    // if (result == -1) {
+    //   res.status(500).send("Failed to book the resource");
+    // } else {
+    //   res.status(200).send("Booking confirmed!");
+    // }
   } catch (err) {
     console.log(err);
   }

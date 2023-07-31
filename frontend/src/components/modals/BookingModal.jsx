@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useStateContext } from "../../lib/context";
 
 function BookingModal() {
-  const { updateBookingModalVisibility } = useStateContext();
+  const { currentResource, updateBookingModalVisibility } = useStateContext();
   const closeModal = () => {
     updateBookingModalVisibility();
   };
@@ -20,6 +20,10 @@ function BookingModal() {
       >
         x
       </motion.p>
+      <p className="resourceName">{currentResource}</p>
+      <select name="startTime" id="startTime">
+        <option value={}>{}</option>
+      </select>
     </div>
   );
 }
