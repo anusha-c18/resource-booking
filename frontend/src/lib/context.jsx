@@ -53,9 +53,11 @@ export const StateContext = ({ children }) => {
     setAvailableTimeSlots([]);
   };
 
-  const updateUserDetails = () => {};
+  const updateUserDetails = () => {
+    ////setup endpoint connection here using useEffect based on login details
+  };
 
-  const pushBooking = () => {
+  const pushBooking = (slot) => {
     //post data to insertBooking route
     let document = {};
     document.resource = currentResource;
@@ -63,9 +65,18 @@ export const StateContext = ({ children }) => {
     //create endpoint to fetch 2 details below
     // document.flat = booking.flat; -get from users collection
     // document.name = booking.name; -get from users collection
-    document.startTime = startTime;
-    document.endTime = Integer.parseInt(startTime) + 1 + "";
+    const slotBreakup = slot.split(" ");
+    if (
+      slotBreakup[1] == "AM" ||
+      (slotBreakup[0] == "12" && slotBreakup[1] == "PM")
+    ) {
+      document.startTime = slotBreakup[0];
+    } else {
+      document.startTime = parseInt(slotBreakup[0]) + 12 + "";
+    }
+    document.endTime = parseInt(document.startTime) + 1 + "";
     document.bookingTimeStamp = new Date().toISOString();
+    console.log(document);
   };
 
   const updateBookingModalVisibility = () => {

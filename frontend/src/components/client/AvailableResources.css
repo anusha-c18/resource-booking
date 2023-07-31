@@ -1,7 +1,49 @@
-.allResources {
+/* .allResources {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-content: center;
   flex-wrap: wrap;
+} */
+
+.title {
+  color: white;
+  font-size: larger;
+  font-weight: 900;
+  letter-spacing: 3px;
+  margin: 17px auto;
+  text-align: center;
+}
+
+.date {
+  margin: auto;
+  display: block;
+  padding: 10px;
+  border-radius: 10px;
+  background: #00000082;
+  color: white;
+  border: none;
+  animation: animated-border-color 4s infinite;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+@keyframes animated-border-color {
+  0% {
+    box-shadow: 0 0 0 2px #ee7752;
+  }
+  25% {
+    box-shadow: 0 0 0 2px #e73c7e;
+  }
+  50% {
+    box-shadow: 0 0 0 2px #23a6d5;
+  }
+  75% {
+    box-shadow: 0 0 0 2px #23d5ab;
+  }
+  100% {
+    box-shadow: 0 0 0 2px #ee7752;
+  }
 }

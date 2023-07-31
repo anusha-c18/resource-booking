@@ -4,8 +4,12 @@ import { motion } from "framer-motion";
 import { useStateContext } from "../../lib/context";
 
 function BookingModal() {
-  const { availableTimeSlots, currentResource, updateBookingModalVisibility } =
-    useStateContext();
+  const {
+    availableTimeSlots,
+    currentResource,
+    updateBookingModalVisibility,
+    pushBooking,
+  } = useStateContext();
 
   const closeModal = () => {
     updateBookingModalVisibility();
@@ -13,10 +17,18 @@ function BookingModal() {
 
   const enterBooking = (event) => {
     event.preventDefault();
+    pushBooking(event.target[0].value);
   };
 
   return (
-    <form className="bookingModal" onSubmit={enterBooking}>
+    <motion.form
+      className="bookingModal"
+      onSubmit={enterBooking}
+      initial={{ opacity: 0, scale: 0.25 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.2 }}
+      key="bookingModal"
+    >
       <motion.p
         className="closeModal"
         onClick={closeModal}
@@ -32,7 +44,10 @@ function BookingModal() {
         <label htmlFor="startTime">Slot</label>
         <select name="startTime" id="startTime" className="slot">
           {availableTimeSlots.map((slot) => (
-            <option value={slot[0] + " - " + slot[1]}>
+            <option
+              value={slot[0] + " - " + slot[1]}
+              key={slot[0] + " - " + slot[1] + " " + currentResource}
+            >
               {slot[0] + " - " + slot[1]}
             </option>
           ))}
@@ -41,7 +56,7 @@ function BookingModal() {
       <button className="book" type="submit">
         Book
       </button>
-    </form>
+    </motion.form>
   );
 }
 
