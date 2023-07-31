@@ -5,8 +5,11 @@ function AvailableResources() {
   const { uniqueAvailableResources } = useStateContext();
   return (
     <div className="allResources">
-      {uniqueAvailableResources.map((resource) => (
-        <IndividualResource resourceName={resource}></IndividualResource>
+      {uniqueAvailableResources.map((resource, index) => (
+        <IndividualResource
+          key={index + " " + resource}
+          resourceName={resource}
+        ></IndividualResource>
       ))}
     </div>
   );

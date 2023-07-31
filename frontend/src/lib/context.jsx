@@ -5,6 +5,7 @@ const Context = createContext();
 export const StateContext = ({ children }) => {
   const [availableResources, setAllResources] = useState([]);
   const [uniqueAvailableResources, setUniqueAvailableResources] = useState([]);
+  const [bookingModalVisibility, setBookingModalVisibility] = useState(false);
   useEffect(() => {
     const resources = fetch(
       "http://localhost:8000/api/routes/records-rt/availableResources",
@@ -29,8 +30,21 @@ export const StateContext = ({ children }) => {
       });
   }, []);
 
+  const updateBookingModalVisibility = () => {
+    setBookingModalVisibility((state) => {
+      return !state;
+    });
+  };
+
   return (
-    <Context.Provider value={{ availableResources, uniqueAvailableResources }}>
+    <Context.Provider
+      value={{
+        availableResources,
+        uniqueAvailableResources,
+        bookingModalVisibility,
+        updateBookingModalVisibility,
+      }}
+    >
       {children}
     </Context.Provider>
   );
