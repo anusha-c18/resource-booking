@@ -1,7 +1,12 @@
 import React from "react";
+import AvailableResources from "../components/client/AvailableResources";
 
-function client() {
-  return <div>client</div>;
+function Client() {
+  return (
+    <>
+      <AvailableResources />
+    </>
+  );
 }
 
-export default client;
+export default Client;

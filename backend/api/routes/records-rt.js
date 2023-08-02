@@ -18,4 +18,6 @@ router
   .route("/uniqueAvailableResources")
   .get(controller.uniqueAvailableResources);
 
+router.route("/uniqueResources").get(controller.uniqueResources);
+
 module.exports = router;

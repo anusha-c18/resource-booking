@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useContext, useState } from "react";
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
-  const [availableResources, setAllResources] = useState([]);
+  const [allResources, setAllResources] = useState([]);
   const [uniqueAvailableResources, setUniqueAvailableResources] = useState([]);
   const [bookingModalVisibility, setBookingModalVisibility] = useState(false);
   const [currentResource, setCurrentResource] = useState("");
@@ -13,7 +13,7 @@ export const StateContext = ({ children }) => {
 
   useEffect(() => {
     const resources = fetch(
-      "http://localhost:8000/api/routes/records-rt/availableResources",
+      "http://localhost:8000/api/routes/records-rt/allResources",
       { mode: "cors" },
       { method: "GET" }
     )
@@ -115,6 +115,7 @@ export const StateContext = ({ children }) => {
   return (
     <Context.Provider
       value={{
+        allResources,
         availableResources,
         uniqueAvailableResources,
         bookingModalVisibility,
