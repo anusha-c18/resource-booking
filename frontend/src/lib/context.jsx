@@ -10,6 +10,7 @@ export const StateContext = ({ children }) => {
   const [startTime, setStartTime] = useState("");
   const [userDetails, setUserDetails] = useState({ name: "", flat: "" });
   const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
+  const [uniqueResources, setUniqueResources] = useState([]);
 
   useEffect(() => {
     const resources = fetch(
@@ -20,6 +21,18 @@ export const StateContext = ({ children }) => {
       .then((response) => response.json())
       .then((data) => {
         setAllResources(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    const resources = fetch(
+      "http://localhost:8000/api/routes/records-rt/uniqueResources",
+      { mode: "cors" },
+      { method: "GET" }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setUniqueResources(data);
       });
   }, []);
 
@@ -36,8 +49,8 @@ export const StateContext = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log(availableResources);
-  }, [availableResources]);
+    console.log(uniqueResources);
+  }, [uniqueResources]);
 
   const updateCurrentResource = (resourceName) => {
     setCurrentResource(resourceName);
@@ -116,7 +129,7 @@ export const StateContext = ({ children }) => {
     <Context.Provider
       value={{
         allResources,
-        availableResources,
+        uniqueResources,
         uniqueAvailableResources,
         bookingModalVisibility,
         currentResource,

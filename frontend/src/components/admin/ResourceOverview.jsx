@@ -1,16 +1,19 @@
 import React from "react";
 import "./ResourceOverview.css";
+import { useStateContext } from "../../lib/context";
+import ResourceAccordian from "./ResourceAccordian";
 
 function ResourceOverview() {
+  const { uniqueResources } = useStateContext();
   return (
     <>
       <p className="title">Resource Overview</p>
       <div className="allResources">
-        {uniqueAvailableResources.map((resource, index) => (
-          <IndividualResource
-            key={index + " " + resource}
+        {uniqueResources.map((resource, index) => (
+          <ResourceAccordian
+            key={index + " admin " + resource}
             resourceName={resource}
-          ></IndividualResource>
+          ></ResourceAccordian>
         ))}
       </div>
     </>

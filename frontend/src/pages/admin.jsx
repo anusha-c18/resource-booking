@@ -1,7 +1,12 @@
 import React from "react";
+import ResourceOverview from "../components/admin/ResourceOverview";
 
 function Admin() {
-  return <></>;
+  return (
+    <>
+      <ResourceOverview />
+    </>
+  );
 }
 
 export default Admin;
