@@ -14,7 +14,8 @@ function ResourceBookings({ resourceName }) {
     const dateObj = new Date(timestamp);
     const day = dateObj.getUTCDate();
     const month = dateObj.getUTCMonth() + 1;
-    return day + "/" + month;
+    const year = dateObj.getUTCFullYear();
+    return day + "/" + month + "/" + year;
   };
 
   return (
