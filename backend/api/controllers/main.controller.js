@@ -6,7 +6,7 @@ const getBookings = require("./getAllBookings.helper");
 const getAvailableResources = require("./getAvailableResources.helper");
 const getUniqueAvailableResources = require("./getUniqueAvailableResources.helper");
 const insertBooking = require("./insertBooking.helper");
-const getUniqueResources = require("./getUniqueResources.helper");
+const getUniqueResourcesBooked = require("./getUniqueResourcesbooked.helper");
 
 module.exports.getAllResources = async function (req, res) {
   try {
@@ -64,9 +64,10 @@ module.exports.uniqueAvailableResources = async function (req, res) {
 
 module.exports.uniqueResources = async function (req, res) {
   try {
-    const uniqueResources = await getUniqueResources.getUniqueResources();
+    const uniqueResources =
+      await getUniqueResourcesbooked.getUniqueResourcesbooked();
     if (uniqueResources.length == 0) {
-      res.status(200).send(["No resources exist."]);
+      res.status(200).send(["No resources booked."]);
     } else {
       res.status(200).send(uniqueResources);
     }

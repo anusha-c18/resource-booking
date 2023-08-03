@@ -10,7 +10,7 @@ export const StateContext = ({ children }) => {
   const [startTime, setStartTime] = useState("");
   const [userDetails, setUserDetails] = useState({ name: "", flat: "" });
   const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
-  const [uniqueResources, setUniqueResources] = useState([]);
+  const [uniqueResourcesbooked, setUniqueResourcesbooked] = useState([]);
 
   useEffect(() => {
     const resources = fetch(
@@ -26,13 +26,13 @@ export const StateContext = ({ children }) => {
 
   useEffect(() => {
     const resources = fetch(
-      "http://localhost:8000/api/routes/records-rt/uniqueResources",
+      "http://localhost:8000/api/routes/records-rt/uniqueResourcesbooked",
       { mode: "cors" },
       { method: "GET" }
     )
       .then((response) => response.json())
       .then((data) => {
-        setUniqueResources(data);
+        setUniqueResourcesbooked(data);
       });
   }, []);
 
