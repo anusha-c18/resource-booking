@@ -1,0 +1,24 @@
+.add {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+  padding: 14px;
+  background: rgb(255 237 237 / 11%);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(12.8px);
+  border-radius: 49px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: 40px;
+  cursor: pointer;
+  color: #4e4e4e;
+  align-items: center;
+  height: 40px;
+}
+
+.addIcon {
+  height: 10px;
+  margin: auto;
+}

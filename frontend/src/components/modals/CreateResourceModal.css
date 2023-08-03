@@ -1,0 +1,77 @@
+.parallelContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.slots {
+  background: #ffffff;
+  height: 30px;
+  width: 80px;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+  animation: animated-border-color 4s infinite;
+}
+
+.createResourceModal {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  z-index: 1000;
+  height: 210px;
+  width: 80%;
+  background: rgb(78 0 0 / 31%);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12.8px);
+  margin: auto;
+  right: 0;
+  border: 2px solid;
+  color: white;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 15px;
+  padding: 10px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  font-size: large;
+  padding-top: 30px;
+}
+
+.closeModal {
+  cursor: pointer;
+  font-weight: 500;
+  width: 20px;
+  align-self: flex-end;
+  right: 8px;
+  height: 25px;
+  text-align: center;
+  position: absolute;
+  top: 4px;
+  margin-top: 0px;
+  border-radius: 5px;
+  font-size: large;
+}
+
+.resourceName {
+  background: #ffffff;
+  height: 30px;
+  margin: 0px;
+  width: 160px;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+  animation: animated-border-color 4s infinite;
+}
+
+.resourceName:focus {
+  outline: none;
+}
+
+.slots {
+  outline: none;
+}

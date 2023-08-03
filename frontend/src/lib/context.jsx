@@ -13,6 +13,8 @@ export const StateContext = ({ children }) => {
   const [uniqueResourcesbooked, setUniqueResourcesbooked] = useState([]);
   const [uniqueExistingResources, setUniqueExistingResources] = useState([]);
   const [allBookings, setAllBookings] = useState([]);
+  const [createResourceModalVisibility, setCreateResourceModalVisibility] =
+    useState(true);
 
   useEffect(() => {
     const resources = fetch(
@@ -52,6 +54,18 @@ export const StateContext = ({ children }) => {
 
   useEffect(() => {
     const resources = fetch(
+      "http://localhost:8000/api/routes/records-rt/uniqueExistingResources",
+      { mode: "cors" },
+      { method: "GET" }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setUniqueExistingResources(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    const resources = fetch(
       "http://localhost:8000/api/routes/records-rt/uniqueAvailableResources",
       { mode: "cors" },
       { method: "GET" }
@@ -63,8 +77,8 @@ export const StateContext = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log(allBookings);
-  }, [allBookings]);
+    console.log(availableTimeSlots);
+  }, [availableTimeSlots]);
 
   const updateCurrentResource = (resourceName) => {
     setCurrentResource(resourceName);
@@ -106,6 +120,12 @@ export const StateContext = ({ children }) => {
     console.log(document);
   };
 
+  const updateCreateResourceVisibility = () => {
+    setCreateResourceModalVisibility((state) => {
+      return !state;
+    });
+  };
+
   const updateBookingModalVisibility = () => {
     setBookingModalVisibility((state) => {
       return !state;
@@ -144,16 +164,19 @@ export const StateContext = ({ children }) => {
       value={{
         allResources,
         allBookings,
+        uniqueExistingResources,
         uniqueResourcesbooked,
         uniqueAvailableResources,
         bookingModalVisibility,
         currentResource,
         startTime,
         availableTimeSlots,
+        createResourceModalVisibility,
         updateAvailableTimeSlots,
         pushBooking,
         updateStartTime,
         updateCurrentResource,
+        updateCreateResourceVisibility,
         updateBookingModalVisibility,
       }}
     >

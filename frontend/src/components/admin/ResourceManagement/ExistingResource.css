@@ -1,0 +1,67 @@
+.resource {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+  padding: 15px;
+  background: rgb(255 237 237 / 11%);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(12.8px);
+  margin: 20px auto;
+  width: 60%;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: larger;
+  border: 2px solid #7d7d7d;
+  align-items: center;
+  font-weight: 700;
+}
+
+.parallel {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  align-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.button {
+  height: 30px;
+  border-radius: 10px;
+  background: #0000008f;
+  border: none;
+  width: 57px;
+  color: white;
+  font-weight: 700;
+  animation: animated-border-color 4s infinite;
+}
+
+@keyframes animated-border-color {
+  0% {
+    box-shadow: 0 0 0 2px #ee7752;
+  }
+  25% {
+    box-shadow: 0 0 0 2px #e73c7e;
+  }
+  50% {
+    box-shadow: 0 0 0 2px #23a6d5;
+  }
+  75% {
+    box-shadow: 0 0 0 2px #23d5ab;
+  }
+  100% {
+    box-shadow: 0 0 0 2px #ee7752;
+  }
+}
+
+.delete {
+  background-color: #5f3d3d8f;
+}
+
+.edit {
+  background-color: #102b168f;
+}
