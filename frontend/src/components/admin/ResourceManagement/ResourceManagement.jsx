@@ -1,13 +1,12 @@
+import "./ResourceManagement.css";
 import React from "react";
-import "./ResourceOverview.css";
-import { useStateContext } from "../../lib/context";
-import ResourceAccordian from "./ResourceAccordian";
+import { useStateContext } from "../../../lib/context";
 
-function ResourceOverview() {
-  const { uniqueResourcesbooked } = useStateContext();
+function ResourceManagement() {
   return (
     <>
-      <p className="title">Resource Overview</p>
+      <p className="title">Resource Management</p>
+      <p className="title">Existing Resources</p>
       <div className="allResources">
         {uniqueResourcesbooked.map((resource, index) => (
           <ResourceAccordian
@@ -20,4 +19,4 @@ function ResourceOverview() {
   );
 }
 
-export default ResourceOverview;
+export default ResourceManagement;

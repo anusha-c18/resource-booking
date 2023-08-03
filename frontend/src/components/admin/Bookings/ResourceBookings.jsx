@@ -1,6 +1,6 @@
 import React from "react";
 import "./ResourceBookings.css";
-import { useStateContext } from "../../lib/context";
+import { useStateContext } from "../../../lib/context";
 
 function ResourceBookings({ resourceName }) {
   const { allBookings } = useStateContext();

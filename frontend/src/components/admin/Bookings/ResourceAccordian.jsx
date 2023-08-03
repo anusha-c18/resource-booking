@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./ResourceAccordian.css";
-import down from "../../../public/images/down.png";
+import down from "../../../../public/images/down.png";
 import ResourceBookings from "./ResourceBookings";
 
 function ResourceAccordian({ resourceName }) {

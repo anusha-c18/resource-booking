@@ -20,4 +20,6 @@ router
 
 router.route("/uniqueResourcesBooked").get(controller.uniqueResourcesBooked);
 
+router.route("/uniqueExistingResource").get(controller.uniqueExistingResources);
+
 module.exports = router;

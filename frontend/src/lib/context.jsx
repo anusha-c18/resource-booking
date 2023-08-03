@@ -11,6 +11,7 @@ export const StateContext = ({ children }) => {
   const [userDetails, setUserDetails] = useState({ name: "", flat: "" });
   const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
   const [uniqueResourcesbooked, setUniqueResourcesbooked] = useState([]);
+  const [uniqueExistingResources, setUniqueExistingResources] = useState([]);
   const [allBookings, setAllBookings] = useState([]);
 
   useEffect(() => {

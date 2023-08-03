@@ -1,10 +1,11 @@
 import React from "react";
-import ResourceOverview from "../components/admin/ResourceOverview";
-
+import ResourceOverview from "../components/admin/Bookings/ResourceOverview";
+import ResourceManagement from "../components/admin/ResourceManagement/ResourceManagement";
 function Admin() {
   return (
     <>
-      <ResourceOverview />
+      {/* <ResourceOverview /> */}
+      <ResourceManagement />
     </>
   );
 }
