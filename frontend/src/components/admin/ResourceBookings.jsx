@@ -1,4 +1,5 @@
 import React from "react";
+import "./ResourceBookings.css";
 import { useStateContext } from "../../lib/context";
 
 function ResourceBookings({ resourceName }) {
@@ -18,7 +19,7 @@ function ResourceBookings({ resourceName }) {
 
   return (
     <table className="table">
-      <thead>
+      <thead className="bookingHeader">
         <tr>
           <th>Flat</th>
           <th>Name</th>
@@ -28,10 +29,10 @@ function ResourceBookings({ resourceName }) {
           <th>Booking Date</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="bookingBody">
         {allBookings.map((resource) =>
           resource.resource === resourceName ? (
-            <tr>
+            <tr key={resource.resource + resource.bookingTimeStamp}>
               <td>{resource.flat}</td>
               <td>{resource.name}</td>
               <td>{resource.startTime}</td>

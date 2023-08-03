@@ -1,0 +1,38 @@
+.bookingHeader {
+  background-color: white;
+  font-size: x-small;
+}
+
+.bookingHeader th {
+  padding: 4px;
+  border: 3px solid white;
+  color: black;
+  border-radius: 3px !important;
+}
+
+.bookingBody {
+  font-size: x-small;
+  text-align: center;
+}
+
+.bookingBody tr:nth-child(odd) {
+  background-color: #ecfff9;
+}
+
+.bookingBody tr:nth-child(odd) td {
+  border-color: #ecfff9;
+}
+
+.bookingBody tr:nth-child(even) {
+  background-color: #ffeff1;
+}
+
+.bookingBody tr:nth-child(even) td {
+  border-color: #ffeff1;
+}
+
+.bookingBody td {
+  padding: 4px;
+  border: 1px solid;
+  border-radius: 3px;
+}
