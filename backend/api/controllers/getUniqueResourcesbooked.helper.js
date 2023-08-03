@@ -1,6 +1,6 @@
 const mongoUtil = require("../../db/mongoUtil");
 
-async function getUniqueResourcesbooked() {
+async function getUniqueResourcesBooked() {
   const client = mongoUtil.client;
   let db = await client.db("resourceBooking");
   let allResources = await db.collection("bookings").find({}).toArray();
@@ -13,4 +13,4 @@ async function getUniqueResourcesbooked() {
   return uniqueResources;
 }
 
-module.exports = { getUniqueResourcesbooked };
+module.exports = { getUniqueResourcesBooked };

@@ -4,12 +4,12 @@ import { useStateContext } from "../../lib/context";
 import ResourceAccordian from "./ResourceAccordian";
 
 function ResourceOverview() {
-  const { uniqueResources } = useStateContext();
+  const { uniqueResourcesbooked } = useStateContext();
   return (
     <>
       <p className="title">Resource Overview</p>
       <div className="allResources">
-        {uniqueResources.map((resource, index) => (
+        {uniqueResourcesbooked.map((resource, index) => (
           <ResourceAccordian
             key={index + " admin " + resource}
             resourceName={resource}

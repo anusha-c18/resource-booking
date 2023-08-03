@@ -11,6 +11,7 @@ export const StateContext = ({ children }) => {
   const [userDetails, setUserDetails] = useState({ name: "", flat: "" });
   const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
   const [uniqueResourcesbooked, setUniqueResourcesbooked] = useState([]);
+  const [allBookings, setAllBookings] = useState([]);
 
   useEffect(() => {
     const resources = fetch(
@@ -26,7 +27,19 @@ export const StateContext = ({ children }) => {
 
   useEffect(() => {
     const resources = fetch(
-      "http://localhost:8000/api/routes/records-rt/uniqueResourcesbooked",
+      "http://localhost:8000/api/routes/records-rt/allBookings",
+      { mode: "cors" },
+      { method: "GET" }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setAllBookings(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    const resources = fetch(
+      "http://localhost:8000/api/routes/records-rt/uniqueResourcesBooked",
       { mode: "cors" },
       { method: "GET" }
     )
@@ -49,8 +62,8 @@ export const StateContext = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log(uniqueResources);
-  }, [uniqueResources]);
+    console.log(allBookings);
+  }, [allBookings]);
 
   const updateCurrentResource = (resourceName) => {
     setCurrentResource(resourceName);
@@ -129,7 +142,8 @@ export const StateContext = ({ children }) => {
     <Context.Provider
       value={{
         allResources,
-        uniqueResources,
+        allBookings,
+        uniqueResourcesbooked,
         uniqueAvailableResources,
         bookingModalVisibility,
         currentResource,

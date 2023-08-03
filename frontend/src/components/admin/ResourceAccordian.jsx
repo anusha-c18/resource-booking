@@ -19,7 +19,7 @@ function ResourceAccordian({ resourceName }) {
         <p>{resourceName}</p>
         <img className="arrow" src={down} alt="down arrow" />
       </div>
-      {isActive ? <ResourceBookings /> : null}
+      {isActive ? <ResourceBookings resourceName={resourceName} /> : null}
     </div>
   );
 }

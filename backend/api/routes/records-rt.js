@@ -18,6 +18,6 @@ router
   .route("/uniqueAvailableResources")
   .get(controller.uniqueAvailableResources);
 
-router.route("/uniqueResources").get(controller.uniqueResourcesbooked);
+router.route("/uniqueResourcesBooked").get(controller.uniqueResourcesBooked);
 
 module.exports = router;
