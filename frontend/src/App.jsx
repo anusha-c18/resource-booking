@@ -9,9 +9,9 @@ import Admin from "./pages/admin";
 import CreateResourceModal from "./components/modals/CreateResourceModal";
 import toast, { Toaster } from "react-hot-toast";
 
-const notify = (message) => toast(message);
+export const notify = (message) => toast(message);
 
-function App() {
+export function App() {
   const { bookingModalVisibility, createResourceModalVisibility } =
     useStateContext();
   return (
@@ -28,5 +28,3 @@ function App() {
     </>
   );
 }
-
-export { notify, App };

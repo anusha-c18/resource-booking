@@ -15,7 +15,7 @@ export const StateContext = ({ children }) => {
   const [uniqueExistingResources, setUniqueExistingResources] = useState([]);
   const [allBookings, setAllBookings] = useState([]);
   const [createResourceModalVisibility, setCreateResourceModalVisibility] =
-    useState(true);
+    useState(false);
   const [fetchAllResource, setFetchAllResources] = useState(false);
   const [pushingToDb, setPushingToDb] = useState(false);
 

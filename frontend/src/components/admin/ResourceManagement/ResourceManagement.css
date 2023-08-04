@@ -6,11 +6,9 @@
   flex-wrap: wrap;
   padding: 14px;
   background: rgb(255 237 237 / 11%);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  -webkit-backdrop-filter: blur(12.8px);
   border-radius: 49px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  margin: 20px auto;
+  margin: 0px auto;
   width: 40px;
   cursor: pointer;
   color: #4e4e4e;
@@ -21,4 +19,26 @@
 .addIcon {
   height: 10px;
   margin: auto;
+}
+
+.createResource {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 24px;
+}
+
+.emptyIcon {
+  height: 104px;
+  margin: 0px auto;
+  display: block;
+}
+
+.message {
+  color: white;
+  text-align: center;
+  font-style: italic;
+}
+
+.empty {
+  margin: 30px 0px;
 }

@@ -12,8 +12,12 @@ function CreateResourceModal() {
     time.push(i);
   }
 
-  const { pushingToDb, updateCreateResourceVisibility, createNewResource } =
-    useStateContext();
+  const {
+    uniqueExistingResources,
+    pushingToDb,
+    updateCreateResourceVisibility,
+    createNewResource,
+  } = useStateContext();
 
   const closeModal = () => {
     updateCreateResourceVisibility();
@@ -21,7 +25,9 @@ function CreateResourceModal() {
 
   const createResource = (event) => {
     event.preventDefault();
-    if (
+    if (uniqueExistingResources.includes(event.target[0].value.trim())) {
+      notify("Resource with this name already exists!");
+    } else if (
       event.target[1].value == event.target[3].value &&
       event.target[2].value == event.target[4].value
     ) {
