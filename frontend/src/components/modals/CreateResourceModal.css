@@ -75,3 +75,7 @@
 .slots {
   outline: none;
 }
+
+#endTime {
+  margin-left: 5px;
+}

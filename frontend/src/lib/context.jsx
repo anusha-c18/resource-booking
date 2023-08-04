@@ -159,6 +159,30 @@ export const StateContext = ({ children }) => {
     console.log(resourceTimings);
   };
 
+  const createNewResource = (resource) => {
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getUTCMonth() + 1;
+    const year = date.getUTCFullYear();
+    resource.date = month + "/" + day + "/" + year;
+    console.log(resource);
+    fetch("http://localhost:8000/api/routes/records-rt/createNewResource", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Specify the content type
+        // Add any other headers your API requires
+      },
+      body: JSON.stringify(resource), // Convert your data to JSON format
+    })
+      .then((response) => response.json()) // Process the response
+      .then((result) => {
+        console.log("POST request successful", result);
+      })
+      .catch((error) => {
+        console.error("Error making POST request", error);
+      });
+  };
+
   return (
     <Context.Provider
       value={{
@@ -173,6 +197,7 @@ export const StateContext = ({ children }) => {
         availableTimeSlots,
         createResourceModalVisibility,
         updateAvailableTimeSlots,
+        createNewResource,
         pushBooking,
         updateStartTime,
         updateCurrentResource,

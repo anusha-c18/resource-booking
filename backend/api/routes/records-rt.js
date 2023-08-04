@@ -24,4 +24,6 @@ router
   .route("/uniqueExistingResources")
   .get(controller.uniqueExistingResources);
 
+router.route("/createNewResource").post(controller.createNewResource);
+
 module.exports = router;

@@ -8,6 +8,7 @@ const getUniqueAvailableResources = require("./getUniqueAvailableResources.helpe
 const insertBooking = require("./insertBooking.helper");
 const getUniqueResourcesBooked = require("./getUniqueResourcesBooked.helper");
 const getUniqueExistingResources = require("./getUniqueExistingResources.helper");
+const createResource = require("./createNewResource.helper");
 
 module.exports.getAllResources = async function (req, res) {
   try {
@@ -108,6 +109,20 @@ module.exports.insertBooking = async function (req, res) {
     // } else {
     //   res.status(200).send("Booking confirmed!");
     // }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports.createNewResource = async function (req, res) {
+  try {
+    const resource = req.body;
+    const result = await createResource.createResource(resource);
+    if (result == "Documents inserted successfully") {
+      res.status(200).send(["Resource created successfully"]);
+    } else {
+      res.status(500).send(["Resource creation failed. Please try again!"]);
+    }
   } catch (err) {
     console.log(err);
   }
