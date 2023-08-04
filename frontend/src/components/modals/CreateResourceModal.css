@@ -80,8 +80,34 @@
   margin-left: 5px;
 }
 
+.create {
+  height: 34px;
+  width: 21%;
+  margin: 0px auto;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .loadingGIF {
-  height: 28px;
-  width: 28px;
+  height: 34px;
+  width: 34px;
   margin: 0px auto;
 }

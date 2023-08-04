@@ -93,8 +93,8 @@ function CreateResourceModal() {
       {pushingToDb ? (
         <img src={Loading} alt="pushing to db" className="loadingGIF" />
       ) : (
-        <button className="book" type="submit">
-          Book
+        <button className="create" type="submit">
+          Create
         </button>
       )}
     </motion.form>
