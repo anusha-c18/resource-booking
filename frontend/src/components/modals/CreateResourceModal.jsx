@@ -2,6 +2,7 @@ import React from "react";
 import "./CreateResourceModal.css";
 import { motion } from "framer-motion";
 import { useStateContext } from "../../lib/context";
+import Loading from "../../../public/images/loading.gif";
 
 function CreateResourceModal() {
   let time = [];
@@ -10,7 +11,7 @@ function CreateResourceModal() {
     time.push(i);
   }
 
-  const { updateCreateResourceVisibility, createNewResource } =
+  const { pushingToDb, updateCreateResourceVisibility, createNewResource } =
     useStateContext();
 
   const closeModal = () => {
@@ -31,7 +32,6 @@ function CreateResourceModal() {
     } else {
       resource.endTime = event.target[3].value;
     }
-    console.log(resource);
     createNewResource(resource);
   };
   return (
@@ -90,9 +90,13 @@ function CreateResourceModal() {
           <option value="PM">PM</option>
         </select>
       </div>
-      <button className="book" type="submit">
-        Book
-      </button>
+      {pushingToDb ? (
+        <img src={Loading} alt="pushing to db" className="loadingGIF" />
+      ) : (
+        <button className="book" type="submit">
+          Book
+        </button>
+      )}
     </motion.form>
   );
 }

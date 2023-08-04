@@ -119,7 +119,7 @@ module.exports.createNewResource = async function (req, res) {
     const resource = req.body;
     const result = await createResource.createResource(resource);
     if (result == "Documents inserted successfully") {
-      res.status(200).send(["Resource created successfully"]);
+      res.status(200).send(["Resource created successfully!"]);
     } else {
       res.status(500).send(["Resource creation failed. Please try again!"]);
     }

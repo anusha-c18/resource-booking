@@ -79,3 +79,9 @@
 #endTime {
   margin-left: 5px;
 }
+
+.loadingGIF {
+  height: 28px;
+  width: 28px;
+  margin: 0px auto;
+}

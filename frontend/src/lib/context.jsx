@@ -16,65 +16,86 @@ export const StateContext = ({ children }) => {
   const [createResourceModalVisibility, setCreateResourceModalVisibility] =
     useState(true);
   const [fetchAllResource, setFetchAllResources] = useState(false);
+  const [pushingToDb, setPushingToDb] = useState(false);
 
   useEffect(() => {
-    const resources = fetch(
-      "http://localhost:8000/api/routes/records-rt/allResources",
-      { mode: "cors" },
-      { method: "GET" }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setAllResources(data);
-      });
+    try {
+      const resources = fetch(
+        "http://localhost:8000/api/routes/records-rt/allResources",
+        { mode: "cors" },
+        { method: "GET" }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setAllResources(data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   }, [fetchAllResource]);
 
   useEffect(() => {
-    const resources = fetch(
-      "http://localhost:8000/api/routes/records-rt/allBookings",
-      { mode: "cors" },
-      { method: "GET" }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setAllBookings(data);
-      });
+    try {
+      const resources = fetch(
+        "http://localhost:8000/api/routes/records-rt/allBookings",
+        { mode: "cors" },
+        { method: "GET" }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setAllBookings(data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   useEffect(() => {
-    const resources = fetch(
-      "http://localhost:8000/api/routes/records-rt/uniqueResourcesBooked",
-      { mode: "cors" },
-      { method: "GET" }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setUniqueResourcesbooked(data);
-      });
+    try {
+      const resources = fetch(
+        "http://localhost:8000/api/routes/records-rt/uniqueResourcesBooked",
+        { mode: "cors" },
+        { method: "GET" }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setUniqueResourcesbooked(data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   useEffect(() => {
-    const resources = fetch(
-      "http://localhost:8000/api/routes/records-rt/uniqueExistingResources",
-      { mode: "cors" },
-      { method: "GET" }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setUniqueExistingResources(data);
-      });
+    try {
+      const resources = fetch(
+        "http://localhost:8000/api/routes/records-rt/uniqueExistingResources",
+        { mode: "cors" },
+        { method: "GET" }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setUniqueExistingResources(data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   }, [fetchAllResource]);
 
   useEffect(() => {
-    const resources = fetch(
-      "http://localhost:8000/api/routes/records-rt/uniqueAvailableResources",
-      { mode: "cors" },
-      { method: "GET" }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setUniqueAvailableResources(data);
-      });
+    try {
+      const resources = fetch(
+        "http://localhost:8000/api/routes/records-rt/uniqueAvailableResources",
+        { mode: "cors" },
+        { method: "GET" }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setUniqueAvailableResources(data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   }, [fetchAllResource]);
 
   useEffect(() => {
@@ -166,28 +187,33 @@ export const StateContext = ({ children }) => {
     const month = date.getUTCMonth() + 1;
     const year = date.getUTCFullYear();
     resource.date = month + "/" + day + "/" + year;
-    console.log(resource);
-    await fetch(
-      "http://localhost:8000/api/routes/records-rt/createNewResource",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json", // Specify the content type
-          // Add any other headers your API requires
-        },
-        body: JSON.stringify(resource), // Convert your data to JSON format
-      }
-    )
-      .then((response) => response.json()) // Process the response
-      .then((result) => {
-        console.log("POST request successful", result);
-      })
-      .catch((error) => {
-        console.error("Error making POST request", error);
+    setPushingToDb(true);
+    try {
+      await fetch(
+        "http://localhost:8000/api/routes/records-rt/createNewResource",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json", // Specify the content type
+            // Add any other headers your API requires
+          },
+          body: JSON.stringify(resource), // Convert your data to JSON format
+        }
+      )
+        .then((response) => response.json()) // Process the response
+        .then((result) => {
+          console.log("POST request successful", result);
+        })
+        .catch((error) => {
+          console.error("Error making POST request", error);
+        });
+      setFetchAllResources((state) => {
+        return !state;
       });
-    setFetchAllResources((state) => {
-      return !state;
-    });
+    } catch (err) {
+      console.log(err);
+    }
+    setPushingToDb(false);
   };
 
   return (
@@ -202,6 +228,7 @@ export const StateContext = ({ children }) => {
         currentResource,
         startTime,
         availableTimeSlots,
+        pushingToDb,
         createResourceModalVisibility,
         updateAvailableTimeSlots,
         createNewResource,
