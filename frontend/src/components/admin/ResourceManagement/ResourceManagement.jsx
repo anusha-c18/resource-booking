@@ -11,7 +11,6 @@ function ResourceManagement() {
   const toggleCreateResourceModal = () => {
     updateCreateResourceVisibility();
   };
-  console.log(uniqueExistingResources);
 
   return (
     <>

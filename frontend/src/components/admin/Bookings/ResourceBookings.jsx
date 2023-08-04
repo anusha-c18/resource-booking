@@ -18,6 +18,18 @@ function ResourceBookings({ resourceName }) {
     return day + "/" + month + "/" + year;
   };
 
+  const formatTime = (time) => {
+    let value = "";
+    if (+time > 12) {
+      value = +time - 12 + " PM";
+    } else if (+time < 12) {
+      value = time + " AM";
+    } else {
+      value = "12 PM";
+    }
+    return value;
+  };
+
   return (
     <table className="table">
       <thead className="bookingHeader">
@@ -36,8 +48,8 @@ function ResourceBookings({ resourceName }) {
             <tr key={resource.resource + resource.bookingTimeStamp}>
               <td>{resource.flat}</td>
               <td>{resource.name}</td>
-              <td>{resource.startTime}</td>
-              <td>{resource.endTime}</td>
+              <td>{formatTime(resource.startTime)}</td>
+              <td>{formatTime(resource.endTime)}</td>
               <td>{getTime(resource.bookingTimeStamp)}</td>
               <td>{getDate(resource.bookingTimeStamp)}</td>
             </tr>

@@ -30,6 +30,10 @@
   filter: invert(1);
 }
 
+.date:focus {
+  outline: none;
+}
+
 @keyframes animated-border-color {
   0% {
     box-shadow: 0 0 0 2px #ee7752;

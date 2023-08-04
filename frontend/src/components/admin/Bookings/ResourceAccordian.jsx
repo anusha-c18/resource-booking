@@ -5,7 +5,6 @@ import ResourceBookings from "./ResourceBookings";
 
 function ResourceAccordian({ resourceName }) {
   const [isActive, setIsActive] = useState(false);
-
   const toggleAccordian = () => {
     setIsActive((state) => {
       return !state;
@@ -17,7 +16,12 @@ function ResourceAccordian({ resourceName }) {
       <div className="accordianHeader">
         {" "}
         <p>{resourceName}</p>
-        <img className="arrow" src={down} alt="down arrow" />
+        <img
+          className="arrow"
+          src={down}
+          alt="down arrow"
+          style={{ transform: isActive ? "rotateZ(90deg)" : "rotateZ(0deg)" }}
+        />
       </div>
       {isActive ? <ResourceBookings resourceName={resourceName} /> : null}
     </div>

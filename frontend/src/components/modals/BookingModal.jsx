@@ -39,8 +39,8 @@ function BookingModal() {
       >
         x
       </motion.p>
-      <p className="resourceName">{currentResource}</p>
-      <div className="parallel">
+      <p className="bookResourceName">{currentResource}</p>
+      <div className="bookingParallel">
         <label htmlFor="startTime">Slot</label>
         <select name="startTime" id="startTime" className="slot">
           {availableTimeSlots.map((slot) => (

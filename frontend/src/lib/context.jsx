@@ -157,21 +157,21 @@ export const StateContext = ({ children }) => {
 
   const updateAvailableTimeSlots = (resource) => {
     let resourceTimings = [];
-    for (let i = 0; i < availableResources.length; i++) {
+    for (let i = 0; i < allResources.length; i++) {
       let begin = "",
         end = "";
-      if (availableResources[i].resource === resource) {
-        if (parseInt(availableResources[i].startTime) > 12) {
-          begin = parseInt(availableResources[i].startTime) - 12 + " PM";
-        } else if (parseInt(availableResources[i].startTime) < 12) {
-          begin = availableResources[i].startTime + " AM";
+      if (allResources[i].resource === resource) {
+        if (+allResources[i].startTime > 12) {
+          begin = +allResources[i].startTime - 12 + " PM";
+        } else if (+allResources[i].startTime < 12) {
+          begin = +allResources[i].startTime + " AM";
         } else {
           begin = "12 PM";
         }
-        if (parseInt(availableResources[i].endTime) > 12) {
-          end = parseInt(availableResources[i].endTime) - 12 + " PM";
-        } else if (parseInt(availableResources[i].endTime) < 12) {
-          end = availableResources[i].endTime + " AM";
+        if (allResources[i].endTime > 12) {
+          end = +allResources[i].endTime - 12 + " PM";
+        } else if (+allResources[i].endTime < 12) {
+          end = +allResources[i].endTime + " AM";
         } else {
           end = "12 PM";
         }
@@ -179,7 +179,6 @@ export const StateContext = ({ children }) => {
       }
     }
     setAvailableTimeSlots(resourceTimings);
-    console.log(resourceTimings);
   };
 
   const createNewResource = async (resource) => {

@@ -31,4 +31,6 @@
 .arrow {
   height: 22px;
   cursor: pointer;
+  transform: rotateZ(0deg);
+  transition: transform ease 0.2s;
 }
