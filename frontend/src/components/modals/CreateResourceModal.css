@@ -19,7 +19,7 @@
 
 .createResourceModal {
   display: flex;
-  position: absolute;
+  position: fixed;
   flex-direction: column;
   z-index: 1000;
   height: 210px;

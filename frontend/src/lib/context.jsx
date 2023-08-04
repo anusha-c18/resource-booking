@@ -15,6 +15,7 @@ export const StateContext = ({ children }) => {
   const [allBookings, setAllBookings] = useState([]);
   const [createResourceModalVisibility, setCreateResourceModalVisibility] =
     useState(true);
+  const [fetchAllResource, setFetchAllResources] = useState(false);
 
   useEffect(() => {
     const resources = fetch(
@@ -26,7 +27,7 @@ export const StateContext = ({ children }) => {
       .then((data) => {
         setAllResources(data);
       });
-  }, []);
+  }, [fetchAllResource]);
 
   useEffect(() => {
     const resources = fetch(
@@ -62,7 +63,7 @@ export const StateContext = ({ children }) => {
       .then((data) => {
         setUniqueExistingResources(data);
       });
-  }, []);
+  }, [fetchAllResource]);
 
   useEffect(() => {
     const resources = fetch(
@@ -74,7 +75,7 @@ export const StateContext = ({ children }) => {
       .then((data) => {
         setUniqueAvailableResources(data);
       });
-  }, []);
+  }, [fetchAllResource]);
 
   useEffect(() => {
     console.log(availableTimeSlots);
@@ -159,21 +160,24 @@ export const StateContext = ({ children }) => {
     console.log(resourceTimings);
   };
 
-  const createNewResource = (resource) => {
+  const createNewResource = async (resource) => {
     const date = new Date();
     const day = date.getDate();
     const month = date.getUTCMonth() + 1;
     const year = date.getUTCFullYear();
     resource.date = month + "/" + day + "/" + year;
     console.log(resource);
-    fetch("http://localhost:8000/api/routes/records-rt/createNewResource", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json", // Specify the content type
-        // Add any other headers your API requires
-      },
-      body: JSON.stringify(resource), // Convert your data to JSON format
-    })
+    await fetch(
+      "http://localhost:8000/api/routes/records-rt/createNewResource",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Specify the content type
+          // Add any other headers your API requires
+        },
+        body: JSON.stringify(resource), // Convert your data to JSON format
+      }
+    )
       .then((response) => response.json()) // Process the response
       .then((result) => {
         console.log("POST request successful", result);
@@ -181,6 +185,9 @@ export const StateContext = ({ children }) => {
       .catch((error) => {
         console.error("Error making POST request", error);
       });
+    setFetchAllResources((state) => {
+      return !state;
+    });
   };
 
   return (
