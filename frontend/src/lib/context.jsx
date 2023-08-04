@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useContext, useState } from "react";
+import { notify } from "./../App";
 
 const Context = createContext();
 
@@ -202,10 +203,10 @@ export const StateContext = ({ children }) => {
       )
         .then((response) => response.json()) // Process the response
         .then((result) => {
-          console.log("POST request successful", result);
+          notify(result);
         })
         .catch((error) => {
-          console.error("Error making POST request", error);
+          notify("Resource creation failed. Please try again!");
         });
       setFetchAllResources((state) => {
         return !state;
@@ -214,6 +215,7 @@ export const StateContext = ({ children }) => {
       console.log(err);
     }
     setPushingToDb(false);
+    setCreateResourceModalVisibility(false);
   };
 
   return (

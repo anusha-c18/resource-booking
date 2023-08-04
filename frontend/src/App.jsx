@@ -7,12 +7,16 @@ import { AnimatePresence } from "framer-motion";
 import Client from "./pages/client";
 import Admin from "./pages/admin";
 import CreateResourceModal from "./components/modals/CreateResourceModal";
+import toast, { Toaster } from "react-hot-toast";
+
+const notify = (message) => toast(message);
 
 function App() {
   const { bookingModalVisibility, createResourceModalVisibility } =
     useStateContext();
   return (
     <>
+      <Toaster />
       <AnimatePresence>
         {bookingModalVisibility ? <BookingModal /> : null}
       </AnimatePresence>
@@ -25,4 +29,4 @@ function App() {
   );
 }
 
-export default App;
+export { notify, App };

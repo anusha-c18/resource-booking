@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./CreateResourceModal.css";
 import { motion } from "framer-motion";
 import { useStateContext } from "../../lib/context";
@@ -60,11 +60,12 @@ function CreateResourceModal() {
           name="resourceName"
           id="resourceName"
           className="resourceName"
+          required
         />
       </div>
       <div className="parallelContainer">
         <label htmlFor="startTime">Start Time</label>
-        <select name="startTime" id="startTime" className="slots">
+        <select name="startTime" id="startTime" className="slots" required>
           {time.map((slot) => (
             <option value={slot} key={slot + "start"}>
               {slot}
@@ -78,7 +79,7 @@ function CreateResourceModal() {
       </div>
       <div className="parallelContainer">
         <label htmlFor="endTime">End Time</label>
-        <select name="endTime" id="endTime" className="slots">
+        <select name="endTime" id="endTime" className="slots" required>
           {time.map((slot) => (
             <option value={slot} key={slot + "start"}>
               {slot}
