@@ -3,6 +3,7 @@ import "./CreateResourceModal.css";
 import { motion } from "framer-motion";
 import { useStateContext } from "../../lib/context";
 import Loading from "../../../public/images/loading.gif";
+import { notify } from "../../App";
 
 function CreateResourceModal() {
   let time = [];
@@ -20,20 +21,33 @@ function CreateResourceModal() {
 
   const createResource = (event) => {
     event.preventDefault();
-    let resource = {};
-    resource.resource = event.target[0].value;
-    if (event.target[2].value == "PM") {
-      resource.startTime = parseInt(event.target[1].value) + 12 + "";
+    if (
+      event.target[1].value == event.target[3].value &&
+      event.target[2].value == event.target[4].value
+    ) {
+      notify("Start and End time of resource usage can not be the same!");
+    } else if (
+      event.target[2].value == event.target[4].value &&
+      event.target[1].value > event.target[3].value
+    ) {
+      notify("End Time can not be before Start Time");
     } else {
-      resource.startTime = event.target[1].value;
+      let resource = {};
+      resource.resource = event.target[0].value;
+      if (event.target[2].value == "PM") {
+        resource.startTime = parseInt(event.target[1].value) + 12 + "";
+      } else {
+        resource.startTime = event.target[1].value;
+      }
+      if (event.target[4].value == "PM") {
+        resource.endTime = parseInt(event.target[3].value) + 12 + "";
+      } else {
+        resource.endTime = event.target[3].value;
+      }
+      createNewResource(resource);
     }
-    if (event.target[4].value == "PM") {
-      resource.endTime = parseInt(event.target[3].value) + 12 + "";
-    } else {
-      resource.endTime = event.target[3].value;
-    }
-    createNewResource(resource);
   };
+
   return (
     <motion.form
       className="createResourceModal"
