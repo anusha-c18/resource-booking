@@ -7,7 +7,6 @@ async function getAllBookings() {
     let db = await client.db("resourceBooking");
     let bookings = await db.collection("bookings");
     let allBookings = await bookings.find({}).toArray();
-    console.log(allBookings);
     return allBookings;
   } catch (err) {
     console.log(err);

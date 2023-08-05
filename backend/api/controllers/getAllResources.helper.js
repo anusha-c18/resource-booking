@@ -7,7 +7,6 @@ async function getAllResources() {
     let db = await client.db("resourceBooking");
     let resources = await db.collection("allResources");
     let allResources = await resources.find({}).toArray();
-    console.log(allResources);
     return allResources;
   } catch (err) {
     console.log(err);

@@ -12,7 +12,6 @@ async function getUniqueAvailableResources() {
     if (!uniqueAvailableResources.includes(x.resource))
       uniqueAvailableResources.push(x.resource);
   });
-  console.log(uniqueAvailableResources);
   return uniqueAvailableResources;
 }
 

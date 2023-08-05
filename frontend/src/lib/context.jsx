@@ -7,6 +7,7 @@ export const StateContext = ({ children }) => {
   const [allResources, setAllResources] = useState([]);
   const [uniqueAvailableResources, setUniqueAvailableResources] = useState([]);
   const [bookingModalVisibility, setBookingModalVisibility] = useState(false);
+  const [deleteModalVisibility, setDeleteModalVisibility] = useState(false);
   const [currentResource, setCurrentResource] = useState("");
   const [startTime, setStartTime] = useState("");
   const [userDetails, setUserDetails] = useState({ name: "", flat: "" });
@@ -21,6 +22,7 @@ export const StateContext = ({ children }) => {
   const [fetchingResources, setFetchingResources] = useState(false);
   const [fetchingAllBookings, setFetchingAllBookings] = useState(false);
   const [fetchingUniqueBookings, setFetchingUniqueBookings] = useState(false);
+  const [deletingResource, setDeletingResource] = useState(false);
 
   useEffect(() => {
     setFetchingResources(true);
@@ -136,6 +138,12 @@ export const StateContext = ({ children }) => {
     setAvailableTimeSlots([]);
   };
 
+  const updateDeleteModalVisibility = () => {
+    setDeleteModalVisibility((state) => {
+      return !state;
+    });
+  };
+
   const updateUserDetails = () => {
     ////setup endpoint connection here using useEffect based on login details
   };
@@ -226,14 +234,36 @@ export const StateContext = ({ children }) => {
         .catch((error) => {
           notify("Resource creation failed. Please try again!");
         });
-      setFetchAllResources((state) => {
-        return !state;
-      });
+      updateFetchResources();
     } catch (err) {
       console.log(err);
     }
     setPushingToDb(false);
     setCreateResourceModalVisibility(false);
+  };
+
+  const updateFetchResources = () => {
+    setFetchAllResources((state) => {
+      return !state;
+    });
+  };
+
+  const resourceDeletion = (resource) => {
+    setDeletingResource(true);
+    let endpoint =
+      "http://localhost:8000/api/routes/records-rt/deleteResource/" + resource;
+    const resources = fetch(endpoint, { mode: "cors" }, { method: "GET" })
+      .then((response) => response.json())
+      .then((result) => {
+        notify(result);
+      })
+      .catch((error) => {
+        notify("Resource deletion failed. Please try again!");
+      });
+    updateDeleteModalVisibility();
+    setDeletingResource(false);
+    updateFetchResources();
+    //delete those resource's bookings also
   };
 
   return (
@@ -252,7 +282,11 @@ export const StateContext = ({ children }) => {
         pushingToDb,
         createResourceModalVisibility,
         fetchingResources,
+        deleteModalVisibility,
         fetchingAllBookings,
+        deletingResource,
+        resourceDeletion,
+        updateDeleteModalVisibility,
         updateAvailableTimeSlots,
         createNewResource,
         pushBooking,

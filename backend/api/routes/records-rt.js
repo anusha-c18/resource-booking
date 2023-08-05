@@ -26,4 +26,6 @@ router
 
 router.route("/createNewResource").post(controller.createNewResource);
 
+router.route("/deleteResource/:resource").get(controller.deleteResource);
+
 module.exports = router;

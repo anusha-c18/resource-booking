@@ -9,7 +9,6 @@ async function getUniqueResourcesBooked() {
     if (!uniqueResources.includes(x.resource)) uniqueResources.push(x.resource);
     // console.log(x.resource + " check");
   });
-  console.log(uniqueResources);
   return uniqueResources;
 }
 

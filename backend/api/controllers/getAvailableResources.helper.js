@@ -7,7 +7,6 @@ async function getAvailableResources() {
     .collection("allResources")
     .find({ ["available"]: "1" })
     .toArray();
-  console.log(availableResources);
   return availableResources;
 }
 
