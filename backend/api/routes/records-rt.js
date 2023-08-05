@@ -28,4 +28,6 @@ router.route("/createNewResource").post(controller.createNewResource);
 
 router.route("/deleteResource/:resource").get(controller.deleteResource);
 
+router.route("/deleteBookings/:resource").get(controller.deleteBookings);
+
 module.exports = router;

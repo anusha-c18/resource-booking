@@ -10,6 +10,7 @@ const getUniqueResourcesBooked = require("./getUniqueResourcesBooked.helper");
 const getUniqueExistingResources = require("./getUniqueExistingResources.helper");
 const createResource = require("./createNewResource.helper");
 const deleteResource = require("./deleteResource.helper");
+const deleteBookings = require("./deleteBookings.helper");
 
 module.exports.getAllResources = async function (req, res) {
   try {
@@ -138,6 +139,23 @@ module.exports.deleteResource = async function (req, res) {
       res.status(500).send(["Resource deletion failed. Please try again!"]);
     } else {
       res.status(200).send(["Resource deleted successfully!"]);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports.deleteBookings = async function (req, res) {
+  try {
+    const resource = req.params.resource;
+    console.log(resource);
+    const deleteCount = await deleteBookings.deleteBookings(resource);
+    if (deleteCount == 0) {
+      res
+        .status(500)
+        .send(["Resource's bookings deletion failed. Please try again!"]);
+    } else {
+      res.status(200).send(["Resource's bookings deleted successfully!"]);
     }
   } catch (err) {
     console.log(err);
