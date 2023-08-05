@@ -18,6 +18,33 @@ export const StateContext = ({ children }) => {
     useState(false);
   const [fetchAllResource, setFetchAllResources] = useState(false);
   const [pushingToDb, setPushingToDb] = useState(false);
+  const [fetchingResources, setFetchingResources] = useState(false);
+  const [fetchingAllBookings, setFetchingAllBookings] = useState(false);
+  const [fetchingUniqueBookings, setFetchingUniqueBookings] = useState(false);
+
+  useEffect(() => {
+    setFetchingResources(true);
+    try {
+      const resources = fetch(
+        "http://localhost:8000/api/routes/records-rt/uniqueExistingResources",
+        { mode: "cors" },
+        { method: "GET" }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setUniqueExistingResources(data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+    setTimeout(() => {
+      setFetchingResources(false);
+    }, 500);
+  }, [fetchAllResource]);
+
+  useEffect(() => {
+    console.log(fetchingResources);
+  }, [fetchingResources]);
 
   useEffect(() => {
     try {
@@ -36,6 +63,7 @@ export const StateContext = ({ children }) => {
   }, [fetchAllResource]);
 
   useEffect(() => {
+    setFetchingAllBookings(true);
     try {
       const resources = fetch(
         "http://localhost:8000/api/routes/records-rt/allBookings",
@@ -49,9 +77,13 @@ export const StateContext = ({ children }) => {
     } catch (err) {
       console.log(err);
     }
+    setTimeout(() => {
+      setFetchingAllBookings(false);
+    }, 1000);
   }, []);
 
   useEffect(() => {
+    setFetchingUniqueBookings(true);
     try {
       const resources = fetch(
         "http://localhost:8000/api/routes/records-rt/uniqueResourcesBooked",
@@ -65,23 +97,10 @@ export const StateContext = ({ children }) => {
     } catch (err) {
       console.log(err);
     }
+    setTimeout(() => {
+      setFetchingUniqueBookings(false);
+    }, 500);
   }, []);
-
-  useEffect(() => {
-    try {
-      const resources = fetch(
-        "http://localhost:8000/api/routes/records-rt/uniqueExistingResources",
-        { mode: "cors" },
-        { method: "GET" }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          setUniqueExistingResources(data);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  }, [fetchAllResource]);
 
   useEffect(() => {
     try {
@@ -224,6 +243,7 @@ export const StateContext = ({ children }) => {
         allBookings,
         uniqueExistingResources,
         uniqueResourcesbooked,
+        fetchingUniqueBookings,
         uniqueAvailableResources,
         bookingModalVisibility,
         currentResource,
@@ -231,6 +251,8 @@ export const StateContext = ({ children }) => {
         availableTimeSlots,
         pushingToDb,
         createResourceModalVisibility,
+        fetchingResources,
+        fetchingAllBookings,
         updateAvailableTimeSlots,
         createNewResource,
         pushBooking,
