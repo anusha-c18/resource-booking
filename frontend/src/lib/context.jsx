@@ -260,9 +260,12 @@ export const StateContext = ({ children }) => {
       .catch((error) => {
         notify("Resource deletion failed. Please try again!");
       });
-    updateDeleteModalVisibility();
-    setDeletingResource(false);
-    updateFetchResources();
+    setTimeout(() => {
+      updateFetchResources();
+      updateDeleteModalVisibility();
+      setDeletingResource(false);
+    }, 1000);
+
     //delete those resource's bookings also
   };
 

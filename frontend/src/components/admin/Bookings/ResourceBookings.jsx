@@ -30,7 +30,6 @@ function ResourceBookings({ resourceName }) {
     }
     return value;
   };
-  console.log(fetchingAllBookings);
 
   return (
     <table className="table">

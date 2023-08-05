@@ -32,7 +32,7 @@ function ResourceAccordian({ resourceName }) {
           className="arrow"
           src={down}
           alt="down arrow"
-          style={{ transform: isActive ? "rotateZ(90deg)" : "rotateZ(0deg)" }}
+          style={{ transform: isActive ? "rotateZ(180deg)" : "rotateZ(0deg)" }}
         />
       </div>
       {isActive ? <ResourceBookings resourceName={resourceName} /> : null}
