@@ -1,6 +1,7 @@
 import React from "react";
 import "./ResourceBookings.css";
 import { useStateContext } from "../../../lib/context";
+import { motion } from "framer-motion";
 
 function ResourceBookings({ resourceName }) {
   const { allBookings } = useStateContext();
@@ -45,14 +46,24 @@ function ResourceBookings({ resourceName }) {
       <tbody className="bookingBody">
         {allBookings.map((resource) =>
           resource.resource === resourceName ? (
-            <tr key={resource.resource + resource.bookingTimeStamp}>
+            <motion.tr
+              key={resource.resource + resource.bookingTimeStamp}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              transition={{
+                duration: 0.2,
+                delay: 0.2,
+                ease: [0, 0.71, 0.5, 1.01],
+              }}
+            >
               <td>{resource.flat}</td>
               <td>{resource.name}</td>
               <td>{formatTime(resource.startTime)}</td>
               <td>{formatTime(resource.endTime)}</td>
               <td>{getTime(resource.bookingTimeStamp)}</td>
               <td>{getDate(resource.bookingTimeStamp)}</td>
-            </tr>
+            </motion.tr>
           ) : null
         )}
       </tbody>
