@@ -265,7 +265,16 @@ export const StateContext = ({ children }) => {
       updateDeleteModalVisibility();
       setDeletingResource(false);
     }, 1000);
-
+    endpoint =
+      "http://localhost:8000/api/routes/records-rt/deleteBookings/" + resource;
+    const resources2 = fetch(endpoint, { mode: "cors" }, { method: "GET" })
+      .then((response) => response.json())
+      .then((result) => {
+        notify(result);
+      })
+      .catch((error) => {
+        notify("Resource's bookings deletion failed. Please try again!");
+      });
     //delete those resource's bookings also
   };
 

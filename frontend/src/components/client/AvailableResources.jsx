@@ -2,9 +2,12 @@ import React from "react";
 import IndividualResource from "./IndividualResource";
 import { useStateContext } from "../../lib/context";
 import "./AvailableResources.css";
+import { motion } from "framer-motion";
+import empty from "./../../../public/images/empty.png";
 
 function AvailableResources() {
-  const { uniqueAvailableResources } = useStateContext();
+  const { uniqueExistingResources, uniqueAvailableResources } =
+    useStateContext();
   const today = new Date();
   const endDate = new Date(today);
   endDate.setDate(endDate.getDate() + 2);
@@ -16,6 +19,8 @@ function AvailableResources() {
   }
   const minDate = formatDate(today);
   const maxDate = formatDate(endDate);
+  console.log("exist", uniqueExistingResources);
+  console.log("available", uniqueAvailableResources);
   return (
     <>
       <p className="title">Available Resources</p>
@@ -28,12 +33,43 @@ function AvailableResources() {
         max={maxDate}
       />
       <div className="allResources">
-        {uniqueAvailableResources.map((resource, index) => (
-          <IndividualResource
-            key={index + " " + resource}
-            resourceName={resource}
-          ></IndividualResource>
-        ))}
+        {(uniqueAvailableResources.length === 1 &&
+          uniqueAvailableResources[0] === "All resources are booked.") ||
+        (uniqueExistingResources.length === 1 &&
+          uniqueExistingResources[0] === "No resources exist.") ? (
+          <div className="empty">
+            <p className="message">
+              {uniqueExistingResources.length === 1 &&
+              uniqueExistingResources[0] === "No resources exist."
+                ? "No resources exist. Come back another time :)"
+                : "All resources are booked! Come back another time :)"}
+            </p>
+            <motion.img
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.3,
+                ease: [0, 0.71, 0.2, 1.01],
+                scale: {
+                  type: "spring",
+                  damping: 5,
+                  stiffness: 100,
+                  restDelta: 0.001,
+                },
+              }}
+              src={empty}
+              alt=""
+              className="emptyIcon"
+            />
+          </div>
+        ) : (
+          uniqueAvailableResources.map((resource, index) => (
+            <IndividualResource
+              key={index + " " + resource}
+              resourceName={resource}
+            ></IndividualResource>
+          ))
+        )}
       </div>
     </>
   );
