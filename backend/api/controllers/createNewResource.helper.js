@@ -1,6 +1,4 @@
-const mongoUtil = require("./../../db/mongoUtil");
-
-async function createResource(resource) {
+async function createResource(resource, client) {
   function deepClone(obj) {
     if (obj === null || typeof obj !== "object") {
       return obj;
@@ -21,7 +19,6 @@ async function createResource(resource) {
 
   try {
     let document = {};
-    const client = mongoUtil.client;
     const db = await client.db("resourceBooking");
     let collection = await db.collection("allResources");
     console.log(resource, "ss");

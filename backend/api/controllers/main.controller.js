@@ -11,6 +11,8 @@ const getUniqueExistingResources = require("./getUniqueExistingResources.helper"
 const createResource = require("./createNewResource.helper");
 const deleteResource = require("./deleteResource.helper");
 const deleteBookings = require("./deleteBookings.helper");
+const mongoUtil = require("../../db/mongoUtil");
+const client = mongoUtil.client;
 
 module.exports.getAllResources = async function (req, res) {
   try {

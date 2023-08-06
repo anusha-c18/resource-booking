@@ -1,7 +1,4 @@
-const mongoUtil = require("../../db/mongoUtil");
-
-async function getUniqueExistingResources() {
-  const client = mongoUtil.client;
+async function getUniqueExistingResources(client) {
   let db = await client.db("resourceBooking");
   let allResources = await db.collection("allResources").find({}).toArray();
   let uniqueResources = [];

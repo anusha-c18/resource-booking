@@ -1,5 +1,3 @@
-const mongoUtil = require("../../db/mongoUtil");
-
-async function getUserDetails() {
+async function getUserDetails(client) {
   //fetch user name and flat details
 }

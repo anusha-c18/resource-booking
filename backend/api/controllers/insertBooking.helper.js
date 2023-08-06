@@ -1,6 +1,4 @@
-const mongoUtil = require("./../../db/mongoUtil");
-
-async function insertBooking(booking) {
+async function insertBooking(booking, client) {
   console.log("getting all resources");
   try {
     const client = mongoUtil.client;

@@ -29,7 +29,7 @@ export function App() {
       <AnimatePresence>
         {deleteModalVisibility ? <DeleteModal /> : null}
       </AnimatePresence>
-      <Client />
+      {/* <Client /> */}
       <Admin />
     </>
   );

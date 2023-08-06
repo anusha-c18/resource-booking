@@ -1,8 +1,5 @@
-const mongoUtil = require("../../db/mongoUtil");
-
-async function deleteBookings(resource) {
+async function deleteBookings(resource, client) {
   try {
-    const client = mongoUtil.client;
     const db = client.db("resourceBooking");
     const collection = db.collection("bookings");
     const result = await collection.deleteMany({
