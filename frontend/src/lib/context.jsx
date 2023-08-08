@@ -25,6 +25,7 @@ export const StateContext = ({ children }) => {
   const [deletingResource, setDeletingResource] = useState(false);
   const [editResourceModal, setEditResourceModal] = useState(false);
   const [updatingResource, setUpdatingResource] = useState(false);
+  const [userBookings, setUserBookings] = useState([]);
 
   useEffect(() => {
     setFetchingResources(true);
@@ -270,6 +271,24 @@ export const StateContext = ({ children }) => {
   useEffect(() => {
     console.log("all", allResources);
   }, [allResources]);
+
+  useEffect(() => {
+    try {
+      const resources = fetch(
+        "http://localhost:8000/api/routes/records-rt/getUserBookings/" +
+          "anusha",
+        { mode: "cors" },
+        { method: "GET" }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setUserBookings(data);
+          console.log(data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   const updateFetchResources = () => {
     setFetchAllResources((state) => {
