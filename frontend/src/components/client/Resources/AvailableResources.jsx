@@ -1,9 +1,9 @@
 import React from "react";
 import IndividualResource from "./IndividualResource";
-import { useStateContext } from "../../lib/context";
+import { useStateContext } from "../../../lib/context";
 import "./AvailableResources.css";
 import { motion } from "framer-motion";
-import empty from "./../../../public/images/empty.png";
+import empty from "./../../../../public/images/empty.png";
 
 function AvailableResources() {
   const { uniqueExistingResources, uniqueAvailableResources } =

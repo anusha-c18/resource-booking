@@ -12,6 +12,7 @@ const createResource = require("./createNewResource.helper");
 const deleteResource = require("./deleteResource.helper");
 const deleteBookings = require("./deleteBookings.helper");
 const mongoUtil = require("../../db/mongoUtil");
+const getUserBookings = require("./userBookings.helper");
 const client = mongoUtil.client;
 
 module.exports.getAllResources = async function (req, res) {
@@ -160,6 +161,17 @@ module.exports.deleteBookings = async function (req, res) {
     } else {
       res.status(200).send(["Resource's bookings deleted successfully!"]);
     }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports.userBookings = async function (req, res) {
+  try {
+    const name = req.params.name;
+    const bookings = await getUserBookings.getUserBookings(client, name);
+    if (bookings.length == 0) res.status(200).send(["No bookings found :("]);
+    else res.status(200).send(bookings);
   } catch (err) {
     console.log(err);
   }

@@ -34,8 +34,8 @@ export function App() {
       <AnimatePresence>
         {editResourceModal ? <EditModal /> : null}
       </AnimatePresence>
-      {/* <Client /> */}
-      <Admin />
+      <Client />
+      {/* <Admin /> */}
     </>
   );
 }

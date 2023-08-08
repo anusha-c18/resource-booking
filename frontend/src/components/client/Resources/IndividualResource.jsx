@@ -1,6 +1,7 @@
 import React from "react";
 import "./IndividualResource.css";
-import { useStateContext } from "../../lib/context";
+import { useStateContext } from "../../../lib/context";
+import { motion } from "framer-motion";
 
 function IndividualResource({ resourceName }) {
   const {
@@ -17,9 +18,20 @@ function IndividualResource({ resourceName }) {
   };
 
   return (
-    <div className="individualResource" onClick={renderModal}>
+    <motion.div
+      initial={{ y: -10 }}
+      animate={{ y: 0, scale: 1, opacity: 1 }}
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 9,
+        duration: 0.6,
+      }}
+      className="individualResource"
+      onClick={renderModal}
+    >
       <p>{resourceName}</p>
-    </div>
+    </motion.div>
   );
 }
 

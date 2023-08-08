@@ -30,4 +30,6 @@ router.route("/deleteResource/:resource").get(controller.deleteResource);
 
 router.route("/deleteBookings/:resource").get(controller.deleteBookings);
 
+router.route("/getUserBookings/:name").get(controller.userBookings);
+
 module.exports = router;
