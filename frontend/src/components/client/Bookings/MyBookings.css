@@ -1,0 +1,18 @@
+.myBookings {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
+  padding: 15px;
+  background: rgb(255 255 255 / 77%);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: 80%;
+  cursor: pointer;
+  color: #4e4e4e;
+  font-size: larger;
+  align-items: center;
+  font-weight: 700;
+}

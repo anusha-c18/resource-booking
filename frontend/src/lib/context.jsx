@@ -276,7 +276,7 @@ export const StateContext = ({ children }) => {
     try {
       const resources = fetch(
         "http://localhost:8000/api/routes/records-rt/getUserBookings/" +
-          "anusha",
+          "briha",
         { mode: "cors" },
         { method: "GET" }
       )
@@ -382,6 +382,7 @@ export const StateContext = ({ children }) => {
       value={{
         allResources,
         allBookings,
+        userBookings,
         uniqueExistingResources,
         uniqueResourcesbooked,
         fetchingUniqueBookings,
