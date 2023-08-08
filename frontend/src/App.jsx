@@ -8,11 +8,13 @@ import Admin from "./pages/Admin";
 import CreateResourceModal from "./components/modals/CreateResourceModal";
 import toast, { Toaster } from "react-hot-toast";
 import DeleteModal from "../src/components/modals/DeleteModal";
+import EditModal from "./components/modals/EditModal";
 
 export const notify = (message) => toast(message);
 
 export function App() {
   const {
+    editResourceModal,
     deleteModalVisibility,
     bookingModalVisibility,
     createResourceModalVisibility,
@@ -28,6 +30,9 @@ export function App() {
       </AnimatePresence>
       <AnimatePresence>
         {deleteModalVisibility ? <DeleteModal /> : null}
+      </AnimatePresence>
+      <AnimatePresence>
+        {editResourceModal ? <EditModal /> : null}
       </AnimatePresence>
       {/* <Client /> */}
       <Admin />

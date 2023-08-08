@@ -16,7 +16,8 @@ const client = mongoUtil.client;
 
 module.exports.getAllResources = async function (req, res) {
   try {
-    const resources = await getResources.getAllResources();
+    console.log("in get all resources of the main controller");
+    const resources = await getResources.getAllResources(client);
     if (resources.length == 0) {
       res.status(200).send(["No resources exist."]);
     } else {
@@ -29,7 +30,7 @@ module.exports.getAllResources = async function (req, res) {
 
 module.exports.getAllBookings = async function (req, res) {
   try {
-    const bookings = await getBookings.getAllBookings();
+    const bookings = await getBookings.getAllBookings(client);
     if (bookings.length == 0) {
       res.status(200).send(["No bookings exist."]);
     } else {
@@ -43,7 +44,7 @@ module.exports.getAllBookings = async function (req, res) {
 module.exports.availableResources = async function (req, res) {
   try {
     const availableResources =
-      await getAvailableResources.getAvailableResources();
+      await getAvailableResources.getAvailableResources(client);
     if (availableResources.length == 0) {
       res.status(200).send(["No resources available."]);
     } else {
@@ -57,7 +58,7 @@ module.exports.availableResources = async function (req, res) {
 module.exports.uniqueExistingResources = async function (req, res) {
   try {
     const uniqueExistingResources =
-      await getUniqueExistingResources.getUniqueExistingResources();
+      await getUniqueExistingResources.getUniqueExistingResources(client);
     if (uniqueExistingResources.length == 0) {
       res.status(200).send(["No resources exist."]);
     } else {
@@ -71,7 +72,7 @@ module.exports.uniqueExistingResources = async function (req, res) {
 module.exports.uniqueAvailableResources = async function (req, res) {
   try {
     const uniqueAvailableResources =
-      await getUniqueAvailableResources.getUniqueAvailableResources();
+      await getUniqueAvailableResources.getUniqueAvailableResources(client);
     if (uniqueAvailableResources.length == 0) {
       res.status(200).send(["All resources are booked."]);
     } else {
@@ -85,7 +86,7 @@ module.exports.uniqueAvailableResources = async function (req, res) {
 module.exports.uniqueResourcesBooked = async function (req, res) {
   try {
     const uniqueResources =
-      await getUniqueResourcesBooked.getUniqueResourcesBooked();
+      await getUniqueResourcesBooked.getUniqueResourcesBooked(client);
     if (uniqueResources.length == 0) {
       res.status(200).send(["No resources booked."]);
     } else {
@@ -121,7 +122,7 @@ module.exports.insertBooking = async function (req, res) {
 module.exports.createNewResource = async function (req, res) {
   try {
     const resource = req.body;
-    const result = await createResource.createResource(resource);
+    const result = await createResource.createResource(resource, client);
     if (result == "Documents inserted successfully") {
       res.status(200).send(["Resource created successfully!"]);
     } else {
@@ -136,7 +137,7 @@ module.exports.deleteResource = async function (req, res) {
   try {
     const resource = req.params.resource;
     console.log(resource);
-    const deleteCount = await deleteResource.deleteResource(resource);
+    const deleteCount = await deleteResource.deleteResource(resource, client);
     if (deleteCount == 0) {
       res.status(500).send(["Resource deletion failed. Please try again!"]);
     } else {
@@ -151,7 +152,7 @@ module.exports.deleteBookings = async function (req, res) {
   try {
     const resource = req.params.resource;
     console.log(resource);
-    const deleteCount = await deleteBookings.deleteBookings(resource);
+    const deleteCount = await deleteBookings.deleteBookings(resource, client);
     if (deleteCount == 0) {
       res
         .status(500)

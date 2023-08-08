@@ -23,6 +23,8 @@ export const StateContext = ({ children }) => {
   const [fetchingAllBookings, setFetchingAllBookings] = useState(false);
   const [fetchingUniqueBookings, setFetchingUniqueBookings] = useState(false);
   const [deletingResource, setDeletingResource] = useState(false);
+  const [editResourceModal, setEditResourceModal] = useState(false);
+  const [updatingResource, setUpdatingResource] = useState(false);
 
   useEffect(() => {
     setFetchingResources(true);
@@ -43,10 +45,6 @@ export const StateContext = ({ children }) => {
       setFetchingResources(false);
     }, 500);
   }, [fetchAllResource]);
-
-  useEffect(() => {
-    console.log(fetchingResources);
-  }, [fetchingResources]);
 
   useEffect(() => {
     try {
@@ -123,6 +121,33 @@ export const StateContext = ({ children }) => {
   useEffect(() => {
     console.log(availableTimeSlots);
   }, [availableTimeSlots]);
+
+  const toggleEditResourceModal = () => {
+    setEditResourceModal((state) => {
+      return !state;
+    });
+  };
+
+  const fetchResourceDetails = (name) => {
+    let startTime = "",
+      endTime = "";
+    let details = {};
+    for (let i = 0; i < allResources.length; i++) {
+      if (allResources[i].resource == name) {
+        if (startTime == "") {
+          startTime = allResources[i].startTime;
+          endTime = allResources[0].endTime;
+        }
+        if (+allResources[i].startTime < +startTime) {
+          startTime = allResources[0].startTime;
+        } else if (+allResources[i].endTime > +endTime) {
+          endTime = allResources[i].endTime;
+        }
+      }
+    }
+    details = { startTime, endTime };
+    return details;
+  };
 
   const updateCurrentResource = (resourceName) => {
     setCurrentResource(resourceName);
@@ -209,6 +234,7 @@ export const StateContext = ({ children }) => {
   };
 
   const createNewResource = async (resource) => {
+    console.log("cretion", resource);
     const date = new Date();
     const day = date.getDate();
     const month = date.getUTCMonth() + 1;
@@ -221,31 +247,81 @@ export const StateContext = ({ children }) => {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json", // Specify the content type
-            // Add any other headers your API requires
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(resource), // Convert your data to JSON format
+          body: JSON.stringify(resource),
         }
       )
-        .then((response) => response.json()) // Process the response
+        .then((response) => response.json())
         .then((result) => {
           notify(result);
         })
         .catch((error) => {
           notify("Resource creation failed. Please try again!");
         });
-      updateFetchResources();
     } catch (err) {
       console.log(err);
     }
+    updateFetchResources();
     setPushingToDb(false);
     setCreateResourceModalVisibility(false);
   };
+
+  useEffect(() => {
+    console.log("all", allResources);
+  }, [allResources]);
 
   const updateFetchResources = () => {
     setFetchAllResources((state) => {
       return !state;
     });
+  };
+
+  const updateResource = async (resource) => {
+    setUpdatingResource(true);
+    let endpoint =
+      "http://localhost:8000/api/routes/records-rt/deleteResource/" +
+      currentResource;
+    try {
+      const resources = fetch(endpoint, { mode: "cors" }, { method: "GET" })
+        .then((response) => response.json())
+        .then(async (result) => {
+          console.log(result);
+          const date = new Date();
+          const day = date.getDate();
+          const month = date.getUTCMonth() + 1;
+          const year = date.getUTCFullYear();
+          resource.date = month + "/" + day + "/" + year;
+          try {
+            await fetch(
+              "http://localhost:8000/api/routes/records-rt/createNewResource",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(resource),
+              }
+            )
+              .then((response) => response.json())
+              .then((result) => {
+                notify("Resource successfully updated!");
+              })
+              .catch((error) => {
+                notify("Resource updation failed. Please try again!");
+              });
+          } catch (err) {
+            console.log(err);
+          }
+        });
+    } catch (err) {
+      console.log(err);
+    }
+    setTimeout(() => {
+      toggleUpdatingResource(false);
+      toggleEditResourceModal();
+      updateFetchResources();
+    }, 500);
   };
 
   const resourceDeletion = (resource) => {
@@ -278,6 +354,10 @@ export const StateContext = ({ children }) => {
     //delete those resource's bookings also
   };
 
+  const toggleUpdatingResource = (value) => {
+    setUpdatingResource(value);
+  };
+
   return (
     <Context.Provider
       value={{
@@ -292,11 +372,16 @@ export const StateContext = ({ children }) => {
         startTime,
         availableTimeSlots,
         pushingToDb,
+        updatingResource,
         createResourceModalVisibility,
         fetchingResources,
         deleteModalVisibility,
         fetchingAllBookings,
         deletingResource,
+        editResourceModal,
+        updateResource,
+        toggleUpdatingResource,
+        toggleEditResourceModal,
         resourceDeletion,
         updateDeleteModalVisibility,
         updateAvailableTimeSlots,
@@ -306,6 +391,7 @@ export const StateContext = ({ children }) => {
         updateCurrentResource,
         updateCreateResourceVisibility,
         updateBookingModalVisibility,
+        fetchResourceDetails,
       }}
     >
       {children}

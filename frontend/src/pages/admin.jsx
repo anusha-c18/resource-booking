@@ -4,8 +4,8 @@ import ResourceManagement from "../components/admin/ResourceManagement/ResourceM
 function Admin() {
   return (
     <>
-      <ResourceOverview />
-      {/* <ResourceManagement /> */}
+      {/* <ResourceOverview /> */}
+      <ResourceManagement />
     </>
   );
 }

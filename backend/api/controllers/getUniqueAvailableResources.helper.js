@@ -1,5 +1,4 @@
 async function getUniqueAvailableResources(client) {
-  const client = mongoUtil.client;
   let db = await client.db("resourceBooking");
   let availableResources = await db
     .collection("allResources")

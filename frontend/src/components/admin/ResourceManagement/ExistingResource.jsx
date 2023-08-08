@@ -4,12 +4,20 @@ import { motion } from "framer-motion";
 import { useStateContext } from "../../../lib/context";
 
 function ExistingResource({ resource }) {
-  const { updateCurrentResource, updateDeleteModalVisibility } =
-    useStateContext();
+  const {
+    updateCurrentResource,
+    updateDeleteModalVisibility,
+    toggleEditResourceModal,
+  } = useStateContext();
 
   const toggleDeleteModal = () => {
     updateCurrentResource(resource);
     updateDeleteModalVisibility();
+  };
+
+  const toggleEditModal = () => {
+    updateCurrentResource(resource);
+    toggleEditResourceModal();
   };
 
   return (
@@ -26,7 +34,9 @@ function ExistingResource({ resource }) {
     >
       {resource}
       <div className="parallel">
-        <button className="edit button">Edit</button>
+        <button className="edit button" onClick={toggleEditModal}>
+          Edit
+        </button>
         <button className="delete button" onClick={toggleDeleteModal}>
           Delete
         </button>
