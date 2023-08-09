@@ -4,7 +4,6 @@ async function getUniqueResourcesBooked(client) {
   let uniqueResources = [];
   allResources.map((x) => {
     if (!uniqueResources.includes(x.resource)) uniqueResources.push(x.resource);
-    // console.log(x.resource + " check");
   });
   return uniqueResources;
 }
