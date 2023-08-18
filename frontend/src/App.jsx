@@ -3,7 +3,7 @@ import "./App.css";
 import BookingModal from "./components/modals/BookingModal";
 import { useStateContext } from "./lib/context";
 import { AnimatePresence } from "framer-motion";
-import Client from "./pages/client";
+import Client from "./pages/Client";
 import Admin from "./pages/Admin";
 import CreateResourceModal from "./components/modals/CreateResourceModal";
 import toast, { Toaster } from "react-hot-toast";
