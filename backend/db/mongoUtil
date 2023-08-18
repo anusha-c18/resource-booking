@@ -6,9 +6,6 @@ let client;
 // Connecting to DB
 async function connectToAtlasDb() {
   try {
-    console.log("0", uri);
-    console.log("1", uri.split("\n")[1]);
-    console.log("2", uri);
     client = new MongoClient(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
