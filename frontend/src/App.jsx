@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import BookingModal from "./components/modals/bookingModal";
+import BookingModal from "./components/modals/BookingModal";
 import { useStateContext } from "./lib/context";
 import { AnimatePresence } from "framer-motion";
 import Client from "./pages/client";
