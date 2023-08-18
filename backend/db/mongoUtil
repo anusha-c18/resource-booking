@@ -1,13 +1,12 @@
 require("dotenv/config");
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const uri = process.env.DB_connection;
+let uri = process.env.DB_connection;
 let client;
 
 // Connecting to DB
 async function connectToAtlasDb() {
   try {
-    console.log(uri.split("\n")[1]);
-    console.log(uri);
+    uri = uri.split("\n")[1];
     client = new MongoClient(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
