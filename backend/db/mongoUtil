@@ -12,6 +12,8 @@ async function connectToAtlasDb() {
     });
     await client.connect();
     console.log("Connected to the database");
+    console.log(uri.split("\n")[1]);
+    console.log(uri);
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
     throw error; // Rethrow the error to be handled elsewhere
