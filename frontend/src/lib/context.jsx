@@ -31,7 +31,7 @@ export const StateContext = ({ children }) => {
     setFetchingResources(true);
     try {
       const resources = fetch(
-        "http://localhost:8000/api/routes/records-rt/uniqueExistingResources",
+        "https://resource-booking-api.vercel.app/api/routes/records-rt/uniqueExistingResources",
         { mode: "cors" },
         { method: "GET" }
       )
@@ -50,7 +50,7 @@ export const StateContext = ({ children }) => {
   useEffect(() => {
     try {
       const resources = fetch(
-        "http://localhost:8000/api/routes/records-rt/allResources",
+        "https://resource-booking-api.vercel.app/api/routes/records-rt/allResources",
         { mode: "cors" },
         { method: "GET" }
       )
@@ -67,7 +67,7 @@ export const StateContext = ({ children }) => {
     setFetchingAllBookings(true);
     try {
       const resources = fetch(
-        "http://localhost:8000/api/routes/records-rt/allBookings",
+        "https://resource-booking-api.vercel.app/api/routes/records-rt/allBookings",
         { mode: "cors" },
         { method: "GET" }
       )
@@ -87,7 +87,7 @@ export const StateContext = ({ children }) => {
     setFetchingUniqueBookings(true);
     try {
       const resources = fetch(
-        "http://localhost:8000/api/routes/records-rt/uniqueResourcesBooked",
+        "https://resource-booking-api.vercel.app/api/routes/records-rt/uniqueResourcesBooked",
         { mode: "cors" },
         { method: "GET" }
       )
@@ -106,7 +106,7 @@ export const StateContext = ({ children }) => {
   useEffect(() => {
     try {
       const resources = fetch(
-        "http://localhost:8000/api/routes/records-rt/uniqueAvailableResources",
+        "https://resource-booking-api.vercel.app/api/routes/records-rt/uniqueAvailableResources",
         { mode: "cors" },
         { method: "GET" }
       )
@@ -244,7 +244,7 @@ export const StateContext = ({ children }) => {
     setPushingToDb(true);
     try {
       await fetch(
-        "http://localhost:8000/api/routes/records-rt/createNewResource",
+        "https://resource-booking-api.vercel.app/api/routes/records-rt/createNewResource",
         {
           method: "POST",
           headers: {
@@ -275,7 +275,7 @@ export const StateContext = ({ children }) => {
   useEffect(() => {
     try {
       const resources = fetch(
-        "http://localhost:8000/api/routes/records-rt/getUserBookings/" +
+        "https://resource-booking-api.vercel.app/api/routes/records-rt/getUserBookings/" +
           "briha",
         { mode: "cors" },
         { method: "GET" }
@@ -299,7 +299,7 @@ export const StateContext = ({ children }) => {
   const updateResource = async (resource) => {
     setUpdatingResource(true);
     let endpoint =
-      "http://localhost:8000/api/routes/records-rt/deleteResource/" +
+      "https://resource-booking-api.vercel.app/api/routes/records-rt/deleteResource/" +
       currentResource;
     try {
       const resources = fetch(endpoint, { mode: "cors" }, { method: "GET" })
@@ -313,7 +313,7 @@ export const StateContext = ({ children }) => {
           resource.date = month + "/" + day + "/" + year;
           try {
             await fetch(
-              "http://localhost:8000/api/routes/records-rt/createNewResource",
+              "https://resource-booking-api.vercel.app/api/routes/records-rt/createNewResource",
               {
                 method: "POST",
                 headers: {
@@ -346,7 +346,8 @@ export const StateContext = ({ children }) => {
   const resourceDeletion = (resource) => {
     setDeletingResource(true);
     let endpoint =
-      "http://localhost:8000/api/routes/records-rt/deleteResource/" + resource;
+      "https://resource-booking-api.vercel.app/api/routes/records-rt/deleteResource/" +
+      resource;
     const resources = fetch(endpoint, { mode: "cors" }, { method: "GET" })
       .then((response) => response.json())
       .then((result) => {
@@ -361,7 +362,8 @@ export const StateContext = ({ children }) => {
       setDeletingResource(false);
     }, 1000);
     endpoint =
-      "http://localhost:8000/api/routes/records-rt/deleteBookings/" + resource;
+      "https://resource-booking-api.vercel.app/api/routes/records-rt/deleteBookings/" +
+      resource;
     const resources2 = fetch(endpoint, { mode: "cors" }, { method: "GET" })
       .then((response) => response.json())
       .then((result) => {
