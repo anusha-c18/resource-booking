@@ -11,6 +11,7 @@ import DeleteModal from "../src/components/modals/DeleteModal";
 import EditModal from "./components/modals/EditModal";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const notify = (message) => toast(message);
 
@@ -21,10 +22,15 @@ export function App() {
     bookingModalVisibility,
     createResourceModalVisibility,
   } = useStateContext();
+
+  const { loginWithPopup, loginWithRedirect, logout, user, isAuthenticated } =
+    useAuth0();
+
   return (
     <>
       <BrowserRouter>
         <Routes>
+          <Route index element={<Login />} />
           {/* <Toaster /> */}
           {/* <AnimatePresence>
             {bookingModalVisibility ? <BookingModal /> : null}
@@ -38,7 +44,6 @@ export function App() {
           <AnimatePresence>
             {editResourceModal ? <EditModal /> : null}
           </AnimatePresence> */}
-          <Route index element={<Login />} />
           {/* <Client /> */}
           {/* <Admin /> */}
         </Routes>
