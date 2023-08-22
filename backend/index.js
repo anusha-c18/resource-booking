@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 const cors = require("cors");
 const mongo = require("./db/mongoUtil");
-app.use(cors({ origin: "https://resource-booking-frontend.vercel.app/" }));
+app.use(cors({ origin: "https://resource-booking-frontend.vercel.app" }));
 
 //Middleware functions to use those routes
 app.use("/api/routes/records-rt", recordsRoute);
