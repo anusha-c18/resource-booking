@@ -1,13 +1,45 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { motion } from "framer-motion";
 import { useAuth0 } from "@auth0/auth0-react";
+import login from "../../public/images/login.png";
+import "./Login.css";
 
 function Login() {
   const { loginWithPopup, loginWithRedirect, logout, user, isAuthenticated } =
     useAuth0();
-  useEffect(() => {
+
+  const loginPage = () => {
     loginWithRedirect();
-  }, []);
-  return <p>Login</p>;
+  };
+
+  return (
+    <div className="loginContainer">
+      <p className="message">Welcome to Resource Booking App!</p>
+      <p className="message">
+        Login/Sign Up to proceed booking resources according to your needs :)
+      </p>
+      <motion.img
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.3,
+          ease: [0, 0.71, 0.2, 1.01],
+          scale: {
+            type: "spring",
+            damping: 5,
+            stiffness: 100,
+            restDelta: 0.001,
+          },
+        }}
+        src={login}
+        alt=""
+        className="emptyIcon"
+      />
+      <button className="go" onClick={loginPage}>
+        Go to Login
+      </button>
+    </div>
+  );
 }
 
 export default Login;

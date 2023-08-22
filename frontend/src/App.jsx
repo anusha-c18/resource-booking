@@ -12,6 +12,7 @@ import DeleteModal from "../src/components/modals/DeleteModal";
 import EditModal from "./components/modals/EditModal";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
+import { domain, clientId } from "./utils/config";
 
 export const notify = (message) => toast(message);
 
@@ -26,8 +27,8 @@ export function App() {
   return (
     <>
       <Auth0Provider
-        domain="dev-1k4isffw1z8aw3io.us.auth0.com"
-        clientId="YDATtJWpOnS9ldhuJoIM7FF1d24RXWXf"
+        domain={domain}
+        clientId={clientId}
         authorizationParams={{
           redirect_uri: window.location.origin,
         }}

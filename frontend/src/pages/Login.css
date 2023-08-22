@@ -1,0 +1,42 @@
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: center;
+  padding: 10px;
+  margin: auto;
+  background: #505050;
+  top: 0px;
+  position: fixed;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+}
+
+.go {
+  display: block;
+  height: 36px;
+  width: 113px;
+  margin: 19px auto;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
