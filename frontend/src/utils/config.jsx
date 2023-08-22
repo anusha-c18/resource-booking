@@ -1,10 +1,4 @@
-const domain = process.env.AUTH0_DOMAIN;
-const clientId = process.env.AUTH0_CLIENT_ID;
-
-const display = () => {
-  console.log(domain, clientId);
-};
-
-display();
+const domain = import.meta.env.VITE_AUTH0_DOMAIN;
+const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
 
 export { domain, clientId };
