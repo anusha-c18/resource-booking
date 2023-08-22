@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useAuth0 } from "@auth0/auth0-react";
 import login from "../../public/images/login.png";
@@ -11,6 +11,10 @@ function Login() {
   const loginPage = () => {
     loginWithRedirect();
   };
+
+  useEffect(() => {
+    console.log(user);
+  }, [isAuthenticated]);
 
   return (
     <div className="loginContainer">
