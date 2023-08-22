@@ -5,4 +5,6 @@ const display = () => {
   console.log(domain, clientId);
 };
 
+display();
+
 export { domain, clientId };
