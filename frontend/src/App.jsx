@@ -14,6 +14,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import { domain, clientId } from "./utils/config";
 import { UserProvider } from "./lib/UserContext";
+import PrivateRoute from "./pages/PrivateRoute";
 
 export const notify = (message) => toast(message);
 
@@ -33,6 +34,7 @@ export function App() {
         authorizationParams={{
           redirect_uri: window.location.origin,
         }}
+        cacheLocation="localstorage"
       >
         <UserProvider>
           <BrowserRouter>
@@ -51,8 +53,12 @@ export function App() {
           <AnimatePresence>
             {editResourceModal ? <EditModal /> : null}
           </AnimatePresence> */}
-              {/* <Client /> */}
-              {/* <Admin /> */}
+              <Route exact path="/Client" element={<PrivateRoute />}>
+                <Route exact path="/Client" element={<Client />} />
+              </Route>
+              <Route exact path="/Admin" element={<PrivateRoute />}>
+                <Route exact path="/Admin" element={<Admin />} />
+              </Route>
             </Routes>
           </BrowserRouter>
         </UserProvider>
