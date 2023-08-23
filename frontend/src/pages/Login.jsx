@@ -37,15 +37,19 @@ function Login() {
           alt=""
           className="emptyIcon"
         />
-        <button className="go" onClick={loginPage}>
-          Go to Login
-        </button>
-        <button
-          className="go"
-          onClick={() => logout({ returnTo: window.location.origin })}
-        >
-          Logout
-        </button>
+        {console.log("my user", myUser)}
+        {myUser ? (
+          <button
+            className="go"
+            onClick={() => logout({ returnTo: window.location.origin })}
+          >
+            Logout
+          </button>
+        ) : (
+          <button className="go" onClick={loginPage}>
+            Go to Login
+          </button>
+        )}
       </div>
     );
   }
