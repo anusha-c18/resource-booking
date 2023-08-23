@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { useAuth0 } from "@auth0/auth0-react";
 import login from "../../public/images/login.png";
 import "./Login.css";
+import { useUserContext } from "../lib/UserContext";
 
 function Login() {
-  const { loginWithPopup, loginWithRedirect, logout, user, isAuthenticated } =
-    useAuth0();
+  const { loginWithRedirect, myUser, logout } = useUserContext();
 
   const loginPage = () => {
     loginWithRedirect();
@@ -41,6 +41,12 @@ function Login() {
       />
       <button className="go" onClick={loginPage}>
         Go to Login
+      </button>
+      <button
+        className="go"
+        onClick={() => logout({ returnTo: window.location.origin })}
+      >
+        Logout
       </button>
     </div>
   );

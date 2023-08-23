@@ -25,8 +25,6 @@ export function App() {
     createResourceModalVisibility,
   } = useStateContext();
 
-  console.log(domain, clientId);
-
   return (
     <>
       <Auth0Provider
