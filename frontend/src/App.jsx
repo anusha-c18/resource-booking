@@ -13,6 +13,7 @@ import EditModal from "./components/modals/EditModal";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import { domain, clientId } from "./utils/config";
+import { UserProvider } from "./lib/UserContext";
 
 export const notify = (message) => toast(message);
 
@@ -35,11 +36,12 @@ export function App() {
           redirect_uri: window.location.origin,
         }}
       >
-        <BrowserRouter>
-          <Routes>
-            <Route index element={<Login />} />
-            {/* <Toaster /> */}
-            {/* <AnimatePresence>
+        <UserProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route index element={<Login />} />
+              {/* <Toaster /> */}
+              {/* <AnimatePresence>
             {bookingModalVisibility ? <BookingModal /> : null}
           </AnimatePresence>
           <AnimatePresence>
@@ -51,10 +53,11 @@ export function App() {
           <AnimatePresence>
             {editResourceModal ? <EditModal /> : null}
           </AnimatePresence> */}
-            {/* <Client /> */}
-            {/* <Admin /> */}
-          </Routes>
-        </BrowserRouter>
+              {/* <Client /> */}
+              {/* <Admin /> */}
+            </Routes>
+          </BrowserRouter>
+        </UserProvider>
       </Auth0Provider>
     </>
   );
