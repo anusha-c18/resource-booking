@@ -10,13 +10,18 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import toast, { Toaster } from "react-hot-toast";
 import DeleteModal from "../src/components/modals/DeleteModal";
 import EditModal from "./components/modals/EditModal";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Error from "./pages/Error";
+import { RouterProvider } from "react-router-dom";
 import Login from "./pages/Login";
 import { domain, clientId } from "./utils/config";
 import { UserProvider } from "./lib/UserContext";
+import { createBrowserRouter } from "react-router-dom";
 import PrivateRoute from "./pages/PrivateRoute";
-
-export const notify = (message) => toast(message);
+import MyBookings from "./components/client/Bookings/MyBookings";
+import AvailableResources from "./components/client/Resources/AvailableResources";
+import RootLayout from "./pages/RootLayout";
+import ResourceOverview from "./components/admin/Bookings/ResourceOverview";
+import ResourceManagement from "./components/admin/ResourceManagement/ResourceManagement";
 
 export function App() {
   const {
@@ -25,6 +30,47 @@ export function App() {
     bookingModalVisibility,
     createResourceModalVisibility,
   } = useStateContext();
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <RootLayout />,
+      errorElement: <Error />,
+      children: [
+        { index: true, element: <Login /> },
+        {
+          path: "client",
+          element: <Client />,
+          children: [
+            {
+              path: "availableResources",
+              index: true,
+              element: <AvailableResources />,
+            },
+            {
+              path: "",
+              index: true,
+              element: <AvailableResources />,
+            },
+            { path: "myBookings", element: <MyBookings /> },
+          ],
+        },
+        {
+          path: "admin",
+          element: <Admin />,
+          children: [
+            {
+              path: "",
+              index: true,
+              element: <ResourceOverview />,
+            },
+            { path: "resourceOverview", element: <ResourceOverview /> },
+            { path: "resourceManagement", element: <ResourceManagement /> },
+          ],
+        },
+      ],
+    },
+  ]);
 
   return (
     <>
@@ -37,32 +83,14 @@ export function App() {
         cacheLocation="localstorage"
       >
         <UserProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route index element={<Login />} />
-              {/* <Toaster /> */}
-              {/* <AnimatePresence>
-            {bookingModalVisibility ? <BookingModal /> : null}
-          </AnimatePresence>
-          <AnimatePresence>
-            {createResourceModalVisibility ? <CreateResourceModal /> : null}
-          </AnimatePresence>
-          <AnimatePresence>
-            {deleteModalVisibility ? <DeleteModal /> : null}
-          </AnimatePresence>
-          <AnimatePresence>
-            {editResourceModal ? <EditModal /> : null}
-          </AnimatePresence> */}
-              <Route exact path="/Client" element={<PrivateRoute />}>
-                <Route exact path="/Client" element={<Client />} />
-              </Route>
-              <Route exact path="/Admin" element={<PrivateRoute />}>
-                <Route exact path="/Admin" element={<Admin />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
+          <RouterProvider router={router}>
+            {/* <Route index element={<Login />} /> */}
+            {/*  */}
+          </RouterProvider>
         </UserProvider>
       </Auth0Provider>
     </>
+
+    //create route with element private route where check if myuser exists - then check the role of myuser - based on that render client and admin - nav bars + outlet tag to get the element to be rendered within
   );
 }

@@ -3,7 +3,7 @@ import "./CreateResourceModal.css";
 import { motion } from "framer-motion";
 import { useStateContext } from "../../lib/context";
 import Loading from "../../../public/images/loading.gif";
-import { notify } from "../../App";
+import { notify } from "../../pages/RootLayout";
 
 function CreateResourceModal() {
   let time = [];

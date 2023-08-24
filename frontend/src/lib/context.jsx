@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useContext, useState } from "react";
-import { notify } from "./../App";
+import { notify } from "./../pages/RootLayout";
 
 const Context = createContext();
 

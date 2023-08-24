@@ -1,12 +1,17 @@
 import React from "react";
-import AvailableResources from "../components/client/Resources/AvailableResources";
-import MyBookings from "../components/client/Bookings/MyBookings";
+import { Outlet } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import BookingModal from "../components/modals/BookingModal";
+import { useStateContext } from "../lib/context";
 
 function Client() {
+  const { bookingModalVisibility } = useStateContext();
   return (
     <>
-      {/* <AvailableResources /> */}
-      <MyBookings />
+      <Outlet></Outlet>
+      <AnimatePresence>
+        {bookingModalVisibility ? <BookingModal /> : null}
+      </AnimatePresence>
     </>
   );
 }

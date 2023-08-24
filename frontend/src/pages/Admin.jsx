@@ -1,11 +1,29 @@
 import React from "react";
-import ResourceOverview from "../components/admin/Bookings/ResourceOverview";
-import ResourceManagement from "../components/admin/ResourceManagement/ResourceManagement";
+import { Outlet } from "react-router-dom";
+import { useStateContext } from "../lib/context";
+import { AnimatePresence } from "framer-motion";
+import DeleteModal from "../components/modals/DeleteModal";
+import EditModal from "../components/modals/EditModal";
+import CreateResourceModal from "../components/modals/CreateResourceModal";
+
 function Admin() {
+  const {
+    createResourceModalVisibility,
+    deleteModalVisibility,
+    editResourceModal,
+  } = useStateContext();
   return (
     <>
-      {/* <ResourceOverview /> */}
-      <ResourceManagement />
+      <AnimatePresence>
+        {createResourceModalVisibility ? <CreateResourceModal /> : null}
+      </AnimatePresence>
+      <AnimatePresence>
+        {deleteModalVisibility ? <DeleteModal /> : null}
+      </AnimatePresence>
+      <AnimatePresence>
+        {editResourceModal ? <EditModal /> : null}
+      </AnimatePresence>
+      <Outlet></Outlet>
     </>
   );
 }
