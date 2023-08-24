@@ -4,6 +4,9 @@ import { notify } from "./../pages/RootLayout";
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
+  const accessToken = async function () {
+    return await getCredentials().accessToken;
+  };
   const [allResources, setAllResources] = useState([]);
   const [uniqueAvailableResources, setUniqueAvailableResources] = useState([]);
   const [bookingModalVisibility, setBookingModalVisibility] = useState(false);
@@ -33,7 +36,12 @@ export const StateContext = ({ children }) => {
       const resources = fetch(
         "https://resource-booking-api.vercel.app/api/routes/records-rt/uniqueExistingResources",
         { mode: "cors" },
-        { method: "GET" }
+        { method: "GET" },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       )
         .then((response) => response.json())
         .then((data) => {
@@ -51,8 +59,13 @@ export const StateContext = ({ children }) => {
     try {
       const resources = fetch(
         "https://resource-booking-api.vercel.app/api/routes/records-rt/allResources",
-        { mode: "cors" },
-        { method: "GET" }
+        {
+          mode: "cors",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
       )
         .then((response) => response.json())
         .then((data) => {

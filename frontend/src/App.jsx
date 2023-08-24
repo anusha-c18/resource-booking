@@ -21,6 +21,7 @@ import AvailableResources from "./components/client/Resources/AvailableResources
 import RootLayout from "./pages/RootLayout";
 import ResourceOverview from "./components/admin/Bookings/ResourceOverview";
 import ResourceManagement from "./components/admin/ResourceManagement/ResourceManagement";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 export function App() {
   const {
@@ -29,6 +30,14 @@ export function App() {
     bookingModalVisibility,
     createResourceModalVisibility,
   } = useStateContext();
+
+  //  withAuthenticationRequired(component, {
+  //   onRedirecting: () => (
+  //     <div className="page-layout">
+  //       <PageLoader />
+  //     </div>
+  //   ),
+  // })}
 
   const router = createBrowserRouter([
     {
@@ -44,12 +53,12 @@ export function App() {
             {
               path: "availableResources",
               index: true,
-              element: <AvailableResources />,
+              element: withAuthenticationRequired(<AvailableResources />),
             },
             {
               path: "",
               index: true,
-              element: <AvailableResources />,
+              element: withAuthenticationRequired(<AvailableResources />),
             },
             { path: "myBookings", element: <MyBookings /> },
           ],
@@ -63,8 +72,14 @@ export function App() {
               index: true,
               element: <ResourceOverview />,
             },
-            { path: "resourceOverview", element: <ResourceOverview /> },
-            { path: "resourceManagement", element: <ResourceManagement /> },
+            {
+              path: "resourceOverview",
+              element: withAuthenticationRequired(<ResourceOverview />),
+            },
+            {
+              path: "resourceManagement",
+              element: withAuthenticationRequired(<ResourceManagement />),
+            },
           ],
         },
       ],
