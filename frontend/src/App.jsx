@@ -16,7 +16,6 @@ import Login from "./pages/Login";
 import { domain, clientId } from "./utils/config";
 import { UserProvider } from "./lib/UserContext";
 import { createBrowserRouter } from "react-router-dom";
-import PrivateRoute from "./pages/PrivateRoute";
 import MyBookings from "./components/client/Bookings/MyBookings";
 import AvailableResources from "./components/client/Resources/AvailableResources";
 import RootLayout from "./pages/RootLayout";
