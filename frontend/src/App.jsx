@@ -82,10 +82,7 @@ export function App() {
         cacheLocation="localstorage"
       >
         <UserProvider>
-          <RouterProvider router={router}>
-            {/* <Route index element={<Login />} /> */}
-            {/*  */}
-          </RouterProvider>
+          <RouterProvider router={router} />
         </UserProvider>
       </Auth0Provider>
     </>
