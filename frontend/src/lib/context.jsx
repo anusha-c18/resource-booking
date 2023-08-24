@@ -4,9 +4,17 @@ import { notify } from "./../pages/RootLayout";
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
-  const accessToken = async function () {
-    return await getCredentials().accessToken;
+  const getAccessToken = async function () {
+    const credentials = await getCredentials();
+    return credentials.accessToken;
   };
+
+  let accessToken;
+
+  (async () => {
+    accessToken = await getAccessToken();-
+  })();
+
   const [allResources, setAllResources] = useState([]);
   const [uniqueAvailableResources, setUniqueAvailableResources] = useState([]);
   const [bookingModalVisibility, setBookingModalVisibility] = useState(false);
