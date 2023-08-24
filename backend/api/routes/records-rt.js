@@ -6,51 +6,49 @@ const { auth } = require("express-oauth2-jwt-bearer");
 
 const checkScopes = requiredScopes("read:admin");
 
-console.log("scope : ", checkScopes);
-
 const checkJwt = auth({
-  audience: "https://resource-booking-api.vercel.app",
-  issuerBaseURL: `https://dev-1k4isffw1z8aw3io.us.auth0.com/`,
+  issuerBaseURL: process.env.AUTH0_BASE_URL,
+  audience: process.env.AUTH0_AUDIENCE,
 });
 
 router.get("/", (req, res) => {
   res.send("we are in records router");
 });
 
-router.route("/allResources").get(controller.getAllResources, checkJwt);
+router.route("/allResources").get(checkJwt, controller.getAllResources);
 
-router.route("/allBookings").get(controller.getAllBookings, checkJwt);
+router.route("/allBookings").get(checkJwt, controller.getAllBookings);
 
 router
   .route("/availableResources")
-  .get(controller.availableResources, checkJwt);
+  .get(checkJwt, controller.availableResources);
 
-router.route("/insertBooking").post(controller.insertBooking, checkJwt);
+router.route("/insertBooking").post(checkJwt, controller.insertBooking);
 
 router
-  .route("/uniqueAvailableResources", checkJwt)
-  .get(controller.uniqueAvailableResources, checkJwt);
+  .route("/uniqueAvailableResources")
+  .get(checkJwt, controller.uniqueAvailableResources);
 
 router
   .route("/uniqueResourcesBooked")
-  .get(controller.uniqueResourcesBooked, checkJwt);
+  .get(checkJwt, controller.uniqueResourcesBooked);
 
 router
   .route("/uniqueExistingResources")
-  .get(controller.uniqueExistingResources, checkJwt);
+  .get(checkJwt, controller.uniqueExistingResources);
 
 router
   .route("/createNewResource")
-  .post(controller.createNewResource, checkJwt, checkScopes);
+  .post(checkJwt, checkScopes, controller.createNewResource);
 
 router
   .route("/deleteResource/:resource")
-  .get(controller.deleteResource, checkJwt, checkScopes);
+  .get(checkJwt, checkScopes, controller.deleteResource);
 
 router
   .route("/deleteBookings/:resource")
-  .get(controller.deleteBookings, checkJwt, checkScopes);
+  .get(checkJwt, checkScopes, controller.deleteBookings);
 
-router.route("/getUserBookings/:name").get(controller.userBookings, checkJwt);
+router.route("/getUserBookings/:name").get(checkJwt, controller.userBookings);
 
 module.exports = router;
