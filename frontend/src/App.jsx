@@ -1,19 +1,13 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
-import BookingModal from "./components/modals/BookingModal";
 import { useStateContext } from "./lib/context";
-import { AnimatePresence } from "framer-motion";
 import Client from "./pages/Client";
 import Admin from "./pages/Admin";
-import CreateResourceModal from "./components/modals/CreateResourceModal";
-import { Auth0Provider } from "@auth0/auth0-react";
-import toast, { Toaster } from "react-hot-toast";
-import DeleteModal from "../src/components/modals/DeleteModal";
-import EditModal from "./components/modals/EditModal";
+import { useAuth0, Auth0Provider } from "@auth0/auth0-react";
 import Error from "./pages/Error";
 import { RouterProvider } from "react-router-dom";
 import Login from "./pages/Login";
-import { domain, clientId } from "./utils/config";
+import { domain, clientId, audience } from "./utils/config";
 import { UserProvider } from "./lib/UserContext";
 import { createBrowserRouter } from "react-router-dom";
 import MyBookings from "./components/client/Bookings/MyBookings";
@@ -24,20 +18,18 @@ import ResourceManagement from "./components/admin/ResourceManagement/ResourceMa
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 export function App() {
-  const {
-    editResourceModal,
-    deleteModalVisibility,
-    bookingModalVisibility,
-    createResourceModalVisibility,
-  } = useStateContext();
+  const { getAccessTokenSilently } = useAuth0();
 
-  //  withAuthenticationRequired(component, {
-  //   onRedirecting: () => (
-  //     <div className="page-layout">
-  //       <PageLoader />
-  //     </div>
-  //   ),
-  // })}
+  const { updateAccessToken } = useStateContext();
+
+  useEffect(() => {
+    async function getToken() {
+      const token = await getAccessTokenSilently();
+      console.log("token from function", token);
+      updateAccessToken(token);
+    }
+    getToken();
+  }, []);
 
   const router = createBrowserRouter([
     {
@@ -95,6 +87,8 @@ export function App() {
           redirect_uri: window.location.origin,
         }}
         cacheLocation="localstorage"
+        audience={audience}
+        scope={("read:admin", "read:client")}
       >
         <UserProvider>
           <RouterProvider router={router} />

@@ -1,20 +1,11 @@
 import React, { createContext, useEffect, useContext, useState } from "react";
 import { notify } from "./../pages/RootLayout";
+import { domain, clientId } from "./../utils/config";
+import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
-  const getAccessToken = async function () {
-    const credentials = await getCredentials();
-    return credentials.accessToken;
-  };
-
-  let accessToken;
-
-  (async () => {
-    accessToken = await getAccessToken();-
-  })();
-
   const [allResources, setAllResources] = useState([]);
   const [uniqueAvailableResources, setUniqueAvailableResources] = useState([]);
   const [bookingModalVisibility, setBookingModalVisibility] = useState(false);
@@ -37,31 +28,37 @@ export const StateContext = ({ children }) => {
   const [editResourceModal, setEditResourceModal] = useState(false);
   const [updatingResource, setUpdatingResource] = useState(false);
   const [userBookings, setUserBookings] = useState([]);
+  const [accessToken, setAccessToken] = useState(null);
 
   useEffect(() => {
-    setFetchingResources(true);
-    try {
-      const resources = fetch(
-        "https://resource-booking-api.vercel.app/api/routes/records-rt/uniqueExistingResources",
-        { mode: "cors" },
-        { method: "GET" },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          setUniqueExistingResources(data);
-        });
-    } catch (err) {
-      console.log(err);
+    console.log("checker", accessToken);
+    if (accessToken != null) {
+      console.log("going to fetch");
+      setFetchingResources(true);
+      try {
+        const resources = fetch(
+          "https://resource-booking-api.vercel.app/api/routes/records-rt/uniqueExistingResources",
+          { mode: "cors" },
+          { method: "GET" },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("yayyyyy", data);
+            setUniqueExistingResources(data);
+          });
+      } catch (err) {
+        console.log("nayyyy", err);
+      }
+      setTimeout(() => {
+        setFetchingResources(false);
+      }, 500);
     }
-    setTimeout(() => {
-      setFetchingResources(false);
-    }, 500);
-  }, [fetchAllResource]);
+  }, [fetchAllResource, accessToken]);
 
   useEffect(() => {
     try {
@@ -148,6 +145,10 @@ export const StateContext = ({ children }) => {
     setEditResourceModal((state) => {
       return !state;
     });
+  };
+
+  const updateAccessToken = (value) => {
+    setAccessToken(value);
   };
 
   const fetchResourceDetails = (name) => {
@@ -401,44 +402,54 @@ export const StateContext = ({ children }) => {
   };
 
   return (
-    <Context.Provider
-      value={{
-        allResources,
-        allBookings,
-        userBookings,
-        uniqueExistingResources,
-        uniqueResourcesbooked,
-        fetchingUniqueBookings,
-        uniqueAvailableResources,
-        bookingModalVisibility,
-        currentResource,
-        startTime,
-        availableTimeSlots,
-        pushingToDb,
-        updatingResource,
-        createResourceModalVisibility,
-        fetchingResources,
-        deleteModalVisibility,
-        fetchingAllBookings,
-        deletingResource,
-        editResourceModal,
-        updateResource,
-        toggleUpdatingResource,
-        toggleEditResourceModal,
-        resourceDeletion,
-        updateDeleteModalVisibility,
-        updateAvailableTimeSlots,
-        createNewResource,
-        pushBooking,
-        updateStartTime,
-        updateCurrentResource,
-        updateCreateResourceVisibility,
-        updateBookingModalVisibility,
-        fetchResourceDetails,
+    <Auth0Provider
+      domain={domain}
+      clientId={clientId}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
       }}
+      cacheLocation="localstorage"
     >
-      {children}
-    </Context.Provider>
+      <Context.Provider
+        value={{
+          allResources,
+          allBookings,
+          userBookings,
+          uniqueExistingResources,
+          uniqueResourcesbooked,
+          fetchingUniqueBookings,
+          uniqueAvailableResources,
+          bookingModalVisibility,
+          currentResource,
+          startTime,
+          availableTimeSlots,
+          pushingToDb,
+          updatingResource,
+          createResourceModalVisibility,
+          fetchingResources,
+          deleteModalVisibility,
+          fetchingAllBookings,
+          deletingResource,
+          editResourceModal,
+          updateResource,
+          toggleUpdatingResource,
+          toggleEditResourceModal,
+          resourceDeletion,
+          updateDeleteModalVisibility,
+          updateAvailableTimeSlots,
+          createNewResource,
+          pushBooking,
+          updateStartTime,
+          updateCurrentResource,
+          updateCreateResourceVisibility,
+          updateBookingModalVisibility,
+          fetchResourceDetails,
+          updateAccessToken,
+        }}
+      >
+        {children}
+      </Context.Provider>
+    </Auth0Provider>
   );
 };
 export const useStateContext = () => useContext(Context);
