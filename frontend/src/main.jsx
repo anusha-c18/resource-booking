@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       domain={domain}
       clientId={clientId}
       authorizationParams={{
-        redirect_uri: "https://resource-booking-frontend.vercel.app",
+        redirect_uri: "https://resource-booking-frontend.vercel.app/client",
       }}
       cacheLocation="localstorage"
       audience={audience}

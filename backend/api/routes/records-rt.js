@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require("../controllers/main.controller");
 const { requiredScopes } = require("express-oauth2-jwt-bearer");
 const { auth } = require("express-oauth2-jwt-bearer");
-
+const requireAuth = require("../../middleware/requireAuth");
 const checkScopes = requiredScopes("read:admin");
 
 const checkJwt = auth({
@@ -13,11 +13,13 @@ const checkJwt = auth({
   jwks_uri: "https://dev-1k4isffw1z8aw3io.us.auth0.com/.well-known/jwks.json",
 });
 
+// router.use(requireAuth);
+
 router.get("/", (req, res) => {
   res.send("we are in records router");
 });
 
-router.route("/allResources").get(checkJwt, controller.getAllResources);
+router.route("/allResources").get(controller.getAllResources);
 
 router.route("/allBookings").get(checkJwt, controller.getAllBookings);
 

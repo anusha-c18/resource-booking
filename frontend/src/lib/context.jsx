@@ -29,7 +29,7 @@ export const StateContext = ({ children }) => {
   const [updatingResource, setUpdatingResource] = useState(false);
   const [userBookings, setUserBookings] = useState([]);
   const [accessToken, setAccessToken] = useState(null);
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, user } = useAuth0();
 
   useEffect(() => {
     async function getToken() {
@@ -38,7 +38,7 @@ export const StateContext = ({ children }) => {
       updateAccessToken(token);
     }
     getToken();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     console.log("checker", accessToken);
@@ -74,7 +74,7 @@ export const StateContext = ({ children }) => {
     if (accessToken != null) {
       try {
         const resources = fetch(
-          "http://localhost:8000/api/routes/records-rt/allResources",
+          "http://resource-booking-api.vercel.app/api/routes/records-rt/allResources",
           {
             mode: "cors",
             method: "GET",
