@@ -3,12 +3,16 @@ const recordsRoute = require("./api/routes/records-rt"); //importing routes
 const app = express();
 app.use(express.json());
 const cors = require("cors");
+const oAuth = require("./middleware/oAuth");
 const mongo = require("./db/mongoUtil");
 const allowedOrigins = [
   "https://resource-booking-frontend.vercel.app",
   "http://localhost:5173",
 ];
+
 app.use(cors({ origin: allowedOrigins }));
+
+// app.use(oAuth);
 
 app.use("/api/routes/records-rt", recordsRoute);
 
