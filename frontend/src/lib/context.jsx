@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useContext, useState } from "react";
 import { notify } from "./../pages/RootLayout";
 import { domain, clientId } from "./../utils/config";
+import axios from "axios";
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 
 const Context = createContext();
@@ -30,17 +31,76 @@ export const StateContext = ({ children }) => {
   const [userBookings, setUserBookings] = useState([]);
   const [accessToken, setAccessToken] = useState(null);
   const { getAccessTokenSilently, user } = useAuth0();
+  const [userMetadata, setUserMetadata] = useState(null);
+
+  useEffect(() => {
+    console.log("trial function");
+    async function getUserMetadata() {
+      try {
+        const accessToken = await getAccessTokenSilently({
+          authorizationParams: {
+            audience: `https://${domain}/api/v2/`,
+            scope: "read:admin",
+          },
+        });
+
+        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
+
+        const metadataResponse = await fetch(userDetailsByIdUrl, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        const { user_metadata } = await metadataResponse.json();
+        console.log("user meta: ", user_metadata);
+        setUserMetadata(user_metadata);
+      } catch (e) {
+        console.log(e.message);
+      }
+    }
+    getUserMetadata();
+  }, [user]);
 
   useEffect(() => {
     async function getToken() {
-      const token = await getAccessTokenSilently();
+      const token = await getAccessTokenSilently({
+        authorizationParams: {
+          audience: `https://resource-booking-api.vercel.app`,
+          scope: "read:admin",
+        },
+      });
       console.log("token from function", token);
       updateAccessToken(token);
+      const metadataResponse = await fetch(userDetailsByIdUrl, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log(metadataResponse);
     }
+
     getToken();
   }, [user]);
 
   useEffect(() => {
+    if (accessToken != null) {
+      let options = {
+        method: "GET",
+        url: "https://resource-booking-api.vercel.app/api/routes/records-rt/uniqueExistingResources",
+        headers: { authorization: "Bearer " + accessToken },
+      };
+      console.log("attempt with axios");
+
+      axios
+        .request(options)
+        .then(function (response) {
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
     if (accessToken != null) {
       console.log("going to fetch");
       setFetchingResources(true);
@@ -51,7 +111,7 @@ export const StateContext = ({ children }) => {
             mode: "cors",
             method: "GET",
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              authorization: `Bearer ${accessToken}`,
             },
           }
         )
@@ -78,7 +138,7 @@ export const StateContext = ({ children }) => {
             mode: "cors",
             method: "GET",
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              authorization: `Bearer ${accessToken}`,
             },
           }
         )

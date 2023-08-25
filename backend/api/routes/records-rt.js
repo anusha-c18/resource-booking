@@ -4,6 +4,7 @@ const controller = require("../controllers/main.controller");
 const { requiredScopes } = require("express-oauth2-jwt-bearer");
 const { auth } = require("express-oauth2-jwt-bearer");
 const requireAuth = require("../../middleware/requireAuth");
+
 const checkScopes = requiredScopes("read:admin");
 
 const checkJwt = auth({

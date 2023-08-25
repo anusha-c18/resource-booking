@@ -12,11 +12,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       domain={domain}
       clientId={clientId}
       authorizationParams={{
-        redirect_uri: "https://resource-booking-frontend.vercel.app/client",
+        redirect_uri: window.location.origin,
       }}
       cacheLocation="localstorage"
       audience={audience}
-      scope="read:admin"
+      scope="read:admin read:client"
     >
       <StateContext>
         <App />
