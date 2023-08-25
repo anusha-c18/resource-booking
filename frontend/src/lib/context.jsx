@@ -29,6 +29,16 @@ export const StateContext = ({ children }) => {
   const [updatingResource, setUpdatingResource] = useState(false);
   const [userBookings, setUserBookings] = useState([]);
   const [accessToken, setAccessToken] = useState(null);
+  const { getAccessTokenSilently } = useAuth0();
+
+  useEffect(() => {
+    async function getToken() {
+      const token = await getAccessTokenSilently();
+      console.log("token from function", token);
+      updateAccessToken(token);
+    }
+    getToken();
+  }, []);
 
   useEffect(() => {
     console.log("checker", accessToken);
