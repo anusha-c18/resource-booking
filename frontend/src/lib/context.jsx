@@ -66,7 +66,7 @@ export const StateContext = ({ children }) => {
     async function getToken() {
       const token = await getAccessTokenSilently({
         authorizationParams: {
-          audience: `https://resource-booking-api.vercel.app/oauth/authorize`,
+          audience: `https://dev-1k4isffw1z8aw3io.us.auth0.com`,
           scope: "read:admin",
         },
       });

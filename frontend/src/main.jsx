@@ -13,6 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       clientId={clientId}
       authorizationParams={{
         redirect_uri: window.location.origin,
+        grant_type: `authorization_code`,
       }}
       cacheLocation="localstorage"
       audience={audience}
