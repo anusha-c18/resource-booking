@@ -34,50 +34,10 @@ export const StateContext = ({ children }) => {
   const [userMetadata, setUserMetadata] = useState(null);
 
   useEffect(() => {
-    console.log("trial function");
-    async function getUserMetadata() {
-      try {
-        const accessToken = await getAccessTokenSilently({
-          authorizationParams: {
-            audience: `https://${domain}/api/v2/`,
-            scope: "read:admin",
-          },
-        });
-
-        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-
-        const metadataResponse = await fetch(userDetailsByIdUrl, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-
-        const { user_metadata } = await metadataResponse.json();
-        console.log("user meta: ", user_metadata);
-        setUserMetadata(user_metadata);
-      } catch (e) {
-        console.log(e.message);
-      }
-    }
-    getUserMetadata();
-  }, [user]);
-
-  useEffect(() => {
     async function getToken() {
-      const token = await getAccessTokenSilently({
-        authorizationParams: {
-          audience: `https://dev-1k4isffw1z8aw3io.us.auth0.com`,
-          scope: "read:admin",
-        },
-      });
+      const token = await getAccessTokenSilently();
       console.log("token from function", token);
       updateAccessToken(token);
-      const metadataResponse = await fetch(userDetailsByIdUrl, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      console.log(metadataResponse);
     }
 
     getToken();

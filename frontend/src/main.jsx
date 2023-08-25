@@ -13,11 +13,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       clientId={clientId}
       authorizationParams={{
         redirect_uri: window.location.origin,
-        grant_type: `authorization_code`,
+        grant_type: `authorization_code `,
       }}
       cacheLocation="localstorage"
       audience={audience}
       scope="read:admin read:client"
+      response_type="token"
     >
       <StateContext>
         <App />

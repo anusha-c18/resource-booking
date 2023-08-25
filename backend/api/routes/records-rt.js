@@ -12,6 +12,7 @@ const checkJwt = auth({
   audience: process.env.AUTH0_AUDIENCE,
   algorithm: ["RS256"],
   jwks_uri: "https://dev-1k4isffw1z8aw3io.us.auth0.com/.well-known/jwks.json",
+  client_secret: process.env.AUTH0_CLIENT_SECRET,
 });
 
 // router.use(requireAuth);
@@ -20,7 +21,7 @@ router.get("/", (req, res) => {
   res.send("we are in records router");
 });
 
-router.route("/allResources").get(controller.getAllResources);
+router.route("/allResources").get(checkJwt, controller.getAllResources);
 
 router.route("/allBookings").get(checkJwt, controller.getAllBookings);
 
