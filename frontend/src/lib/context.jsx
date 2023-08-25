@@ -71,25 +71,27 @@ export const StateContext = ({ children }) => {
   }, [fetchAllResource, accessToken]);
 
   useEffect(() => {
-    try {
-      const resources = fetch(
-        "https://resource-booking-api.vercel.app/api/routes/records-rt/allResources",
-        {
-          mode: "cors",
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          setAllResources(data);
-        });
-    } catch (err) {
-      console.log(err);
+    if (accessToken != null) {
+      try {
+        const resources = fetch(
+          "https://resource-booking-api.vercel.app/api/routes/records-rt/allResources",
+          {
+            mode: "cors",
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            setAllResources(data);
+          });
+      } catch (err) {
+        console.log(err);
+      }
     }
-  }, [fetchAllResource]);
+  }, [fetchAllResource, accessToken]);
 
   useEffect(() => {
     setFetchingAllBookings(true);

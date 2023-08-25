@@ -9,6 +9,7 @@ const checkScopes = requiredScopes("read:admin");
 const checkJwt = auth({
   issuerBaseURL: process.env.AUTH0_BASE_URL,
   audience: process.env.AUTH0_AUDIENCE,
+  algorithm: ["RS256"],
 });
 
 router.get("/", (req, res) => {
