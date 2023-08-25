@@ -10,6 +10,7 @@ const checkJwt = auth({
   issuerBaseURL: process.env.AUTH0_BASE_URL,
   audience: process.env.AUTH0_AUDIENCE,
   algorithm: ["RS256"],
+  jwks_uri: "https://dev-1k4isffw1z8aw3io.us.auth0.com/.well-known/jwks.json",
 });
 
 router.get("/", (req, res) => {

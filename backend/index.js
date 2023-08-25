@@ -9,18 +9,7 @@ const allowedOrigins = [
   "http://localhost:5173",
 ];
 app.use(cors({ origin: allowedOrigins }));
-// const jwtCheck = auth({
-//   audience: "https://resource-booking-api.vercel.app/",
-//   issuerBaseURL: "https://dev-1k4isffw1z8aw3io.us.auth0.com/",
-//   tokenSigningAlg: "RS256",
-// });
-// app.use(jwtCheck);
-// app.get("/authorized", function (req, res) {
-//   res.send("Secured Resource");
-// });
-// const getAccessToken;
 
-//Middleware functions to use those routes
 app.use("/api/routes/records-rt", recordsRoute);
 
 //Routes

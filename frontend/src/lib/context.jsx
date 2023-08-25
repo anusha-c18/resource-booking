@@ -74,7 +74,7 @@ export const StateContext = ({ children }) => {
     if (accessToken != null) {
       try {
         const resources = fetch(
-          "https://resource-booking-api.vercel.app/api/routes/records-rt/allResources",
+          "http://localhost:8000/api/routes/records-rt/allResources",
           {
             mode: "cors",
             method: "GET",
@@ -103,6 +103,7 @@ export const StateContext = ({ children }) => {
       )
         .then((response) => response.json())
         .then((data) => {
+          console.log("all bookings", data);
           setAllBookings(data);
         });
     } catch (err) {
