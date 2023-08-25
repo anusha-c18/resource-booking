@@ -35,7 +35,12 @@ export const StateContext = ({ children }) => {
 
   useEffect(() => {
     async function getToken() {
-      const token = await getAccessTokenSilently();
+      const token = await getAccessTokenSilently({
+        authorizationParams: {
+          audience: `https://${domain}/api/v2/`,
+          scope: "read:admin read:client",
+        },
+      });
       console.log("token from function", token);
       updateAccessToken(token);
     }
@@ -73,6 +78,7 @@ export const StateContext = ({ children }) => {
             headers: {
               authorization: `Bearer ${accessToken}`,
             },
+            data: { flags: { use_scope_descriptions_for_consent: true } },
           }
         )
           .then((response) => response.json())
@@ -100,6 +106,7 @@ export const StateContext = ({ children }) => {
             headers: {
               authorization: `Bearer ${accessToken}`,
             },
+            data: { flags: { use_scope_descriptions_for_consent: true } },
           }
         )
           .then((response) => response.json())
@@ -117,8 +124,13 @@ export const StateContext = ({ children }) => {
     try {
       const resources = fetch(
         "https://resource-booking-api.vercel.app/api/routes/records-rt/allBookings",
-        { mode: "cors" },
-        { method: "GET" }
+        {
+          mode: "cors",
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        }
       )
         .then((response) => response.json())
         .then((data) => {
@@ -138,8 +150,13 @@ export const StateContext = ({ children }) => {
     try {
       const resources = fetch(
         "https://resource-booking-api.vercel.app/api/routes/records-rt/uniqueResourcesBooked",
-        { mode: "cors" },
-        { method: "GET" }
+        {
+          mode: "cors",
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        }
       )
         .then((response) => response.json())
         .then((data) => {
@@ -157,8 +174,13 @@ export const StateContext = ({ children }) => {
     try {
       const resources = fetch(
         "https://resource-booking-api.vercel.app/api/routes/records-rt/uniqueAvailableResources",
-        { mode: "cors" },
-        { method: "GET" }
+        {
+          mode: "cors",
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        }
       )
         .then((response) => response.json())
         .then((data) => {
@@ -300,8 +322,10 @@ export const StateContext = ({ children }) => {
       await fetch(
         "https://resource-booking-api.vercel.app/api/routes/records-rt/createNewResource",
         {
+          mode: "cors",
           method: "POST",
           headers: {
+            authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(resource),
@@ -331,8 +355,13 @@ export const StateContext = ({ children }) => {
       const resources = fetch(
         "https://resource-booking-api.vercel.app/api/routes/records-rt/getUserBookings/" +
           "briha",
-        { mode: "cors" },
-        { method: "GET" }
+        {
+          mode: "cors",
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        }
       )
         .then((response) => response.json())
         .then((data) => {
@@ -356,7 +385,13 @@ export const StateContext = ({ children }) => {
       "https://resource-booking-api.vercel.app/api/routes/records-rt/deleteResource/" +
       currentResource;
     try {
-      const resources = fetch(endpoint, { mode: "cors" }, { method: "GET" })
+      const resources = fetch(endpoint, {
+        mode: "cors",
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      })
         .then((response) => response.json())
         .then(async (result) => {
           console.log(result);
@@ -369,8 +404,10 @@ export const StateContext = ({ children }) => {
             await fetch(
               "https://resource-booking-api.vercel.app/api/routes/records-rt/createNewResource",
               {
+                mode: "cors",
                 method: "POST",
                 headers: {
+                  authorization: `Bearer ${accessToken}`,
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify(resource),
@@ -402,7 +439,13 @@ export const StateContext = ({ children }) => {
     let endpoint =
       "https://resource-booking-api.vercel.app/api/routes/records-rt/deleteResource/" +
       resource;
-    const resources = fetch(endpoint, { mode: "cors" }, { method: "GET" })
+    const resources = fetch(endpoint, {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    })
       .then((response) => response.json())
       .then((result) => {
         notify(result);
@@ -418,7 +461,13 @@ export const StateContext = ({ children }) => {
     endpoint =
       "https://resource-booking-api.vercel.app/api/routes/records-rt/deleteBookings/" +
       resource;
-    const resources2 = fetch(endpoint, { mode: "cors" }, { method: "GET" })
+    const resources2 = fetch(endpoint, {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    })
       .then((response) => response.json())
       .then((result) => {
         notify(result);
