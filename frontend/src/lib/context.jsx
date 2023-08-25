@@ -41,16 +41,15 @@ export const StateContext = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
-    console.log("checker", accessToken);
     if (accessToken != null) {
       console.log("going to fetch");
       setFetchingResources(true);
       try {
         const resources = fetch(
           "https://resource-booking-api.vercel.app/api/routes/records-rt/uniqueExistingResources",
-          { mode: "cors" },
-          { method: "GET" },
           {
+            mode: "cors",
+            method: "GET",
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
