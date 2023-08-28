@@ -44,9 +44,7 @@ export const StateContext = ({ children }) => {
       console.log("hi");
       return getAccessTokenSilently({
         authorizationParams: {
-          audience: "https://resource-booking-api.vercel.app/",
-          scope: "openid profile email read:admin read:client",
-          grant_type: `authorization_code `,
+          audience: `https://${domain}.auth0.com/api/v2/`,
         },
       });
     }
