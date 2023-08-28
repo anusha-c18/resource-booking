@@ -42,12 +42,7 @@ export const StateContext = ({ children }) => {
   useEffect(() => {
     async function getToken() {
       console.log("hi");
-      return getAccessTokenSilently({
-        authorizationParams: {
-          audience: "https://resource-booking-api.vercel.app/",
-          scope: "read:admin read:client",
-        },
-      });
+      return getAccessTokenSilently();
     }
     // { client_id: import.meta.env.VITE_AUTH0_CLIENT_ID,
     // client_secret: import.meta.env.VITE_AUTH0_CLIENT_SECRET,
@@ -68,23 +63,6 @@ export const StateContext = ({ children }) => {
         console.error(err);
       });
   }, [user]);
-
-  useEffect(() => {
-    const link = "https://dev-1k4isffw1z8aw3io.us.auth0.com/oauth/token";
-    try {
-      const resources = fetch(link, {
-        mode: "no-cors",
-        method: "GET",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("yayyyyy", data);
-          setUniqueExistingResources(data);
-        });
-    } catch (err) {
-      console.log("nayyyy", err);
-    }
-  }, []);
 
   useEffect(() => {
     if (accessToken != null) {
