@@ -34,8 +34,25 @@ export const StateContext = ({ children }) => {
   const { getAccessTokenSilently, user } = useAuth0();
 
   useEffect(() => {
-    console.log("userrrr", user);
-  }, [user]);
+    if (accessToken != null) {
+      try {
+        console.log("going to extract user data");
+        const result = fetch(
+          `https://${domain}/api/v2/users/USER_ID/permissions`,
+          {
+            method: "GET",
+            headers: { authorization: "Bearer " + accessToken },
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("extracted user data", data);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, [accessToken, user]);
 
   useEffect(() => {
     async function getToken() {
