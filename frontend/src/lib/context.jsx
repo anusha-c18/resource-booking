@@ -3,6 +3,7 @@ import { notify } from "./../pages/RootLayout";
 import { domain, clientId } from "./../utils/config";
 import axios from "axios";
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
+import { useUserContext } from "./UserContext";
 
 const Context = createContext();
 
@@ -32,24 +33,46 @@ export const StateContext = ({ children }) => {
   const [accessToken, setAccessToken] = useState(null);
   const { getAccessTokenSilently, user } = useAuth0();
   const [userMetadata, setUserMetadata] = useState(null);
+  // const { myUser } = useUserContext();
+
+  useEffect(() => {
+    console.log("userrrr", user);
+  }, [user]);
 
   useEffect(() => {
     async function getToken() {
-      const token = await getAccessTokenSilently({
+      console.log("hi");
+      return getAccessTokenSilently({
         authorizationParams: {
-          audience: `https://${domain}/api/v2/`,
-          scope: "read:admin read:client",
+          audience: "https://resource-booking-api.vercel.app/",
+          scope: "openid profile email read:admin read:client",
+          grant_type: `authorization_code `,
         },
       });
-      console.log("token from function", token);
-      updateAccessToken(token);
     }
+    // { client_id: import.meta.env.VITE_AUTH0_CLIENT_ID,
+    // client_secret: import.meta.env.VITE_AUTH0_CLIENT_SECRET,
+    // authorizationParams: {
+    //   scope: "read:admin read:client",
+    //   audience: `https://${domain}/api/v2/`,
+    //   scope: "read:admin read:client",
+    //   redirect_uri: "http://localhost:5173",
+    //   grant_type: `authorization_code `,
+    // },}
+    getToken()
+      .then((token) => {
+        console.log("token from function", token);
 
-    getToken();
+        updateAccessToken(token);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, [user]);
 
   useEffect(() => {
     if (accessToken != null) {
+      console.log("accessTokenyoMama", accessToken);
       let options = {
         method: "GET",
         url: "https://resource-booking-api.vercel.app/api/routes/records-rt/uniqueExistingResources",
@@ -68,6 +91,8 @@ export const StateContext = ({ children }) => {
     }
     if (accessToken != null) {
       console.log("going to fetch");
+      console.log("accessTokenyoMama", accessToken);
+
       setFetchingResources(true);
       try {
         const resources = fetch(
@@ -96,28 +121,29 @@ export const StateContext = ({ children }) => {
   }, [fetchAllResource, accessToken]);
 
   useEffect(() => {
-    if (accessToken != null) {
-      try {
-        const resources = fetch(
-          "https://resource-booking-api.vercel.app/api/routes/records-rt/allResources",
-          {
-            mode: "cors",
-            method: "GET",
-            headers: {
-              authorization: `Bearer ${accessToken}`,
-            },
-            data: { flags: { use_scope_descriptions_for_consent: true } },
-          }
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            setAllResources(data);
-          });
-      } catch (err) {
-        console.log(err);
-      }
+    // if (accessToken != null) {
+    console.log("accessTokenyoMama", accessToken);
+    try {
+      const resources = fetch(
+        "https://resource-booking-api.vercel.app/api/routes/records-rt/allResources",
+        {
+          mode: "cors",
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+          data: { flags: { use_scope_descriptions_for_consent: true } },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setAllResources(data);
+        });
+    } catch (err) {
+      console.log(err);
     }
-  }, [fetchAllResource, accessToken]);
+    // }
+  }, [fetchAllResource, user, accessToken]);
 
   useEffect(() => {
     setFetchingAllBookings(true);
