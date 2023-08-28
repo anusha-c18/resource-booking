@@ -44,7 +44,8 @@ export const StateContext = ({ children }) => {
       console.log("hi");
       return getAccessTokenSilently({
         authorizationParams: {
-          audience: `https://${domain}.auth0.com/api/v2/`,
+          audience: "https://resource-booking-api.vercel.app/",
+          scope: "read:admin read:client",
         },
       });
     }
@@ -67,6 +68,23 @@ export const StateContext = ({ children }) => {
         console.error(err);
       });
   }, [user]);
+
+  useEffect(() => {
+    const link = "https://dev-1k4isffw1z8aw3io.us.auth0.com/oauth/token";
+    try {
+      const resources = fetch(link, {
+        mode: "no-cors",
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("yayyyyy", data);
+          setUniqueExistingResources(data);
+        });
+    } catch (err) {
+      console.log("nayyyy", err);
+    }
+  }, []);
 
   useEffect(() => {
     if (accessToken != null) {
