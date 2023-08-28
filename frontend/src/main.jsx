@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       clientId={clientId}
       authorizationParams={{
         redirect_uri: "https://resource-booking-frontend.vercel.app",
-        audience: { audience },
+        audience: "https://resource-booking-api.vercel.app/",
         grant_type: `authorization_code `,
         scope: "read:admin read:client",
       }}
