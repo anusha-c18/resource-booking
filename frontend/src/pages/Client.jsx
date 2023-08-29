@@ -3,9 +3,10 @@ import { Outlet } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import BookingModal from "../components/modals/BookingModal";
 import { useStateContext } from "../lib/context";
+import NewUser from "../components/modals/NewUser";
 
 function Client() {
-  const { bookingModalVisibility, role } = useStateContext();
+  const { bookingModalVisibility, role, newUserVisibility } = useStateContext();
   if (role === "client") {
     return (
       <>
@@ -13,6 +14,7 @@ function Client() {
         <AnimatePresence>
           {bookingModalVisibility ? <BookingModal /> : null}
         </AnimatePresence>
+        {newUserVisibility ? <NewUser /> : null}
       </>
     );
   } else {

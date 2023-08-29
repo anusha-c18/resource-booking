@@ -14,12 +14,14 @@ const deleteBookings = require("./deleteBookings.helper");
 const mongoUtil = require("../../db/mongoUtil");
 const getUserBookings = require("./userBookings.helper");
 const checkUser = require("./checkUser.helper");
+const createUser = require("./createUser.helper");
 const client = mongoUtil.client;
 
 module.exports.checkUser = async function (req, res) {
   try {
+    const userName = req.params.name;
     console.log("checking if user exists");
-    const exists = await checkUser.checkUser(client);
+    const exists = await checkUser.checkUser(client, userName);
     if (exists) {
       res.status(200).send([true]);
     } else {
@@ -27,6 +29,21 @@ module.exports.checkUser = async function (req, res) {
     }
   } catch (err) {
     console.log(err);
+  }
+};
+
+module.exports.createUser = async function (req, res) {
+  try {
+    const userName = req.params.name;
+    const flat = req.params.flat;
+    const results = createUser.createUser(client, userName, flat);
+    if (!results) {
+      res.status(500).send(["Could not enter details. Please try again!"]);
+    } else {
+      res.status(200).send(["Entered details successfully!"]);
+    }
+  } catch (err) {
+    console.loog(err);
   }
 };
 

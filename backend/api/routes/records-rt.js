@@ -58,4 +58,6 @@ router.route("/getUserBookings/:name").get(checkJwt, controller.userBookings);
 
 router.route("/checkUser/:name").get(checkJwt, controller.checkUser);
 
+router.route("/createUser/:name/:flat").get(checkJwt, controller.createUser);
+
 module.exports = router;

@@ -32,8 +32,10 @@ export const StateContext = ({ children }) => {
   const [userBookings, setUserBookings] = useState([]);
   const [accessToken, setAccessToken] = useState(null);
   const [role, setRole] = useState("");
+  const [userName, setUserName] = useState("");
   const { getAccessTokenSilently, user } = useAuth0();
   const navigate = useNavigate();
+  const [newUserVisibility, setNewUserVisibility] = useState(true);
 
   useEffect(() => {
     if (accessToken != null) {
@@ -110,12 +112,13 @@ export const StateContext = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
-    if (accessToken != null) {
+    if (accessToken != null && user != null) {
       try {
         const name =
           user.given_name != ""
             ? user.given_name + " " + user.family_name
             : user.nickname;
+        setUserName(name);
         console.log("name of the user: ", name);
         const resources = fetch(
           "https://resource-booking-api.vercel.app/api/routes/records-rt/checkUser/" +
@@ -131,13 +134,16 @@ export const StateContext = ({ children }) => {
           //has to return true or false
           .then((response) => response.json())
           .then((data) => {
-            console.log("user exists: ", data);
+            console.log("user exists: ", data[0]);
+            if (!data[0]) {
+              toggleNewUserModal();
+            }
           });
       } catch (err) {
         console.log(err);
       }
     }
-  }, [accessToken]);
+  }, [accessToken, user]);
 
   useEffect(() => {
     if (accessToken != null) {
@@ -277,6 +283,42 @@ export const StateContext = ({ children }) => {
     console.log(availableTimeSlots);
   }, [availableTimeSlots]);
 
+  const createNewUser = async (flat) => {
+    setPushingToDb(true);
+    try {
+      await fetch(
+        "https://resource-booking-api.vercel.app/api/routes/records-rt/createUser/" +
+          userName +
+          "/" +
+          flat,
+        {
+          mode: "cors",
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+          data: { flags: { use_scope_descriptions_for_consent: true } },
+        }
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          notify(result);
+        })
+        .catch((error) => {
+          notify("Could not enter details. Please try again!");
+        });
+    } catch (err) {
+      console.log(err);
+    }
+    setPushingToDb(false);
+  };
+
+  const toggleNewUserModal = () => {
+    setNewUserVisibility((state) => {
+      return !state;
+    });
+  };
+
   const toggleEditResourceModal = () => {
     setEditResourceModal((state) => {
       return !state;
@@ -322,20 +364,10 @@ export const StateContext = ({ children }) => {
     setStartTime(time);
   };
 
-  const resetValues = () => {
-    setCurrentResource("");
-    setStartTime("");
-    setAvailableTimeSlots([]);
-  };
-
   const updateDeleteModalVisibility = () => {
     setDeleteModalVisibility((state) => {
       return !state;
     });
-  };
-
-  const updateUserDetails = () => {
-    ////setup endpoint connection here using useEffect based on login details
   };
 
   const pushBooking = (slot) => {
@@ -610,7 +642,10 @@ export const StateContext = ({ children }) => {
           editResourceModal,
           role,
           navIsActive,
+          newUserVisibility,
+          toggleNewUserModal,
           updateResource,
+          createNewUser,
           toggleNavIsActive,
           toggleUpdatingResource,
           toggleEditResourceModal,
