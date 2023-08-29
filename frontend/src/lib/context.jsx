@@ -52,12 +52,18 @@ export const StateContext = ({ children }) => {
 
         return JSON.parse(jsonPayload);
       }
+      let userRole;
       const data = parseJwt(accessToken);
-      const permissions = data.permissions[0];
-      const parts = permissions.split(":");
-      const userRole = parts[1];
-      console.log("role: ", userRole);
-      setRole(userRole);
+      if (data.permissions.length == 0) {
+        setRole("client");
+        userRole = "client";
+      } else {
+        const permissions = data.permissions[0];
+        const parts = permissions.split(":");
+        userRole = parts[1];
+        console.log("role: ", userRole);
+        setRole(userRole);
+      }
       if (userRole == "admin") {
         navigate("/admin");
       } else if (userRole == "client") {
