@@ -113,7 +113,7 @@ export const StateContext = ({ children }) => {
     if (accessToken != null) {
       try {
         const name =
-          user.nickname === ""
+          user.given_name != ""
             ? user.given_name + " " + user.family_name
             : user.nickname;
         console.log("name of the user: ", name);
@@ -131,7 +131,7 @@ export const StateContext = ({ children }) => {
           //has to return true or false
           .then((response) => response.json())
           .then((data) => {
-            console.log(data);
+            console.log("user exists: ", data);
           });
       } catch (err) {
         console.log(err);
