@@ -133,7 +133,7 @@ export const StateContext = ({ children }) => {
           .then((data) => {
             console.log("user exists: ", data);
             if (!data[0]) {
-              toggleNewUserModal();
+              if (!newUserVisibility) toggleNewUserModal();
             }
           });
       } catch (err) {
