@@ -5,7 +5,7 @@ import Client from "./pages/Client";
 import Admin from "./pages/Admin";
 import { useAuth0, Auth0Provider } from "@auth0/auth0-react";
 import Error from "./pages/Error";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, IndexRoute } from "react-router-dom";
 import Login from "./pages/Login";
 import { UserProvider } from "./lib/UserContext";
 import { createBrowserRouter } from "react-router-dom";
@@ -22,13 +22,13 @@ export function App() {
       <UserProvider>
         <Routes>
           <Route path="/" element={<RootLayout />}>
-            <Route index element={<Login />} />
+            <IndexRoute element={<Login />} />
             <Route path="client" element={<Client />}>
-              <Route index element={<AvailableResources />} />
+              <IndexRoute element={<AvailableResources />} />
               <Route path="myBookings" element={<MyBookings />} />
             </Route>
             <Route path="admin" element={<Admin />}>
-              <Route index element={<ResourceOverview />} />
+              <IndexRoute element={<ResourceOverview />} />
               <Route path="resourceOverview" element={<ResourceOverview />} />
               <Route
                 path="resourceManagement"
