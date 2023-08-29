@@ -24,21 +24,15 @@ export function App() {
           <Route path="/" element={<RootLayout />}>
             <Route index element={<Login />} />
             <Route path="client" element={<Client />}>
-              <Route
-                index
-                element={withAuthenticationRequired(<AvailableResources />)}
-              />
+              <Route index element={<AvailableResources />} />
               <Route path="myBookings" element={<MyBookings />} />
             </Route>
             <Route path="admin" element={<Admin />}>
               <Route index element={<ResourceOverview />} />
-              <Route
-                path="resourceOverview"
-                element={withAuthenticationRequired(<ResourceOverview />)}
-              />
+              <Route path="resourceOverview" element={<ResourceOverview />} />
               <Route
                 path="resourceManagement"
-                element={withAuthenticationRequired(<ResourceManagement />)}
+                element={<ResourceManagement />}
               />
             </Route>
             <Route path="*" element={<Error />} />
