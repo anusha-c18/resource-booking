@@ -56,4 +56,6 @@ router
 
 router.route("/getUserBookings/:name").get(checkJwt, controller.userBookings);
 
+router.route("/checkUser/:name").get(checkJwt, controller.checkUser);
+
 module.exports = router;

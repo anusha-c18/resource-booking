@@ -13,7 +13,22 @@ const deleteResource = require("./deleteResource.helper");
 const deleteBookings = require("./deleteBookings.helper");
 const mongoUtil = require("../../db/mongoUtil");
 const getUserBookings = require("./userBookings.helper");
+const checkUser = require("./checkUser.helper");
 const client = mongoUtil.client;
+
+module.exports.checkUser = async function (req, res) {
+  try {
+    console.log("checking if user exists");
+    const exists = await checkUser.checkUser(client);
+    if (exists) {
+      res.status(200).send([true]);
+    } else {
+      res.status(200).send([false]);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 module.exports.getAllResources = async function (req, res) {
   try {

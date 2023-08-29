@@ -111,6 +111,36 @@ export const StateContext = ({ children }) => {
 
   useEffect(() => {
     if (accessToken != null) {
+      try {
+        const name =
+          user.nickname === ""
+            ? user.given_name + " " + user.family_name
+            : user.nickname;
+        console.log("name of the user: ", name);
+        const resources = fetch(
+          "https://resource-booking-api.vercel.app/api/routes/records-rt/checkUser/" +
+            name,
+          {
+            mode: "cors",
+            method: "GET",
+            headers: {
+              authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
+          //has to return true or false
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, [accessToken]);
+
+  useEffect(() => {
+    if (accessToken != null) {
       setFetchingResources(true);
       try {
         const resources = fetch(
