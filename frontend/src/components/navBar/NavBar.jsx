@@ -63,7 +63,7 @@ function NavBar() {
               );
             })}
             <li
-              className="listItem"
+              className="navItem"
               onClick={() => logout({ returnTo: window.location.origin })}
             >
               Logout
