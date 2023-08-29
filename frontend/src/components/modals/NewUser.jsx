@@ -4,13 +4,13 @@ import Loading from "./../../../public/images/loading.gif";
 import { motion } from "framer-motion";
 import "./NewUser.css";
 
-const createNewUser = (event) => {
-  event.preventDefault();
-  console.log("flat number", event.target[0].value);
-  createNewUser(event.target[0].value);
-};
-
 function NewUser() {
+  const createNewUser = (event) => {
+    event.preventDefault();
+    console.log("flat number", event.target[0].value);
+    createNewUser(event.target[0].value);
+  };
+
   const { pushingToDb } = useStateContext();
   return (
     <motion.form
