@@ -1,5 +1,5 @@
 const adminNavItems = [
-  { "Resource Management": "/adjmin/resourceManagement" },
+  { "Resource Management": "/admin/resourceManagement" },
   { "Resource Overview": "/admin/resourceOverview" },
   { Logout: "/" },
 ];
