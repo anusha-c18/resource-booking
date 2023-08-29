@@ -52,6 +52,7 @@ export const StateContext = ({ children }) => {
           {
             method: "GET",
             headers: { authorization: "Bearer " + accessToken },
+            scope: "read:admin read:client",
           }
         )
           .then((response) => response.json())
@@ -122,7 +123,6 @@ export const StateContext = ({ children }) => {
             method: "GET",
             headers: {
               authorization: `Bearer ${accessToken}`,
-              scope: "read:admin read:client",
             },
             data: { flags: { use_scope_descriptions_for_consent: true } },
           }
