@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         redirect_uri: "https://resource-booking-frontend.vercel.app",
         audience: "https://resource-booking-api.vercel.app/",
         grant_type: `authorization_code `,
-        scope: "read:admin read:client",
+        scope: "openid profile email read:admin read:client",
       }}
       cacheLocation="localstorage"
       response_type="token"
