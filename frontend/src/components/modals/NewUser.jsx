@@ -1,7 +1,7 @@
 import React from "react";
 import { useStateContext } from "../../lib/context";
 import Loading from "./../../../public/images/loading.gif";
-import { notify } from "../../pages/RootLayout";
+import { motion } from "framer-motion";
 
 const createNewUser = (event) => {
   event.preventDefault();

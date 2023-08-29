@@ -22,6 +22,7 @@ module.exports.checkUser = async function (req, res) {
     const userName = req.params.name;
     console.log("checking if user exists");
     const exists = await checkUser.checkUser(client, userName);
+    console.log("user exists?", exists);
     if (exists) {
       res.status(200).send([true]);
     } else {
