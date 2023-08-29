@@ -5,17 +5,17 @@ import { motion } from "framer-motion";
 import "./NewUser.css";
 
 function NewUser() {
-  const createNewUser = (event) => {
+  const { createNewUser, pushingToDb } = useStateContext();
+  const newUser = (event) => {
     event.preventDefault();
     console.log("flat number", event.target[0].value);
     createNewUser(event.target[0].value);
   };
 
-  const { pushingToDb } = useStateContext();
   return (
     <motion.form
       className="newUserModal"
-      onSubmit={createNewUser}
+      onSubmit={newUser}
       initial={{ opacity: 0, scale: 0.25 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.2 }}
