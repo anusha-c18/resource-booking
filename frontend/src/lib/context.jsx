@@ -38,7 +38,7 @@ export const StateContext = ({ children }) => {
   const [newUserVisibility, setNewUserVisibility] = useState(true);
 
   useEffect(() => {
-    if (accessToken != null) {
+    if (accessToken != null && user != null) {
       function parseJwt(token) {
         var base64Url = token.split(".")[1];
         var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
