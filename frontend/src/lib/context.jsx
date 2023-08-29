@@ -81,7 +81,7 @@ export const StateContext = ({ children }) => {
       try {
         console.log("going to extract user data");
         const result = fetch(
-          "https://resource-booking-api.vercel.app/api/v2/users/auth0|64e347c1a89d8e5af72eec72/permissions",
+          "https://resource-booking-api.vercel.app/users/auth0|64e347c1a89d8e5af72eec72/permissions",
           {
             method: "GET",
             headers: { authorization: "Bearer " + accessToken },
