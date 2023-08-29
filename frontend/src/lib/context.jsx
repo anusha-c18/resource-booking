@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useContext, useState } from "react";
 import { notify } from "./../pages/RootLayout";
 import { domain, clientId } from "./../utils/config";
 import axios from "axios";
-import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
+import { Auth0Provider, useAuth0, Authentication } from "@auth0/auth0-react";
 import { useUserContext } from "./UserContext";
 
 const Context = createContext();
@@ -33,8 +33,15 @@ export const StateContext = ({ children }) => {
   const [accessToken, setAccessToken] = useState(null);
   const { getAccessTokenSilently, user } = useAuth0();
   useEffect(() => {
-    if (user != null) console.log("id", user.user_id);
-  }, [user]);
+    if (accessToken != null) {
+      function decodeToken(authentication) {
+        const tokenAttributes = authentication.getTokenAttributes();
+        Object.entries(tokenAttributes).forEach(([key, value]) => {
+          console.log(key + ": " + value.toString());
+        });
+      }
+    }
+  }, [accessToken]);
 
   useEffect(() => {
     if (accessToken != null) {
@@ -115,6 +122,7 @@ export const StateContext = ({ children }) => {
             method: "GET",
             headers: {
               authorization: `Bearer ${accessToken}`,
+              scope: "read:admin read:client",
             },
             data: { flags: { use_scope_descriptions_for_consent: true } },
           }
