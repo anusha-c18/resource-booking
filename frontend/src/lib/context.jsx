@@ -77,7 +77,6 @@ export const StateContext = ({ children }) => {
   useEffect(() => {
     if (accessToken != null) {
       try {
-        console.log("going to extract user data - new");
         const result = fetch(
           "https://dev-1k4isffw1z8aw3io.us.auth0.com/userinfo",
           {
@@ -87,9 +86,7 @@ export const StateContext = ({ children }) => {
           }
         )
           .then((response) => response.json())
-          .then((data) => {
-            console.log("extracted user data - new", data);
-          });
+          .then((data) => {});
       } catch (err) {
         console.log(err);
       }
@@ -134,7 +131,7 @@ export const StateContext = ({ children }) => {
           //has to return true or false
           .then((response) => response.json())
           .then((data) => {
-            console.log("user exists: ", data[0]);
+            console.log("user exists: ", data);
             if (!data[0]) {
               toggleNewUserModal();
             }
@@ -175,7 +172,6 @@ export const StateContext = ({ children }) => {
 
   useEffect(() => {
     if (accessToken != null) {
-      console.log("accessTokenyoMama", accessToken);
       try {
         const resources = fetch(
           "https://resource-booking-api.vercel.app/api/routes/records-rt/allResources",
@@ -215,7 +211,6 @@ export const StateContext = ({ children }) => {
         )
           .then((response) => response.json())
           .then((data) => {
-            console.log("all bookings", data);
             setAllBookings(data);
           });
       } catch (err) {
@@ -278,10 +273,6 @@ export const StateContext = ({ children }) => {
       }
     }
   }, [fetchAllResource, accessToken]);
-
-  useEffect(() => {
-    console.log(availableTimeSlots);
-  }, [availableTimeSlots]);
 
   const createNewUser = async (flat) => {
     setPushingToDb(true);
@@ -431,7 +422,6 @@ export const StateContext = ({ children }) => {
   };
 
   const createNewResource = async (resource) => {
-    console.log("cretion", resource);
     const date = new Date();
     const day = date.getDate();
     const month = date.getUTCMonth() + 1;
@@ -468,10 +458,6 @@ export const StateContext = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log("all", allResources);
-  }, [allResources]);
-
-  useEffect(() => {
     if (accessToken != null) {
       try {
         const resources = fetch(
@@ -489,7 +475,6 @@ export const StateContext = ({ children }) => {
           .then((response) => response.json())
           .then((data) => {
             setUserBookings(data);
-            console.log(data);
           });
       } catch (err) {
         console.log(err);
@@ -519,7 +504,6 @@ export const StateContext = ({ children }) => {
       })
         .then((response) => response.json())
         .then(async (result) => {
-          console.log(result);
           const date = new Date();
           const day = date.getDate();
           const month = date.getUTCMonth() + 1;
