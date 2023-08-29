@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 function NavBar() {
   const { toggleNavIsActive, navIsActive, role } = useStateContext();
-  const { myUser } = useUserContext();
+  const { myUser, logout } = useUserContext();
   const profilePicture = myUser.picture;
   console.log(role);
   console.log(role === "admin");
@@ -62,6 +62,12 @@ function NavBar() {
                 </li>
               );
             })}
+            <li
+              className="listItem"
+              onClick={() => logout({ returnTo: window.location.origin })}
+            >
+              Logout
+            </li>
           </motion.ul>
         ) : null}
       </AnimatePresence>

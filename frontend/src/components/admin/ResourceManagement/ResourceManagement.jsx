@@ -19,7 +19,6 @@ function ResourceManagement() {
 
   return (
     <>
-      <p className="title">Resource Management</p>
       <p className="title">Existing Resources</p>
       <div className="allResources">
         {fetchingResources ? (
