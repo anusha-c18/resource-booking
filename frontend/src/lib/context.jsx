@@ -110,28 +110,6 @@ export const StateContext = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
-    console.log("bitch");
-    try {
-      const result = fetch(
-        "https://dev-1k4isffw1z8aw3io.us.auth0.com/oauth/token",
-        {
-          method: "POST",
-          headers: {
-            "Auth0-Client":
-              "eyJuYW1lIjoiYXV0aDAtcmVhY3QiLCJ2ZXJzaW9uIjoiMi4yLjEifQ==",
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("tokenss==s=s===", data);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
-
-  useEffect(() => {
     if (accessToken != null) {
       setFetchingResources(true);
       try {
