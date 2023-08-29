@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 function NavBar() {
-  const { toggleNavIsActive, navIsActive } = useStateContext();
-  const { myUser, role } = useUserContext();
+  const { toggleNavIsActive, navIsActive, role } = useStateContext();
+  const { myUser } = useUserContext();
   const profilePicture = myUser.picture;
   console.log(role);
   console.log(role === "admin");
