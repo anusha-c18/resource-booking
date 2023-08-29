@@ -1,3 +1,56 @@
 .navBar {
   display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: 30px;
+  width: 100%;
+}
+
+.profilePicture {
+  height: 29px;
+  border: 0px;
+  border-radius: 17px;
+  margin: 2px;
+}
+
+.navContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.navContent {
+  height: 90vh;
+  z-index: 100;
+  padding: 10px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: 0px;
+  background: rgba(255, 255, 255, 0.52);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(19.2px);
+  -webkit-backdrop-filter: blur(19.2px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.listItem {
+  margin: 30px;
+}
+
+.navItem {
+  text-decoration: none;
+  text-align: center;
+  color: black;
+  font-weight: 700;
+  font-size: larger;
 }

@@ -11,21 +11,33 @@ function Admin() {
     createResourceModalVisibility,
     deleteModalVisibility,
     editResourceModal,
+    role,
   } = useStateContext();
-  return (
-    <>
-      <AnimatePresence>
-        {createResourceModalVisibility ? <CreateResourceModal /> : null}
-      </AnimatePresence>
-      <AnimatePresence>
-        {deleteModalVisibility ? <DeleteModal /> : null}
-      </AnimatePresence>
-      <AnimatePresence>
-        {editResourceModal ? <EditModal /> : null}
-      </AnimatePresence>
-      <Outlet></Outlet>
-    </>
-  );
+
+  if (role === "admin") {
+    return (
+      <>
+        <AnimatePresence>
+          {createResourceModalVisibility ? <CreateResourceModal /> : null}
+        </AnimatePresence>
+        <AnimatePresence>
+          {deleteModalVisibility ? <DeleteModal /> : null}
+        </AnimatePresence>
+        <AnimatePresence>
+          {editResourceModal ? <EditModal /> : null}
+        </AnimatePresence>
+        <Outlet></Outlet>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <p className="accessDenied">
+          Sorry, you don't have access to this page!
+        </p>
+      </>
+    );
+  }
 }
 
 export default Admin;

@@ -5,7 +5,7 @@ import Client from "./pages/Client";
 import Admin from "./pages/Admin";
 import { useAuth0, Auth0Provider } from "@auth0/auth0-react";
 import Error from "./pages/Error";
-import { Routes, Route, IndexRoute } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import { UserProvider } from "./lib/UserContext";
 import { createBrowserRouter } from "react-router-dom";
@@ -22,13 +22,17 @@ export function App() {
       <UserProvider>
         <Routes>
           <Route path="/" element={<RootLayout />}>
-            <IndexRoute element={<Login />} />
+            <Route index element={<Login />} />
             <Route path="client" element={<Client />}>
-              <IndexRoute element={<AvailableResources />} />
+              <Route index element={<AvailableResources />} />
+              <Route
+                path="availableResources"
+                element={<AvailableResources />}
+              />
               <Route path="myBookings" element={<MyBookings />} />
             </Route>
             <Route path="admin" element={<Admin />}>
-              <IndexRoute element={<ResourceOverview />} />
+              <Route index element={<ResourceOverview />} />
               <Route path="resourceOverview" element={<ResourceOverview />} />
               <Route
                 path="resourceManagement"
@@ -40,7 +44,5 @@ export function App() {
         </Routes>
       </UserProvider>
     </>
-
-    //create route with element private route where check if myuser exists - then check the role of myuser - based on that render client and admin - nav bars + outlet tag to get the element to be rendered within
   );
 }

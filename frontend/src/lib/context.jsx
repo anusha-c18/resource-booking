@@ -8,6 +8,7 @@ const Context = createContext();
 
 export const StateContext = ({ children }) => {
   const [allResources, setAllResources] = useState([]);
+  const [navIsActive, setNavIsActive] = useState(false);
   const [uniqueAvailableResources, setUniqueAvailableResources] = useState([]);
   const [bookingModalVisibility, setBookingModalVisibility] = useState(false);
   const [deleteModalVisibility, setDeleteModalVisibility] = useState(false);
@@ -80,8 +81,6 @@ export const StateContext = ({ children }) => {
           .then((response) => response.json())
           .then((data) => {
             console.log("extracted user data - new", data);
-            console.log("extracted user data - new", data.permissions);
-            console.log("extracted user data - new", data.payload);
           });
       } catch (err) {
         console.log(err);
@@ -91,7 +90,6 @@ export const StateContext = ({ children }) => {
 
   useEffect(() => {
     async function getToken() {
-      console.log("hi");
       return getAccessTokenSilently();
     }
     getToken()
@@ -107,7 +105,6 @@ export const StateContext = ({ children }) => {
 
   useEffect(() => {
     if (accessToken != null) {
-      console.log("going to fetch");
       setFetchingResources(true);
       try {
         const resources = fetch(
@@ -246,6 +243,12 @@ export const StateContext = ({ children }) => {
 
   const toggleEditResourceModal = () => {
     setEditResourceModal((state) => {
+      return !state;
+    });
+  };
+
+  const toggleNavIsActive = () => {
+    setNavIsActive((state) => {
       return !state;
     });
   };
@@ -570,7 +573,9 @@ export const StateContext = ({ children }) => {
           deletingResource,
           editResourceModal,
           role,
+          navIsActive,
           updateResource,
+          toggleNavIsActive,
           toggleUpdatingResource,
           toggleEditResourceModal,
           resourceDeletion,

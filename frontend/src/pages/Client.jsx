@@ -5,15 +5,25 @@ import BookingModal from "../components/modals/BookingModal";
 import { useStateContext } from "../lib/context";
 
 function Client() {
-  const { bookingModalVisibility } = useStateContext();
-  return (
-    <>
-      <Outlet></Outlet>
-      <AnimatePresence>
-        {bookingModalVisibility ? <BookingModal /> : null}
-      </AnimatePresence>
-    </>
-  );
+  const { bookingModalVisibility, role } = useStateContext();
+  if (role === "client") {
+    return (
+      <>
+        <Outlet></Outlet>
+        <AnimatePresence>
+          {bookingModalVisibility ? <BookingModal /> : null}
+        </AnimatePresence>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <p className="accessDenied">
+          Sorry, you don't have access to this page!
+        </p>
+      </>
+    );
+  }
 }
 
 export default Client;
