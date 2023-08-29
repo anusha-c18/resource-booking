@@ -1,9 +1,8 @@
 import React, { createContext, useEffect, useContext, useState } from "react";
 import { notify } from "./../pages/RootLayout";
 import { domain, clientId } from "./../utils/config";
-import axios from "axios";
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
-import { useUserContext } from "./UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Context = createContext();
 
@@ -31,7 +30,9 @@ export const StateContext = ({ children }) => {
   const [updatingResource, setUpdatingResource] = useState(false);
   const [userBookings, setUserBookings] = useState([]);
   const [accessToken, setAccessToken] = useState(null);
+  const [role, setRole] = useState("");
   const { getAccessTokenSilently, user } = useAuth0();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (accessToken != null) {
@@ -50,7 +51,17 @@ export const StateContext = ({ children }) => {
 
         return JSON.parse(jsonPayload);
       }
-      console.log(parseJwt(accessToken));
+      const data = parseJwt(accessToken);
+      const permissions = data.permissions[0];
+      const parts = permissions.split(":");
+      const userRole = parts[1];
+      console.log("role: ", userRole);
+      setRole(userRole);
+      if (userRole == "admin") {
+        navigate("/admin");
+      } else if (userRole == "client") {
+        navigate("/client");
+      }
     }
   }, [accessToken]);
 
@@ -558,6 +569,7 @@ export const StateContext = ({ children }) => {
           fetchingAllBookings,
           deletingResource,
           editResourceModal,
+          role,
           updateResource,
           toggleUpdatingResource,
           toggleEditResourceModal,
