@@ -35,67 +35,67 @@ export const StateContext = ({ children }) => {
   useEffect(() => {
     if (user != null) console.log("id", user.user_id);
   }, [user]);
-  // useEffect(() => {
-  //   if (accessToken != null) {
-  //     try {
-  //       console.log("going to extract user data");
-  //       const result = fetch(
-  //         "https://dev-1k4isffw1z8aw3io.auth0.com/api/v2/users/USER_ID/permissions",
-  //         {
-  //           method: "GET",
-  //           headers: { authorization: "Bearer " + accessToken },
-  //         }
-  //       )
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           console.log("extracted user data", data);
-  //         });
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-  // }, [accessToken, user]);
-  // useEffect(() => {
-  //   if (accessToken != null) {
-  //     try {
-  //       console.log("going to extract user data");
-  //       const result = fetch(
-  //         "https://dev-1k4isffw1z8aw3io.us.auth0.com/api/v2/users/USER_ID/permissions",
-  //         // https://resource-booking-api.vercel.app/
-  //         {
-  //           method: "GET",
-  //           headers: { authorization: "Bearer " + accessToken },
-  //         }
-  //       )
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           console.log("extracted user data", data);
-  //         });
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-  // }, [accessToken, user]);
-  // useEffect(() => {
-  //   if (accessToken != null) {
-  //     try {
-  //       console.log("going to extract user data");
-  //       const result = fetch(
-  //         "https://resource-booking-api.vercel.app/api/v2/users/USER_ID/permissions",
-  //         {
-  //           method: "GET",
-  //           headers: { authorization: "Bearer " + accessToken },
-  //         }
-  //       )
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           console.log("extracted user data", data);
-  //         });
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-  // }, [accessToken, user]);
+  useEffect(() => {
+    if (accessToken != null) {
+      try {
+        console.log("going to extract user data");
+        const result = fetch(
+          "https://dev-1k4isffw1z8aw3io.auth0.com/api/v2/users/auth0|64e347c1a89d8e5af72eec72/permissions",
+          {
+            method: "GET",
+            headers: { authorization: "Bearer " + accessToken },
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("extracted user data", data);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, [accessToken, user]);
+  useEffect(() => {
+    if (accessToken != null) {
+      try {
+        console.log("going to extract user data");
+        const result = fetch(
+          "https://dev-1k4isffw1z8aw3io.us.auth0.com/api/v2/users/auth0|64e347c1a89d8e5af72eec72/permissions",
+          // https://resource-booking-api.vercel.app/
+          {
+            method: "GET",
+            headers: { authorization: "Bearer " + accessToken },
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("extracted user data", data);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, [accessToken, user]);
+  useEffect(() => {
+    if (accessToken != null) {
+      try {
+        console.log("going to extract user data");
+        const result = fetch(
+          "https://resource-booking-api.vercel.app/api/v2/users/auth0|64e347c1a89d8e5af72eec72/permissions",
+          {
+            method: "GET",
+            headers: { authorization: "Bearer " + accessToken },
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("extracted user data", data);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, [accessToken, user]);
 
   useEffect(() => {
     async function getToken() {
