@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useContext, useState } from "react";
 import { notify } from "./../pages/RootLayout";
 import { domain, clientId } from "./../utils/config";
 import axios from "axios";
-import { Auth0Provider, useAuth0, Authentication } from "@auth0/auth0-react";
+import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { useUserContext } from "./UserContext";
 
 const Context = createContext();
@@ -32,14 +32,25 @@ export const StateContext = ({ children }) => {
   const [userBookings, setUserBookings] = useState([]);
   const [accessToken, setAccessToken] = useState(null);
   const { getAccessTokenSilently, user } = useAuth0();
+
   useEffect(() => {
     if (accessToken != null) {
-      function decodeToken(authentication) {
-        const tokenAttributes = authentication.getTokenAttributes();
-        Object.entries(tokenAttributes).forEach(([key, value]) => {
-          console.log(key + ": " + value.toString());
-        });
+      function parseJwt(token) {
+        var base64Url = token.split(".")[1];
+        var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        var jsonPayload = decodeURIComponent(
+          window
+            .atob(base64)
+            .split("")
+            .map(function (c) {
+              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join("")
+        );
+
+        return JSON.parse(jsonPayload);
       }
+      console.log(parseJwt(accessToken));
     }
   }, [accessToken]);
 
