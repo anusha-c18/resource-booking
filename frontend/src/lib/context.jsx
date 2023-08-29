@@ -79,9 +79,9 @@ export const StateContext = ({ children }) => {
   useEffect(() => {
     if (accessToken != null) {
       try {
-        console.log("going to extract user data");
+        console.log("going to extract user data - new");
         const result = fetch(
-          "https://resource-booking-api.vercel.app/users/auth0|64e347c1a89d8e5af72eec72/permissions",
+          "https://dev-1k4isffw1z8aw3io.us.auth0.com/userinfo",
           {
             method: "GET",
             headers: { authorization: "Bearer " + accessToken },
@@ -89,7 +89,7 @@ export const StateContext = ({ children }) => {
         )
           .then((response) => response.json())
           .then((data) => {
-            console.log("extracted user data", data);
+            console.log("extracted user data - new", data);
           });
       } catch (err) {
         console.log(err);
