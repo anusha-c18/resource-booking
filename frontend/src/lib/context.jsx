@@ -72,7 +72,7 @@ export const StateContext = ({ children }) => {
         navigate("/client");
       }
     }
-  }, [accessToken]);
+  }, [accessToken, user]);
 
   useEffect(() => {
     if (accessToken != null) {
