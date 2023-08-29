@@ -118,7 +118,8 @@ export const StateContext = ({ children }) => {
         setUserName(name);
         console.log("name of the user: ", name);
         const resources = fetch(
-          "https://localhost:5173/api/routes/records-rt/checkUser/" + name,
+          "https://resource-booking-api.vercel.app/api/routes/records-rt/checkUser/" +
+            name,
           {
             mode: "cors",
             method: "GET",
@@ -276,6 +277,7 @@ export const StateContext = ({ children }) => {
   const createNewUser = async (flat) => {
     setPushingToDb(true);
     try {
+      console.log("creating user");
       await fetch(
         "https://resource-booking-api.vercel.app/api/routes/records-rt/createUser/" +
           userName +
@@ -293,6 +295,7 @@ export const StateContext = ({ children }) => {
         .then((response) => response.json())
         .then((result) => {
           notify(result);
+          console.log("result from creation", result);
         })
         .catch((error) => {
           notify("Could not enter details. Please try again!");
