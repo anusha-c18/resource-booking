@@ -21,11 +21,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       cacheLocation="localstorage"
       response_type="token"
     >
-      <StateContext>
-        <BrowserRouter>
+      <BrowserRouter>
+        <StateContext>
           <App />
-        </BrowserRouter>
-      </StateContext>
+        </StateContext>
+      </BrowserRouter>
     </Auth0Provider>
   </React.StrictMode>
 );

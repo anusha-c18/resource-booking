@@ -15,25 +15,8 @@ import RootLayout from "./pages/RootLayout";
 import ResourceOverview from "./components/admin/Bookings/ResourceOverview";
 import ResourceManagement from "./components/admin/ResourceManagement/ResourceManagement";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
-import { useNavigate } from "react-router-dom";
 
 export function App() {
-  const navigate = useNavigate();
-  const { role } = useStateContext();
-  const [firstLogin, setFirstLogin] = useState(false);
-
-  useEffect(() => {
-    if (!firstLogin) {
-      if (role == "admin") {
-        navigate("/admin");
-      } else if (role == "client") {
-        navigate("/client");
-      }
-      console.log("entered and navigated");
-      setFirstLogin(true);
-    }
-  }, [role]);
-
   return (
     <>
       <UserProvider>

@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useContext, useState } from "react";
 import { notify } from "./../pages/RootLayout";
 import { domain, clientId } from "./../utils/config";
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 
 const Context = createContext();
 
@@ -31,6 +32,7 @@ export const StateContext = ({ children }) => {
   const [accessToken, setAccessToken] = useState(null);
   const [role, setRole] = useState("");
   const { getAccessTokenSilently, user } = useAuth0();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (accessToken != null) {
@@ -55,6 +57,11 @@ export const StateContext = ({ children }) => {
       const userRole = parts[1];
       console.log("role: ", userRole);
       setRole(userRole);
+      if (userRole == "admin") {
+        navigate("/admin");
+      } else if (userRole == "client") {
+        navigate("/client");
+      }
     }
   }, [accessToken]);
 
