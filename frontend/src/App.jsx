@@ -29,6 +29,7 @@ export function App() {
       } else if (role == "client") {
         navigate("/client");
       }
+      console.log("entered and navigated");
       setFirstLogin(true);
     }
   }, [role]);
