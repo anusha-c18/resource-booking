@@ -4,6 +4,7 @@ import { App } from "./App.jsx";
 import "./index.css";
 import { StateContext } from "./lib/context";
 import { Auth0Provider } from "@auth0/auth0-react";
+import { BrowserRouter } from "react-router-dom";
 import { domain, clientId, audience } from "./utils/config";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -21,7 +22,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       response_type="token"
     >
       <StateContext>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </StateContext>
     </Auth0Provider>
   </React.StrictMode>
