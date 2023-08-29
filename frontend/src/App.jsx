@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { useStateContext } from "./lib/context";
 import Client from "./pages/Client";
@@ -20,12 +20,16 @@ import { useNavigate } from "react-router-dom";
 export function App() {
   const navigate = useNavigate();
   const { role } = useStateContext();
+  const [firstLogin, setFirstLogin] = useState(false);
 
   useEffect(() => {
-    if (role == "admin") {
-      navigate("/admin");
-    } else if (role == "client") {
-      navigate("/client");
+    if (!firstLogin) {
+      if (role == "admin") {
+        navigate("/admin");
+      } else if (role == "client") {
+        navigate("/client");
+      }
+      setFirstLogin(true);
     }
   }, [role]);
 
