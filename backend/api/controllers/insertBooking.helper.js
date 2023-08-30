@@ -16,7 +16,7 @@ async function insertBooking(client, booking) {
         { $set: { available: "0" } }
       );
       console.log(result1);
-      if (result.modifiedCount === 1) {
+      if (result1.modifiedCount === 1) {
         return true;
       } else {
         return false;
