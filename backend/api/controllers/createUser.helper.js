@@ -14,4 +14,4 @@ async function createUser(client, userName, flat) {
   }
 }
 
-module.exports = createUser;
+module.exports = { createUser };
