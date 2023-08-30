@@ -23,6 +23,8 @@ function AvailableResources() {
   const minDate = formatDate(today);
   const maxDate = formatDate(endDate);
 
+  console.log("fetching unique ava ", fetchingUniqueAvailableResources);
+
   return (
     <>
       <p className="title">Available Resources</p>

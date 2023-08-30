@@ -383,6 +383,7 @@ export const StateContext = ({ children }) => {
     document.endTime = parseInt(document.startTime) + 1 + "";
     document.bookingTimeStamp = new Date().toISOString();
     console.log("booking doc to be inserted", document);
+    console.log("booking upon string:", JSON.stringify(document));
     setPushingToDb(true);
     try {
       await fetch(
