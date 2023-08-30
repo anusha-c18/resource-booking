@@ -111,10 +111,7 @@ export const StateContext = ({ children }) => {
   useEffect(() => {
     if (accessToken != null && user != null) {
       try {
-        const name =
-          user.given_name != ""
-            ? user.given_name + " " + user.family_name
-            : user.nickname;
+        const name = user.given_name != "" ? user.given_name : user.nickname;
         setUserName(name);
         console.log("name of the user: ", name);
         const resources = fetch(
