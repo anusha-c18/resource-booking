@@ -397,6 +397,7 @@ export const StateContext = ({ children }) => {
           notify(result);
         })
         .catch((error) => {
+          console.log(err);
           notify("Could not book resource. Please try again!");
         });
     } catch (err) {

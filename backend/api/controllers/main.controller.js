@@ -133,16 +133,17 @@ module.exports.uniqueResourcesBooked = async function (req, res) {
 
 module.exports.insertBooking = async function (req, res) {
   try {
-    const booking = req.body.booking;
-    let document = {
-      resource: booking.resource + "",
-      flat: booking.flat + "",
-      name: booking.name + "",
-      startTime: booking.startTime + "",
-      endTime: booking.endTime + "",
-      bookingTimeStamp: booking.bookingTimeStamp + "",
-    };
-    const result = await insertBooking.insertBooking(client, document);
+    const booking = req.body;
+    // let document = {
+    //   resource: booking.resource + "",
+    //   flat: booking.flat + "",
+    //   name: booking.name + "",
+    //   startTime: booking.startTime + "",
+    //   endTime: booking.endTime + "",
+    //   bookingTimeStamp: booking.bookingTimeStamp + "",
+    // };
+    console.log("booking doc:", booking);
+    const result = await insertBooking.insertBooking(client, booking);
     if (result) {
       res.status(200).send("Booking Confirmed!");
     } else {
