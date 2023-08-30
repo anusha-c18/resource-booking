@@ -138,7 +138,7 @@ export const StateContext = ({ children }) => {
             } else {
               try {
                 const link =
-                  "https://resource-booking-api.vercel.app/api/routes/records-rt/getFlat" +
+                  "https://resource-booking-api.vercel.app/api/routes/records-rt/getFlat/" +
                   name;
                 fetch(link, {
                   mode: "cors",
