@@ -5,12 +5,16 @@ app.use(express.json());
 const cors = require("cors");
 const oAuth = require("./middleware/oAuth");
 const mongo = require("./db/mongoUtil");
-const allowedOrigins = [
-  "https://resource-booking-frontend.vercel.app",
-  "http://localhost:5173",
-];
 
-app.use(cors({ origin: allowedOrigins }));
+app.use((req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://resource-booking-frontend.vercel.app"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 
 // app.use(oAuth);
 
