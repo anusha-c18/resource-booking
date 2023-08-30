@@ -281,7 +281,7 @@ export const StateContext = ({ children }) => {
         "/" +
         flat;
       console.log("link to fetch: ", link);
-      await fetch({
+      const result = fetch({
         link,
         mode: "cors",
         method: "GET",
@@ -297,6 +297,7 @@ export const StateContext = ({ children }) => {
         })
         .catch((error) => {
           notify("Could not enter details. Please try again!");
+          console.log("error ", err);
         });
     } catch (err) {
       console.log(err);
