@@ -137,9 +137,9 @@ module.exports.insertBooking = async function (req, res) {
     console.log("booking doc:", booking);
     const result = await insertBooking.insertBooking(client, booking);
     if (result) {
-      res.status(200).send("Booking Confirmed!");
+      res.status(200).send(["Booking Confirmed!"]);
     } else {
-      res.status(500).send("Failed to book resource. Please try again!");
+      res.status(500).send(["Failed to book resource. Please try again!"]);
     }
   } catch (err) {
     console.log(err);
