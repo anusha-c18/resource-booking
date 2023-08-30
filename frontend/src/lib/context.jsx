@@ -150,7 +150,7 @@ export const StateContext = ({ children }) => {
                   .then((response) => response.json())
                   .then((data) => {
                     console.log("flat received from endpoint: ", data);
-                    setUserFlat(data);
+                    setUserFlat(data[0]);
                   });
               } catch (error) {
                 console.log(error);
