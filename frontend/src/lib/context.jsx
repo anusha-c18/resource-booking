@@ -276,7 +276,7 @@ export const StateContext = ({ children }) => {
     try {
       console.log("creating user");
       const link =
-        "http://localhost:5173/api/routes/records-rt/createUser/" +
+        "https://resource-booking-api.vercel.app/api/routes/records-rt/createUser/" +
         userName +
         "/" +
         flat;
