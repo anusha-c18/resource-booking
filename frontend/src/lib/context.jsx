@@ -488,7 +488,7 @@ export const StateContext = ({ children }) => {
       try {
         const resources = fetch(
           "https://resource-booking-api.vercel.app/api/routes/records-rt/getUserBookings/" +
-            "briha",
+            userName,
           {
             mode: "cors",
             method: "GET",
