@@ -484,20 +484,20 @@ export const StateContext = ({ children }) => {
   };
 
   useEffect(() => {
-    if (accessToken != null) {
+    if (accessToken != null && userName != "") {
       try {
-        const resources = fetch(
+        const link =
           "https://resource-booking-api.vercel.app/api/routes/records-rt/getUserBookings/" +
-            userName,
-          {
-            mode: "cors",
-            method: "GET",
-            headers: {
-              authorization: `Bearer ${accessToken}`,
-            },
-            data: { flags: { use_scope_descriptions_for_consent: true } },
-          }
-        )
+          userName;
+        console.log(link);
+        const resources = fetch(link, {
+          mode: "cors",
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+          data: { flags: { use_scope_descriptions_for_consent: true } },
+        })
           .then((response) => response.json())
           .then((data) => {
             setUserBookings(data);
@@ -506,7 +506,7 @@ export const StateContext = ({ children }) => {
         console.log(err);
       }
     }
-  }, [accessToken]);
+  }, [userName, accessToken]);
 
   const updateFetchResources = () => {
     setFetchAllResources((state) => {
