@@ -56,7 +56,7 @@ function BookingModal() {
         </select>
       </div>
       {pushingToDb ? (
-        <img src={Loading} alt="please wait" />
+        <img src={Loading} alt="please wait" className="loadingGIF" />
       ) : (
         <button className="book" type="submit">
           Book
