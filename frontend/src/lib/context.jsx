@@ -360,7 +360,7 @@ export const StateContext = ({ children }) => {
     });
   };
 
-  const pushBooking = (slot) => {
+  const pushBooking = async (slot) => {
     let document = {};
     document.resource = currentResource;
     document.flat = userFlat;
@@ -379,7 +379,7 @@ export const StateContext = ({ children }) => {
     console.log("booking doc to be inserted", document);
     setPushingToDb(true);
     try {
-      const result = fetch(
+      await fetch(
         "https://resource-booking-api.vercel.app/api/routes/records-rt/insertBooking",
         {
           mode: "cors",
