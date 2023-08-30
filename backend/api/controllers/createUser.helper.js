@@ -4,7 +4,7 @@ async function createUser(client, userName, flat) {
     let db = await client.db("resourceBooking");
     let users = await db.collection("users");
     const result = await users.insertOne({ name: userName, flat: flat });
-    if (result.insertedCount === 1) {
+    if (result.insertedId) {
       return true;
     } else {
       return false;
