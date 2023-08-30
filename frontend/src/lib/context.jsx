@@ -281,8 +281,7 @@ export const StateContext = ({ children }) => {
         "/" +
         flat;
       console.log("link to fetch: ", link);
-      const result = fetch({
-        link,
+      const result = fetch(link, {
         mode: "cors",
         method: "GET",
         headers: {
