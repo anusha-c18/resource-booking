@@ -7,7 +7,7 @@ async function insertBooking(client, booking) {
     if (result.insertedId) {
       console.log("Document inserted successfully:", result.insertedId);
       let allResources = await db.collection("allResources");
-      const result = await allResources.updateOne(
+      const result1 = await allResources.updateOne(
         {
           resource: booking.resource,
           startTime: booking.startTime,
@@ -15,7 +15,7 @@ async function insertBooking(client, booking) {
         },
         { $set: { available: "0" } }
       );
-      console.log(result);
+      console.log(result1);
       if (result.modifiedCount === 1) {
         return true;
       } else {
