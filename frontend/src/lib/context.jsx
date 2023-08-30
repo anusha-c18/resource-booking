@@ -297,7 +297,7 @@ export const StateContext = ({ children }) => {
         })
         .catch((error) => {
           notify("Could not enter details. Please try again!");
-          console.log("error ", err);
+          console.log("error ", error);
         });
     } catch (err) {
       console.log(err);
