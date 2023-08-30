@@ -3,6 +3,7 @@ import { notify } from "./../pages/RootLayout";
 import { domain, clientId } from "./../utils/config";
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+import { response } from "express";
 
 const Context = createContext();
 
@@ -14,7 +15,7 @@ export const StateContext = ({ children }) => {
   const [deleteModalVisibility, setDeleteModalVisibility] = useState(false);
   const [currentResource, setCurrentResource] = useState("");
   const [startTime, setStartTime] = useState("");
-  const [userDetails, setUserDetails] = useState({ name: "", flat: "" });
+  const [userFlat, setUserFlat] = useState("");
   const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
   const [uniqueResourcesbooked, setUniqueResourcesbooked] = useState([]);
   const [uniqueExistingResources, setUniqueExistingResources] = useState([]);
@@ -280,7 +281,7 @@ export const StateContext = ({ children }) => {
         userName +
         "/" +
         flat;
-      console.log("link to fetch: ", link);
+      setUserFlat(flat);
       const result = fetch(link, {
         mode: "cors",
         method: "GET",
@@ -292,16 +293,15 @@ export const StateContext = ({ children }) => {
         .then((response) => response.json())
         .then((result) => {
           notify(result);
-          console.log("result from creation", result);
         })
         .catch((error) => {
           notify("Could not enter details. Please try again!");
-          console.log("error ", error);
         });
     } catch (err) {
       console.log(err);
     }
     setPushingToDb(false);
+    toggleNewUserModal();
   };
 
   const toggleNewUserModal = () => {
@@ -362,13 +362,10 @@ export const StateContext = ({ children }) => {
   };
 
   const pushBooking = (slot) => {
-    //post data to insertBooking route
     let document = {};
     document.resource = currentResource;
-    // const userDetails = await;
-    //create endpoint to fetch 2 details below
-    // document.flat = booking.flat; -get from users collection
-    // document.name = booking.name; -get from users collection
+    document.flat = userFlat;
+    document.name = userName;
     const slotBreakup = slot.split(" ");
     if (
       slotBreakup[1] == "AM" ||
@@ -380,7 +377,35 @@ export const StateContext = ({ children }) => {
     }
     document.endTime = parseInt(document.startTime) + 1 + "";
     document.bookingTimeStamp = new Date().toISOString();
-    console.log(document);
+    console.log("booking doc to be inserted", document);
+    setPushingToDb(true);
+    try {
+      const result = fetch(
+        '"https://resource-booking-api.vercel.app/api/routes/records-rt/insertBooking',
+        {
+          mode: "cors",
+          method: "POST",
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(document),
+          data: { flags: { use_scope_descriptions_for_consent: true } },
+        }
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          notify(result);
+        })
+        .catch((error) => {
+          notify("Could not book resource. Please try again!");
+        });
+    } catch (err) {
+      console.log(err);
+      notify("Could not book resource. Please try again!");
+    }
+    setPushingToDb(false);
+    updateBookingModalVisibility();
   };
 
   const updateCreateResourceVisibility = () => {

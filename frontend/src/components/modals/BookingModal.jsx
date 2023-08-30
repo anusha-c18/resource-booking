@@ -2,6 +2,7 @@ import React from "react";
 import "./BookingModal.css";
 import { motion } from "framer-motion";
 import { useStateContext } from "../../lib/context";
+import Loading from "./../../../public/images/loading.gif";
 
 function BookingModal() {
   const {
@@ -9,6 +10,7 @@ function BookingModal() {
     currentResource,
     updateBookingModalVisibility,
     pushBooking,
+    pushingToDb,
   } = useStateContext();
 
   const closeModal = () => {
@@ -53,9 +55,13 @@ function BookingModal() {
           ))}
         </select>
       </div>
-      <button className="book" type="submit">
-        Book
-      </button>
+      {pushingToDb ? (
+        <img src={Loading} alt="please wait" />
+      ) : (
+        <button className="book" type="submit">
+          Book
+        </button>
+      )}
     </motion.form>
   );
 }

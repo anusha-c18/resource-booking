@@ -142,12 +142,12 @@ module.exports.insertBooking = async function (req, res) {
       endTime: booking.endTime + "",
       bookingTimeStamp: booking.bookingTimeStamp + "",
     };
-    // const result = await insertBooking.insertBooking(document);
-    // if (result == -1) {
-    //   res.status(500).send("Failed to book the resource");
-    // } else {
-    //   res.status(200).send("Booking confirmed!");
-    // }
+    const result = await insertBooking.insertBooking(client, document);
+    if (result) {
+      res.status(200).send("Booking Confirmed!");
+    } else {
+      res.status(500).send("Failed to book resource. Please try again!");
+    }
   } catch (err) {
     console.log(err);
   }
