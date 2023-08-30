@@ -22,10 +22,10 @@ module.exports.createUser = async function (req, res) {
     const userName = req.params.name;
     const flat = req.params.flat;
     const results = await createNewUser.createUser(client, userName, flat);
-    if (!results) {
-      res.status(500).send(["Could not enter details. Please try again!"]);
-    } else {
+    if (results) {
       res.status(200).send(["Entered details successfully!"]);
+    } else {
+      res.status(500).send(["Could not enter details. Please try again!"]);
     }
   } catch (err) {
     console.log(err);

@@ -1,14 +1,14 @@
 async function createUser(client, userName, flat) {
   try {
     console.log("in create user");
-    let users = await client.db("resourceBooking").collection("users");
-    users.insertOne({ name: userName, flat: flat }, function (err, result) {
-      if (err) {
-        return false;
-      } else {
-        return true;
-      }
-    });
+    let db = await client.db("resourceBooking");
+    let users = await db.collection("users");
+    const result = await users.insertOne({ name: userName, flat: flat });
+    if (result.insertedCount === 1) {
+      return true;
+    } else {
+      return false;
+    }
   } catch (err) {
     console.log(err);
   }
