@@ -13,9 +13,24 @@ const deleteResource = require("./deleteResource.helper");
 const deleteBookings = require("./deleteBookings.helper");
 const mongoUtil = require("../../db/mongoUtil");
 const getUserBookings = require("./userBookings.helper");
+const createNewUser = require("./createUser.helper");
 const checkUser = require("./checkUser.helper");
-const createUser = require("./createUser.helper");
 const client = mongoUtil.client;
+
+module.exports.createUser = async function (req, res) {
+  try {
+    const userName = req.params.name;
+    const flat = req.params.flat;
+    const results = await createNewUser.createUser(client, userName, flat);
+    if (!results) {
+      res.status(500).send(["Could not enter details. Please try again!"]);
+    } else {
+      res.status(200).send(["Entered details successfully!"]);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 module.exports.checkUser = async function (req, res) {
   try {
@@ -27,21 +42,6 @@ module.exports.checkUser = async function (req, res) {
       res.status(200).send([true]);
     } else {
       res.status(200).send([false]);
-    }
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-module.exports.createUser = async function (req, res) {
-  try {
-    const userName = req.params.name;
-    const flat = req.params.flat;
-    const results = await createUser.createUser(client, userName, flat);
-    if (!results) {
-      res.status(500).send(["Could not enter details. Please try again!"]);
-    } else {
-      res.status(200).send(["Entered details successfully!"]);
     }
   } catch (err) {
     console.log(err);
