@@ -15,6 +15,7 @@ const mongoUtil = require("../../db/mongoUtil");
 const getUserBookings = require("./userBookings.helper");
 const createNewUser = require("./createUser.helper");
 const checkUser = require("./checkUser.helper");
+const getFlat = require("./getFlatNumber.helper");
 const client = mongoUtil.client;
 
 module.exports.createUser = async function (req, res) {
@@ -45,6 +46,22 @@ module.exports.checkUser = async function (req, res) {
     }
   } catch (err) {
     console.log(err);
+  }
+};
+
+module.exports.getFlat = async function (req, res) {
+  try {
+    const userName = req.params.name;
+    console.log("checking for flat number");
+    const flat = await getFlat.getFlat(client, userName);
+    if (flat) {
+      res.status(200).send([flat]);
+    } else {
+      res.status(404).send(["Error, user doesn't exist!"]);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(["Internal Server Error"]);
   }
 };
 

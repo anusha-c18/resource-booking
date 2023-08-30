@@ -135,6 +135,26 @@ export const StateContext = ({ children }) => {
             console.log("user exists: ", data);
             if (!data[0]) {
               toggleNewUserModal();
+            } else {
+              try {
+                const link =
+                  "https://resource-booking-api.vercel.app/api/routes/records-rt/getFlat" +
+                  name;
+                fetch(link, {
+                  mode: "cors",
+                  method: "GET",
+                  headers: {
+                    authorization: `Bearer ${accessToken}`,
+                  },
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    console.log("flat received from endpoint: ", data);
+                    setUserFlat(data);
+                  });
+              } catch (error) {
+                console.log(error);
+              }
             }
           });
       } catch (err) {
