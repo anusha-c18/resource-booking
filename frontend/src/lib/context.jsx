@@ -3,7 +3,6 @@ import { notify } from "./../pages/RootLayout";
 import { domain, clientId } from "./../utils/config";
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-import { response } from "express";
 
 const Context = createContext();
 
