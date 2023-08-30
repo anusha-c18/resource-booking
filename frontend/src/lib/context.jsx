@@ -26,6 +26,10 @@ export const StateContext = ({ children }) => {
   const [fetchingResources, setFetchingResources] = useState(false);
   const [fetchingAllBookings, setFetchingAllBookings] = useState(false);
   const [fetchingUniqueBookings, setFetchingUniqueBookings] = useState(false);
+  const [
+    fetchingUniqueAvailableResources,
+    setFetchingUniqueAvailableResources,
+  ] = useState(false);
   const [deletingResource, setDeletingResource] = useState(false);
   const [editResourceModal, setEditResourceModal] = useState(false);
   const [updatingResource, setUpdatingResource] = useState(false);
@@ -250,6 +254,7 @@ export const StateContext = ({ children }) => {
   useEffect(() => {
     if (accessToken != null) {
       try {
+        setFetchingUniqueAvailableResources(true);
         const resources = fetch(
           "https://resource-booking-api.vercel.app/api/routes/records-rt/uniqueAvailableResources",
           {
@@ -268,6 +273,7 @@ export const StateContext = ({ children }) => {
       } catch (err) {
         console.log(err);
       }
+      setFetchingUniqueAvailableResources(false);
     }
   }, [fetchAllResource, accessToken]);
 
@@ -638,6 +644,7 @@ export const StateContext = ({ children }) => {
           uniqueResourcesbooked,
           fetchingUniqueBookings,
           uniqueAvailableResources,
+          fetchingUniqueAvailableResources,
           bookingModalVisibility,
           currentResource,
           startTime,

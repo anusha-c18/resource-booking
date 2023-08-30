@@ -6,8 +6,11 @@ import { motion } from "framer-motion";
 import empty from "./../../../../public/images/empty.png";
 
 function AvailableResources() {
-  const { uniqueExistingResources, uniqueAvailableResources } =
-    useStateContext();
+  const {
+    uniqueExistingResources,
+    uniqueAvailableResources,
+    fetchingUniqueAvailableResources,
+  } = useStateContext();
   const today = new Date();
   const endDate = new Date(today);
   endDate.setDate(endDate.getDate() + 2);
@@ -19,8 +22,7 @@ function AvailableResources() {
   }
   const minDate = formatDate(today);
   const maxDate = formatDate(endDate);
-  console.log("exist", uniqueExistingResources);
-  console.log("available", uniqueAvailableResources);
+
   return (
     <>
       <p className="title">Available Resources</p>
@@ -33,10 +35,24 @@ function AvailableResources() {
         max={maxDate}
       />
       <div className="allResources">
-        {(uniqueAvailableResources.length === 1 &&
-          uniqueAvailableResources[0] === "All resources are booked.") ||
-        (uniqueExistingResources.length === 1 &&
-          uniqueExistingResources[0] === "No resources exist.") ? (
+        {fetchingUniqueAvailableResources ? (
+          <motion.div
+            initial={{ y: -10 }}
+            animate={{ y: 0, scale: 1, opacity: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 200,
+              damping: 9,
+              duration: 0.6,
+            }}
+            className="resource"
+          >
+            <p className="skeleton"></p>
+          </motion.div>
+        ) : (uniqueAvailableResources.length === 1 &&
+            uniqueAvailableResources[0] === "All resources are booked.") ||
+          (uniqueExistingResources.length === 1 &&
+            uniqueExistingResources[0] === "No resources exist.") ? (
           <div className="empty">
             <p className="message">
               {uniqueExistingResources.length === 1 &&
