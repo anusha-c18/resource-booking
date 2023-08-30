@@ -9,6 +9,7 @@ const mongo = require("./db/mongoUtil");
 app.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Origin",
+    "Access-Control-Allow-Methods",
     "https://resource-booking-frontend.vercel.app"
   );
   res.header("Access-Control-Allow-Methods", "GET, POST");
