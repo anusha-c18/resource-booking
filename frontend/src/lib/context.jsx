@@ -278,20 +278,21 @@ export const StateContext = ({ children }) => {
     setPushingToDb(true);
     try {
       console.log("creating user");
-      await fetch(
-        "https://resource-booking-api.vercel.app/api/routes/records-rt/createUser/" +
-          userName +
-          "/" +
-          flat,
-        {
-          mode: "cors",
-          method: "GET",
-          headers: {
-            authorization: `Bearer ${accessToken}`,
-          },
-          data: { flags: { use_scope_descriptions_for_consent: true } },
-        }
-      )
+      const link =
+        "http://localhost:5173/api/routes/records-rt/createUser/" +
+        userName +
+        "/" +
+        flat;
+      console.log("link to fetch: ", link);
+      await fetch({
+        link,
+        mode: "cors",
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+        data: { flags: { use_scope_descriptions_for_consent: true } },
+      })
         .then((response) => response.json())
         .then((result) => {
           notify(result);
