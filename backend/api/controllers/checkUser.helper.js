@@ -11,6 +11,7 @@ async function checkUser(client, userName) {
     }
   } catch (err) {
     console.log(err);
+    return false;
   }
 }
 

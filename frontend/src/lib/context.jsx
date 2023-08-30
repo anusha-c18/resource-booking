@@ -35,7 +35,7 @@ export const StateContext = ({ children }) => {
   const [userName, setUserName] = useState("");
   const { getAccessTokenSilently, user } = useAuth0();
   const navigate = useNavigate();
-  const [newUserVisibility, setNewUserVisibility] = useState(true);
+  const [newUserVisibility, setNewUserVisibility] = useState(false);
 
   useEffect(() => {
     if (accessToken != null && user != null) {
@@ -130,7 +130,7 @@ export const StateContext = ({ children }) => {
           .then((data) => {
             console.log("user exists: ", data);
             if (!data[0]) {
-              if (!newUserVisibility) toggleNewUserModal();
+              toggleNewUserModal();
             }
           });
       } catch (err) {

@@ -11,6 +11,7 @@ async function createUser(client, userName, flat) {
     }
   } catch (err) {
     console.log(err);
+    return false;
   }
 }
 
