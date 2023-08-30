@@ -380,7 +380,7 @@ export const StateContext = ({ children }) => {
     setPushingToDb(true);
     try {
       const result = fetch(
-        '"https://resource-booking-api.vercel.app/api/routes/records-rt/insertBooking',
+        "https://resource-booking-api.vercel.app/api/routes/records-rt/insertBooking",
         {
           mode: "cors",
           method: "POST",
