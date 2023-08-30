@@ -394,6 +394,7 @@ export const StateContext = ({ children }) => {
       )
         .then((response) => response.json())
         .then((result) => {
+          console.log(result);
           notify(result);
         })
         .catch((error) => {
@@ -402,7 +403,7 @@ export const StateContext = ({ children }) => {
         });
     } catch (err) {
       console.log(err);
-      notify("Could not book resource. Please try again!");
+      // notify("Could not book resource. Please try again!");
     }
     setPushingToDb(false);
     updateBookingModalVisibility();
