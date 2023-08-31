@@ -36,7 +36,6 @@ function Login() {
           alt=""
           className="emptyIcon"
         />
-        {console.log("my user", myUser)}
         {myUser ? (
           <button
             className="go"
