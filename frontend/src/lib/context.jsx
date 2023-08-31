@@ -40,6 +40,7 @@ export const StateContext = ({ children }) => {
   const { getAccessTokenSilently, user } = useAuth0();
   const navigate = useNavigate();
   const [newUserVisibility, setNewUserVisibility] = useState(false);
+  const [updateTimeSlots, setUpdateTimeSlots] = useState(true);
 
   useEffect(() => {
     if (accessToken != null && user != null) {
@@ -213,7 +214,7 @@ export const StateContext = ({ children }) => {
         console.log(err);
       }
     }
-  }, [fetchAllResource, accessToken]);
+  }, [fetchAllResource, accessToken, updateTimeSlots]);
 
   useEffect(() => {
     if (accessToken != null) {
@@ -423,6 +424,9 @@ export const StateContext = ({ children }) => {
         .then((result) => {
           console.log(result);
           notify(result);
+          setUpdateTimeSlots((state) => {
+            return !state;
+          });
         })
         .catch((error) => {
           console.log(error);
