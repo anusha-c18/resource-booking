@@ -28,14 +28,14 @@ function AvailableResources() {
   return (
     <>
       <p className="title">Available Resources</p>
-      <input
+      {/* <input
         type="date"
         name="date"
         id="date"
         className="date"
         min={minDate}
         max={maxDate}
-      />
+      /> */}
       <div className="allResources">
         {fetchingUniqueAvailableResources ? (
           <motion.div
