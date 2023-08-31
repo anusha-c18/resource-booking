@@ -236,7 +236,7 @@ export const StateContext = ({ children }) => {
         setFetchingAllBookings(false);
       }, 1000);
     }
-  }, [accessToken]);
+  }, [accessToken, updateTimeSlots]);
 
   useEffect(() => {
     if (accessToken != null) {
@@ -529,7 +529,7 @@ export const StateContext = ({ children }) => {
         console.log(err);
       }
     }
-  }, [userName, accessToken]);
+  }, [userName, accessToken, updateTimeSlots]);
 
   const updateFetchResources = () => {
     setFetchAllResources((state) => {
