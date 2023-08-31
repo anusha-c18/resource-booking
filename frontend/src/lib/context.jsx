@@ -457,7 +457,10 @@ export const StateContext = ({ children }) => {
     for (let i = 0; i < allResources.length; i++) {
       let begin = "",
         end = "";
-      if (allResources[i].resource === resource) {
+      if (
+        allResources[i].resource === resource &&
+        allResources[i].available === "1"
+      ) {
         if (+allResources[i].startTime > 12) {
           begin = +allResources[i].startTime - 12 + " PM";
         } else if (+allResources[i].startTime < 12) {
