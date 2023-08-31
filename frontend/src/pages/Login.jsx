@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import { useAuth0 } from "@auth0/auth0-react";
 import login from "../../public/images/login.png";
 import "./Login.css";
 import { useUserContext } from "../lib/UserContext";

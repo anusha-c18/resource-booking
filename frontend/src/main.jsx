@@ -5,7 +5,7 @@ import "./index.css";
 import { StateContext } from "./lib/context";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { BrowserRouter } from "react-router-dom";
-import { domain, clientId, audience } from "./utils/config";
+import { domain, clientId } from "./utils/config";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

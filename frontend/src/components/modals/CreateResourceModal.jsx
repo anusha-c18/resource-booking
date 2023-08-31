@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./CreateResourceModal.css";
 import { motion } from "framer-motion";
 import { useStateContext } from "../../lib/context";

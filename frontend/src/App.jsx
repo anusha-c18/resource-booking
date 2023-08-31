@@ -1,20 +1,15 @@
-import { useEffect, useState } from "react";
 import "./App.css";
-import { useStateContext } from "./lib/context";
 import Client from "./pages/Client";
 import Admin from "./pages/Admin";
-import { useAuth0, Auth0Provider } from "@auth0/auth0-react";
 import Error from "./pages/Error";
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import { UserProvider } from "./lib/UserContext";
-import { createBrowserRouter } from "react-router-dom";
 import MyBookings from "./components/client/Bookings/MyBookings";
 import AvailableResources from "./components/client/Resources/AvailableResources";
 import RootLayout from "./pages/RootLayout";
 import ResourceOverview from "./components/admin/Bookings/ResourceOverview";
 import ResourceManagement from "./components/admin/ResourceManagement/ResourceManagement";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 export function App() {
   return (
