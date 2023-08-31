@@ -68,7 +68,6 @@ export const StateContext = ({ children }) => {
         const permissions = data.permissions[0];
         const parts = permissions.split(":");
         userRole = parts[1];
-        console.log("role: ", userRole);
         setRole(userRole);
       }
       if (userRole == "admin") {
@@ -104,8 +103,6 @@ export const StateContext = ({ children }) => {
     }
     getToken()
       .then((token) => {
-        console.log("token from function", token);
-
         updateAccessToken(token);
       })
       .catch((err) => {
@@ -118,7 +115,6 @@ export const StateContext = ({ children }) => {
       try {
         const name = user.given_name != "" ? user.given_name : user.nickname;
         setUserName(name);
-        console.log("name of the user: ", name);
         const resources = fetch(
           "https://resource-booking-api.vercel.app/api/routes/records-rt/checkUser/" +
             name,
@@ -133,7 +129,6 @@ export const StateContext = ({ children }) => {
           //has to return true or false
           .then((response) => response.json())
           .then((data) => {
-            console.log("user exists: ", data);
             if (!data[0]) {
               toggleNewUserModal();
             } else {
@@ -150,7 +145,6 @@ export const StateContext = ({ children }) => {
                 })
                   .then((response) => response.json())
                   .then((data) => {
-                    console.log("flat received from endpoint: ", data);
                     setUserFlat(data[0]);
                   });
               } catch (error) {
@@ -274,7 +268,6 @@ export const StateContext = ({ children }) => {
 
   useEffect(() => {
     if (accessToken != null) {
-      console.log("going to fetch unique avai");
       setFetchingUniqueAvailableResources(true);
       try {
         const resources = fetch(
@@ -296,14 +289,12 @@ export const StateContext = ({ children }) => {
         console.log(err);
       }
       setFetchingUniqueAvailableResources(false);
-      console.log("return from fetch unique avai");
     }
   }, [fetchAllResource, accessToken]);
 
   const createNewUser = async (flat) => {
     setPushingToDb(true);
     try {
-      console.log("creating user");
       const link =
         "https://resource-booking-api.vercel.app/api/routes/records-rt/createUser/" +
         userName +
@@ -405,8 +396,6 @@ export const StateContext = ({ children }) => {
     }
     document.endTime = parseInt(document.startTime) + 1 + "";
     document.bookingTimeStamp = new Date().toISOString();
-    console.log("booking doc to be inserted", document);
-    console.log("booking upon string:", JSON.stringify(document));
     setPushingToDb(true);
     try {
       await fetch(
@@ -424,7 +413,6 @@ export const StateContext = ({ children }) => {
       )
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
           notify(result);
           setUpdateTimeSlots((state) => {
             return !state;
@@ -525,7 +513,6 @@ export const StateContext = ({ children }) => {
         const link =
           "https://resource-booking-api.vercel.app/api/routes/records-rt/getUserBookings/" +
           userName;
-        console.log(link);
         const resources = fetch(link, {
           mode: "cors",
           method: "GET",

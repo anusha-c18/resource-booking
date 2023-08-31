@@ -8,7 +8,6 @@ function NewUser() {
   const { createNewUser, pushingToDb } = useStateContext();
   const newUser = (event) => {
     event.preventDefault();
-    console.log("flat number", event.target[0].value);
     createNewUser(event.target[0].value);
   };
 

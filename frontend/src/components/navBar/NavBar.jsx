@@ -11,10 +11,7 @@ function NavBar() {
   const { toggleNavIsActive, navIsActive, role } = useStateContext();
   const { myUser, logout } = useUserContext();
   const profilePicture = myUser.picture;
-  console.log(role);
-  console.log(role === "admin");
   const navItems = role === "admin" ? adminNavItems : clientNavItems;
-  console.log("nav items", navItems);
 
   const toggle = () => {
     toggleNavIsActive();
@@ -53,7 +50,6 @@ function NavBar() {
           >
             {navItems.map((x) => {
               const [key, value] = Object.entries(x)[0];
-              console.log(value);
               return (
                 <li key={"navItem" + key} className="listItem">
                   <Link to={value} className="navItem" onClick={toggle}>

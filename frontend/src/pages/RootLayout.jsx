@@ -10,8 +10,6 @@ function RootLayout() {
   const { myUser } = useUserContext();
   return (
     <>
-      {/* only show navbar if logged in - import nav bar based on user roles */}
-      {/* profile pic and logout */}
       {myUser != null ? <NavBar /> : null}
       <Toaster />
       <Outlet></Outlet>
