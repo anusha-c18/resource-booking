@@ -274,8 +274,9 @@ export const StateContext = ({ children }) => {
 
   useEffect(() => {
     if (accessToken != null) {
+      console.log("going to fetch unique avai");
+      setFetchingUniqueAvailableResources(true);
       try {
-        setFetchingUniqueAvailableResources(true);
         const resources = fetch(
           "https://resource-booking-api.vercel.app/api/routes/records-rt/uniqueAvailableResources",
           {
@@ -295,6 +296,7 @@ export const StateContext = ({ children }) => {
         console.log(err);
       }
       setFetchingUniqueAvailableResources(false);
+      console.log("return from fetch unique avai");
     }
   }, [fetchAllResource, accessToken]);
 
