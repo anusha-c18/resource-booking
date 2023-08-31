@@ -5,10 +5,8 @@ async function deleteResource(resource, client) {
     const result = await collection.deleteMany({
       ["resource"]: resource,
     });
-    console.log(`${result.deletedCount} documents deleted.`);
     return result.deletedCount;
   } catch (err) {
-    console.log(err);
     return result.deletedCount;
   }
 }

@@ -7,10 +7,8 @@ async function getUserBookings(client, name) {
         ["name"]: name,
       })
       .toArray();
-    console.log(`${bookings.length} bookings found.`);
     return bookings;
   } catch (err) {
-    console.log(err);
     return -1;
   }
 }

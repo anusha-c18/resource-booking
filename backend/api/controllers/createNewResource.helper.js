@@ -21,7 +21,6 @@ async function createResource(resource, client) {
     let document = {};
     const db = await client.db("resourceBooking");
     let collection = await db.collection("allResources");
-    console.log(resource, "ss");
     document.resource = resource.resource;
     document.date = resource.date;
     document.available = "1";
@@ -34,14 +33,11 @@ async function createResource(resource, client) {
       const clonedDoc = deepClone(document);
       resourceSlots.push(clonedDoc);
     }
-    console.log(resourceSlots);
     try {
       const result = await collection.insertMany(resourceSlots);
       if (result.insertedCount === resourceSlots.length) {
-        console.log("Documents inserted successfully");
         return "Documents inserted successfully";
       } else {
-        console.log("Documents insertion failed.");
         return "Documents insertion failed.";
       }
     } catch (err) {
